@@ -1,0 +1,22 @@
+{
+    "name": "nikovonlas/open-shamaal",
+    "description": "swonline",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^2.6",
+        "guzzle/guzzle": "^3.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "First Admins"
+        },
+        {
+            "name": "Brayth"
+        },
+        {
+            "name": "NikoVonLas",
+            "email": "niko@antiit.ru"
+        }
+    ]
+}

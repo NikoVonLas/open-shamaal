@@ -1,0 +1,22 @@
+php_flag register_globals on
+
+php_value session.save_path "/var/lib/php/session"
+
+php_value date.timezone "Europe/Moscow"
+
+php_value display_errors off
+
+php_flag log_errors on
+php_value error_log "/path/to/logs/errors.log"
+
+AddDefaultCharset utf-8
+
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
+AddCharset utf-8 .js
+
+<Files "internal_server_update_g635950.php">
+    Order Allow,Deny
+    Deny from all
+</Files>

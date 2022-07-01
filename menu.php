@@ -1,12 +1,5 @@
 <?php
-
-session_start();
-header('Content-type: text/html; charset=utf-8');
-//print $player['id']."-";
-
-if (!session_is_registered("player")) {
-    exit();
-}
+require_once('./include.php');
 //print $player['id']."-";
 function fpOpen(
     $key,
@@ -71,7 +64,6 @@ if ($lastUpdateTime < $online_time) {
     exit();
 }
 $time = date("H:i");
-include("./mysqlconfig.php");
 $lt = getmicrotime();
 $passwd_hidden = "T13D@";
 include("functions.php");

@@ -1,6 +1,5 @@
 <?
-session_start();
-header('Content-type: text/html; charset=utf-8');
+require_once('./include.php');
 
 $player_id = $player['id'];
 $player_name = $player['name'];
@@ -63,7 +62,6 @@ if ($blocked)
 if (strpos($plip, "206.53.155.87") > 0 || strpos($plip, "46.0.207.176") > 0)
 	exit();
 
-include("./mysqlconfig.php");
 include("./functions/plinfo.php");
 include("./functions/objinfo.php");
 include("./racecfg.php");

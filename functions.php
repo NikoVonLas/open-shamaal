@@ -49,12 +49,6 @@ function GetIP()
 	$iphost="$iphost2;$iphost1;";
 	return $iphost;
 }	
-function GetHorseWeight()
-{
-	global $player_id;
-	
-	return $iphost;
-}
 function time_left($secs){
     $bit = array(
         ' лет'        => $secs / 31556926 % 12,
@@ -255,4 +249,37 @@ Function showusers($id,$room,$r_pvp=0)
 	}
 	
 }
-?>
+
+function getroom($id)
+{
+	global $aff_see,$aff_invis,$chp,$sex,$oldhp,$aff_see_all,$aff_paralize,$player_city,$player_clan,$player_party,$aff_ground,$chp_percent,$race,$con,$level,$result;
+
+	$SQL="select chp,city,clan,party,room,aff_see,aff_invis,sex,aff_see_all,aff_paralize,aff_ground,chp_percent,race,con,level from sw_users where id=$id";
+	$row_num=SQL_query_num($SQL);
+	while ($row_num){
+		$chp = $row_num[0];
+		$oldhp = $chp;
+		$player_city = $row_num[1];
+		$player_clan = $row_num[2];
+
+		$player_party = $row_num[3];
+		$room = $row_num[4];
+		$aff_see = $row_num[5];
+		$aff_invis = $row_num[6];
+		$sex = $row_num[7];
+		$aff_see_all = $row_num[8];
+		$aff_paralize = $row_num[9];
+		$aff_ground= $row_num[10];
+		$chp_percent = $row_num[11];
+		$race = $row_num[12];
+		$con = $row_num[13];
+		$level = $row_num[14];
+
+		$row_num=SQL_next_num();
+	}
+
+	if ($result)
+		SQL_free_result($result);
+
+	return $room;
+}

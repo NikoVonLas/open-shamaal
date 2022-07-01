@@ -1,16 +1,10 @@
 <?php
-
-session_start( );
-header( "Content-type: text/html; charset=utf-8" );
+require_once('../include.php');
 echo "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\r\n";
-if ( !isset( $player['id'] ) )
-{
-    exit( );
-}
+
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time( );
-include( "../mysqlconfig.php" );
 $SQL = "select sw_city.name,sw_city.fromdate,sw_city.last,sw_city.http,sw_users.city_rank,sw_users.city,sw_city.pic from sw_users inner join sw_city on sw_users.city=sw_city.id where sw_users.id={$player_id}";
 $row_num = sql_query_num( $SQL );
 while ( $row_num )

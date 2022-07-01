@@ -1,7 +1,6 @@
 <?
-session_start();
-header('Content-type: text/html; charset=utf-8');
-if ( !session_is_registered("player")) {exit();}
+require_once('./include.php');
+
 $player_id = $player['id'];
 $player_name = $player['name'];
 $player_opt= $player['opt'];
@@ -426,7 +425,7 @@ function noChat()
 
 $cur_time = time();
 $online_time = $cur_time-40;
-include('./mysqlconfig.php');
+
 $found = 0;
 $SQL="select ban, level from sw_users where id=$player_id";
 $row_num=SQL_query_num($SQL);

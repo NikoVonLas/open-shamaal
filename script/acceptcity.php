@@ -1,40 +1,10 @@
 <?php
+require_once('../include.php');
 
-function checkletter( $text )
-{
-    $k = 0;
-    $newtext = "";
-    $i = 0;
-    for ( ; $i <= strlen( $text ); ++$i )
-    {
-        if ( $text[$i] == "-" || $text[$i] == " " || $text[$i] == "?" || $text[$i] == chr( 60 ) )
-        {
-            $k = 0;
-        }
-        else
-        {
-            ++$k;
-        }
-        $newtext = $newtext.$text[$i];
-        if ( 10 < $k )
-        {
-            $newtext = $newtext." ";
-            $k = 0;
-        }
-    }
-    return $newtext;
-}
-
-session_start( );
-header( "Content-type: text/html; charset=utf-8" );
-if ( !isset( $player['id'] ) )
-{
-    exit( );
-}
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time( );
-include( "../mysqlconfig.php" );
+
 $SQL = "select sw_city.name,sw_city.fromdate,sw_city.last,sw_city.http,sw_users.city_rank,sw_users.city,sw_city.pic,sw_city.dead_room from sw_users inner join sw_city on sw_users.city=sw_city.id where sw_users.id={$player_id}";
 $row_num = sql_query_num( $SQL );
 while ( $row_num )
@@ -185,4 +155,29 @@ else
 }
 print "</table></form></html>";
 sql_disconnect( );
+
+function checkletter( $text )
+{
+    $k = 0;
+    $newtext = "";
+    $i = 0;
+    for ( ; $i <= strlen( $text ); ++$i )
+    {
+        if ( $text[$i] == "-" || $text[$i] == " " || $text[$i] == "?" || $text[$i] == chr( 60 ) )
+        {
+            $k = 0;
+        }
+        else
+        {
+            ++$k;
+        }
+        $newtext = $newtext.$text[$i];
+        if ( 10 < $k )
+        {
+            $newtext = $newtext." ";
+            $k = 0;
+        }
+    }
+    return $newtext;
+}
 ?>

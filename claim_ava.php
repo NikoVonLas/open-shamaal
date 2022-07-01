@@ -1,9 +1,6 @@
 <?php
-header('Content-type: text/html; charset=utf-8');
-session_start();
-if ( !isset($_SESSION["player"])) {exit();}
+require_once('./include.php');
 
-include("./mysqlconfig.php");
 $player_id = $_SESSION["player"]['id'];
 $error = -1;
 if ((isset($tlogin)) && (isset($tpassword)))

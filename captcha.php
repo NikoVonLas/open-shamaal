@@ -1,15 +1,9 @@
 <?php
-/* 
-  captcha.php
-  jQuery Fancy Captcha
-  www.webdesignbeach.com
-*/
-session_start();
-if ( !isset($_SESSION["player"])) {exit();}
+require_once('./include.php');
 
-include('./mysqlconfig.php');
 $player_id = $_SESSION["player"]['id'];
 $flagSucess = 0;
+
 function reinit()
 {
 	$input = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);

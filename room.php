@@ -1,4 +1,6 @@
-<?header('Content-type: text/html; charset=utf-8');?>
+<?
+require_once('./include.php');
+?>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="style.css" TITLE="STYLE">
 <html>
@@ -10,7 +12,6 @@
 if (isset($id))
 {
   $id = (integer) $id;
-	include('./mysqlconfig.php');
 	$SQL="select name,pic from sw_map where id=$id";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){

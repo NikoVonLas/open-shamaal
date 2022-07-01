@@ -1,8 +1,7 @@
 <?php
-
-header( "Content-type: text/html; charset=utf-8" );
+require_once('./include.php');
 echo "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\r\n<LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"style.css\" TITLE=\"STYLE\">\r\n<body>\r\n";
-include( "./mysqlconfig.php" );
+
 if ( isset( $arena ) )
 {
     $SQL = "select text,start_room,end_room,free,tim,ct_id from sw_arena where typ=1 and id={$arena}";

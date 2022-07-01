@@ -2,9 +2,9 @@
     function Get_IP()
     {
         global $_SERVER;
-        $iphost1=$_SERVER['HTTP_X_FORWARDED_FOR'];
-        $iphost2=$_SERVER['REMOTE_ADDR'];
-        $iphost="$iphost2;$iphost1;";
+        $iphost1 = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        $iphost2 = $_SERVER['REMOTE_ADDR'];
+        $iphost = "{$iphost2};{$iphost1};";
         return $iphost;
     }
 

@@ -1,9 +1,10 @@
-<?header('Content-type: text/html; charset=utf-8');?>
+<?
+require_once('./include.php');
+?>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="style.css" TITLE="STYLE">
 <body>
 <?
-include("./mysqlconfig.php");
 function GetIP()
 {
 	global $_SERVER;

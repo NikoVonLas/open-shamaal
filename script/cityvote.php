@@ -1,17 +1,11 @@
 <?php
-
-session_start( );
-header( "Content-type: text/html; charset=utf-8" );
+require_once('../include.php');
 echo "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\r\n";
 print "<LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"../style.css\" TITLE=\"STYLE\"> ";
-if ( !isset( $player['id'] ) )
-{
-    exit( );
-}
+
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time( );
-include( "../mysqlconfig.php" );
 $SQL = "select sw_users.city,sw_users.gold,sw_users.level,sw_users.city_rank,sw_position.opt2 from sw_position right join sw_users on sw_position.id=sw_users.clan_rank where sw_users.id={$player_id}";
 $row_num = sql_query_num( $SQL );
 while ( $row_num )

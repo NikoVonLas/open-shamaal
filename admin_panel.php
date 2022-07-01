@@ -1,18 +1,6 @@
 <?php
-include('./mysqlconfig.php');
-include('./password.php');
-
-error_reporting(E_ALL);
-if (getenv('GAME_DEBUG') === true) {
-    ini_set('display_errors', true);
-    ini_set('log_errors', true);
-} else {
-    ini_set('display_errors', false);
-    ini_set('log_errors', false);
-}
-
-session_start();
-header('Content-type: text/html; charset=utf-8');
+require_once('./include.php');
+require_once('./password.php');
 
 $cur_time = time();
 

@@ -1,13 +1,8 @@
 <?php
+require_once('./mysql_tools.php');
 
-require_once(realpath(__DIR__) . '/vendor/autoload.php');
-include_once(realpath(__DIR__) . '/mysql_tools.php');
-
-$dotenv = new Dotenv\Dotenv(realpath(__DIR__));
-$dotenv->load();
-
-$sqllink=0;
-$result=0;
+$sqllink = 0;
+$result = 0;
 
 function getmicrotime()
 {

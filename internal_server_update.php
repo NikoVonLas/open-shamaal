@@ -1,7 +1,14 @@
 <?php
-include('./mysqlconfig.php');
+    require_once(realpath(__DIR__) . '/vendor/autoload.php');
 
-$cur_time = time();
-$internal_server_update_secure_key = getenv('SERVER_UPDATE_KEY');
+    $dotenv = new Dotenv\Dotenv(realpath(__DIR__));
+    $dotenv->load();
 
-include('server.php');
+    session_start();
+
+    require_once('./mysqlconfig.php');
+
+    $cur_time = time();
+    $internal_server_update_secure_key = getenv('SERVER_UPDATE_KEY');
+
+    require_once('server.php');

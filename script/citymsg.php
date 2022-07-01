@@ -1,7 +1,5 @@
 <?php
-
-session_start( );
-header( "Content-type: text/html; charset=utf-8" );
+require_once('../include.php');
 echo "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\r\n";
 print "<LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"../style.css\" TITLE=\"STYLE\"> ";
 if ( !isset( $player['id'] ) )
@@ -11,7 +9,6 @@ if ( !isset( $player['id'] ) )
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time( );
-include( "../mysqlconfig.php" );
 $allow = 0;
 $SQL = "select sw_users.city,sw_users.city_rank,sw_position.opt3 from sw_position right join sw_users on sw_position.id=sw_users.city_rank where sw_users.id={$player_id}";
 $row_num = sql_query_num( $SQL );

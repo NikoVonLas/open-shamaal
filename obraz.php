@@ -1,13 +1,5 @@
 <?php
-
-if ( !isset( $player_id ) )
-{
-    exit( );
-}
-if ( $server == 2 )
-{
-    include( "./mysqlconfig.php" );
-}
+require_once('./include.php');
 $pack = 0;
 $info = "";
 $userDir = "/img/obraz/";

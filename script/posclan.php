@@ -1,16 +1,11 @@
 <?php
+require_once('../include.php');
 
-session_start( );
-header( "Content-type: text/html; charset=utf-8" );
 echo "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\r\n";
-if ( !isset( $player['id'] ) )
-{
-    exit( );
-}
+
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time( );
-include( "../mysqlconfig.php" );
 $SQL = "select clan,clan_rank from sw_users where id={$player_id}";
 $row_num = sql_query_num( $SQL );
 while ( $row_num )

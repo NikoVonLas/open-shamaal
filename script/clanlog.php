@@ -1,16 +1,13 @@
 <?
-
-session_start();
-header('Content-type: text/html; charset=utf-8');
+require_once('../include.php');
 ?>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <?
 print "<LINK REL=STYLESHEET TYPE=\"TEXT/CSS\" HREF=\"../style.css\" TITLE=\"STYLE\"> ";
-if (!isset($player['id'])) {exit();}
+
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time();
-include("../mysqlconfig.php");
 Function checkletter($text)
 {
 	$k = 0;

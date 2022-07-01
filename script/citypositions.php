@@ -1,14 +1,12 @@
 <?
-session_start();
-header('Content-type: text/html; charset=utf-8');
-if (!isset($player['id'])) {exit();}
+require_once('../include.php');
 $player_id = $player['id'];
 $player_name = $player['name'];
 $cur_time = time();
 ?>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <?
-include("../mysqlconfig.php");
+
 Function checkletter($text)
 {
 	$k = 0;

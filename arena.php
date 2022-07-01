@@ -211,7 +211,7 @@ if ( $what == "arena" )
                 {
                     $random = rand( 1, 9999 );
                     $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
-                    $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=\'iframe{$random}\' name=\'iframe{$random}\'></iframe>";
+                    $info = "<iframe src=/iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=\'iframe{$random}\' name=\'iframe{$random}\'></iframe>";
                 }
             }
             print "<script>refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&random={$random}';\",12000);</script>";
@@ -706,7 +706,7 @@ if ( $what == "arena" )
             {
                 $random = rand( 1, 9999 );
                 $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
-                $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
+                $info = "<iframe src=/iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
             }
             print "refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
             print "</script>";
@@ -827,7 +827,7 @@ if ( $what == "arena" )
             {
                 $random = rand( 1, 9999 );
                 $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
-                $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
+                $info = "<iframe src=/iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
             }
             print "refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
             print "</script>";

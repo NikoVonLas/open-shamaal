@@ -3,7 +3,10 @@ $text = '';
 $jsptext = '';
 $jsptex = '';
 $myptext = '';
-if (($loop == 0) || ($npc_kick == 0)) {
+if (empty($loop)) {
+    $loop = 0;
+}
+if ($loop == 0 || $npc_kick == 0) {
     $loop++;
     $wtype[0] = "Любое";
     $wtype[1] = "Меч";
@@ -1059,10 +1062,10 @@ if (($loop == 0) || ($npc_kick == 0)) {
 
         $s = "";
 
-        if ($pl_npc[$_id] == 0) {
+        if ($pl_npc[$_id] == 0 || empty($pl_npc[$_id])) {
             $s .= "(owner=$_id";
         }
-        if ($pl_npc[$_id2] == 0) {
+        if ($pl_npc[$_id2] == 0 || empty($pl_npc[$_id2])) {
             if ($s != "") {
                 $s .= " OR owner=$_id2)";
             } else {

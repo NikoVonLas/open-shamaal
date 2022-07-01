@@ -1,6 +1,9 @@
 <?php
     require_once(realpath(__DIR__) . '/vendor/autoload.php');
 
+    ini_set('max_execution_time', 600);
+    set_time_limit(600);
+
     $dotenv = new Dotenv\Dotenv(realpath(__DIR__));
     $dotenv->load();
 
@@ -14,8 +17,6 @@
     if ((bool) getenv('GAME_DEBUG') === true) {
         ini_set('display_errors', true);
         ini_set('log_errors', true);
-        ini_set('max_execution_time', 120);
-        set_time_limit(120);
     } else {
         ini_set('display_errors', false);
         ini_set('log_errors', false);

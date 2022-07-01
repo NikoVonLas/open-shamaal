@@ -9,18 +9,20 @@ while ($row_num){
 	$weptyp=$row_num[0];
 	$row_num=SQL_next_num();
 }
-if ($result)
-SQL_free_result($result);
+if (!empty($result))
+	SQL_free_result($result);
+
 if ($weptyp == "")
 	$weptyp = 0;
+
 $SkillText = "";
 $ltyp = 0;
 
 //if ($player_name == "Brayth")
 //{
 	if ($opera == 0)
-		print "window.top.createtop(-1,'Стандартные способности');"; //- Новогодние скилы
-        //print "window.top.createtop(0,'Стандартные способности');";
+		//print "window.top.createtop(-1,'Стандартные способности');"; //- Новогодние скилы
+        print "window.top.createtop(0,'Стандартные способности');";
 //}
 //else {
 //    if ($opera == 0)
@@ -48,8 +50,16 @@ while ($row_num){
 	$percent=$row_num[2];
 	$typ=$row_num[3];
 	if (empty($game_skill_num[$id])) {
+		$row_num=SQL_next_num();
 		continue;
 	}
+	if (empty($game_skill_name[$id])) {
+		$game_skill_name[$id] = 'Неизвестный скилл';
+	}
+	if (empty($game_skill_wep[$id])) {
+		$game_skill_wep[$id] = 'Без оружия';
+	}
+
 	for ($i=1;$i<=$game_skill_num[$id];$i++)
 	{
 		$was = 0;

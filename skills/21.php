@@ -27,7 +27,7 @@ if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 2))
 {
 	$player['effect'] = "ref";
-	print "top.delaflict(3);";
+	print "window.top.delaflict(3);";
 }
 $game_skill_mana[21][2]= 15;
 $game_skill_afflict_percent[21][2]= 100;

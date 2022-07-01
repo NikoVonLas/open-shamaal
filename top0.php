@@ -38,7 +38,7 @@ for ( ; $i <= 12; ++$i )
 {
     if ( $pl_ignor[$i] != "" )
     {
-        print "top.ignor[{$i}] = '{$pl_ignor[$i]}';";
+        print "window.top.ignor[{$i}] = '{$pl_ignor[$i]}';";
     }
 }
 echo "\r\n</script>\r\n\r\n\r\n\r\n<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" height=\"20\" width=\"100%\">\r\n<tr>\r\n    <td width=\"537\" bgcolor=\"#849BAD\">&nbsp;</td>\r\n\t<td bgcolor=\"#B9C9D9\"><img width=\"0\"></td>\r\n\r\n</tr>\r\n</table>\r\n\r\n\r\n<table class=\"blue\" cellpadding=\"0\" cellspacing=\"1\" width=\"101%\" height=\"340\">\r\n\t<tr>\r\n\t\t<td class=\"bluetop\">\r\n\t\t\t<table cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<td class=\"gal\">\r\n\t\t\t\t\t\t<table cellspacing=\"0\" cellpadding=\"0\" w";

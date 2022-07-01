@@ -1,13 +1,12 @@
 <?php
-if ($secureKey != "Frmajkf@9840!jnmj") {
-    exit();
-}
+
 $tmi=0;
-$player_id = (integer) $player_id;
+$player_id = (integer) $player['id'];
+$player_name = $player['name'];
 $cur_balance = $player['balance'];
 $race = $player['race'];
 $show_us = $player['show'];
-$player_opt = $player['opt'];
+$player_opt = $player['options'];
 $load= 'map';
 $cur_time = time();
 $player['afk'] = $cur_time;
@@ -50,8 +49,10 @@ if ($rnd != $player_random) {
     exit();
 }
 
+
+
 if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
-    if (($sleep == 0) && ($dir >= 0)) {
+    if (($player['sleep'] == 0) && ($dir >= 0)) {
         $dir = round($dir);
 
         $SQL="select $d[$dir]"."id as id,$d[$dir]"."name as name2,name from sw_map where id=$player_room";
@@ -87,6 +88,14 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
                 $max_speed = 0;
                 $SQL="select str,max_str,food,max_food,min_speed,max_speed,loyalty,name from sw_pet where owner=$player_id and active=0";
                 $row_num=SQL_query_num($SQL);
+                $str = 0;
+                $max_str = 0;
+                $food = 0;
+                $max_food = 0;
+                $speed = 0;
+                $max_speed = 0;
+                $loyalty = 0;
+                $h_name = 0;
                 while ($row_num) {
                     $str = $row_num[0];
                     $max_str = $row_num[1];
@@ -130,26 +139,26 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
                                 if (($own_id <> 0) && ($own_typ == 0)) {
                                     openscript();
                                     $mtext = "* Вы вошли в здание. Владелец здания: $own_name. *";
-                                    $htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+                                    $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
                                     print "$htext";
                                 }
                                 if ($aff_invis < $cur_time) {
-                                    $jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
+                                    $jsptext = "window.top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
                                     $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4)";
                                     SQL_do($SQL);
                                 } else {
-                                    $jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
+                                    $jsptext = "window.top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],1);";
                                     $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4) and aff_see>$cur_time";
                                     SQL_do($SQL);
                                 }
                                 $player_room = $room_id;
                                 $player['room'] = $player_room;
                                 if ($aff_invis < $cur_time) {
-                                    $jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
+                                    $jsptext = "window.top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
                                     $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4)";
                                     SQL_do($SQL);
                                 } else {
-                                    $jsptext = "top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
+                                    $jsptext = "window.top.mtext(\"$time\",\"$player_name\",$rem_dir[$dir],2);";
                                     $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0 and !(options & 4) and aff_see>$cur_time";
                                     SQL_do($SQL);
                                 }
@@ -177,7 +186,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
                                 } else {
                                     $text = "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>не смогла сдвинуться с места.</i>";
                                 }
-                                $jptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                                $jptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                                 openscript();
                                 print "$jptext";
                                 $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
@@ -201,7 +210,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
                         $text = "$t[$r]";
                         $time = date("H:i");
                         $player['balance'] = $cur_time-$balance+5;
-                        $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");top.rbal(50,50);";
+                        $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");window.top.rbal(50,50);";
                         print "$text";
                     }
                 } else {
@@ -322,7 +331,7 @@ if ((isset($dir)) &&($dir == -1)) {
     showusers($player_id, $player_room);
 }
 $player['regen'] = $regen;
-max_parametr($level, $race, $con, $wis);
+max_parametr($player['level'], $player['race'], $player['con'], $player['wis']);
 openscript();
 if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
     if ($trap == 1) {
@@ -334,7 +343,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
             } else {
                 $trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name </b>попала в <b>ловушку</b>.</i>";
             }
-            $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+            $text .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
             print "$text";
             $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
             SQL_do($SQL);
@@ -348,7 +357,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
             } else {
                 $trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружила <b>ловушку</b>.</i>";
             }
-            $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+            $text .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
             print "$text";
         }
     }
@@ -361,7 +370,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
             } else {
                 $trap_text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name </b>попала в <b>капкан</b>.</i>";
             }
-            $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+            $text .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
             print "$text";
             $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and room=$player_room  and id <> $player_id and npc=0";
             SQL_do($SQL);
@@ -375,7 +384,7 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
             } else {
                 $trap_text= "[<b>$player_name</b>]&nbsp;<i><b>$player_name </b>обнаружила  <b>капкан</b>.</i>";
             }
-            $text .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+            $text .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
             print "$text";
         }
     }
@@ -422,11 +431,11 @@ if (file_exists("room/$player_room.html")) {
 print "alert('".($lt-$pt)."');";*/
 $json = json_encode($locations, JSON_FORCE_OBJECT | JSON_NUMERIC_CHECK | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_TAG);
 if ($no_pvp == 0) {
-    print "top.map($went,'$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
+    print "window.top.map($went,'$player_room','$m_name','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
 } elseif ($no_pvp == 1) {
-    print "top.map($went,'$player_room','<a title=\"Анти-боевая зона\"><font class=usergood>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
+    print "window.top.map($went,'$player_room','<a title=\"Анти-боевая зона\"><font class=usergood>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
 } else {
-    print "top.map($went,'$player_room','<a title=\"Боевая зона\"><font class=userbad>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
+    print "window.top.map($went,'$player_room','<a title=\"Боевая зона\"><font class=userbad>$m_name</font></a>','$m_pic','$sz_name','$s_name','$sv_name','$z_name','$v_name','$jz_name','$j_name','$jv_name',$isinfo,$save,$build,$tmi,'$json');";
 }
 
 $SQL="select fid,name,typ,what from sw_object where id=$player_room";
@@ -438,7 +447,7 @@ while ($row_num) {
     $what = $row_num[3];
     //if ($typ == 1)
     //{ // shop
-    print "top.addmenu('$name','$what&id=$fid');";
+    print "window.top.addmenu('$name','$what&id=$fid');";
     /*}*/
     $row_num=SQL_next_num();
 }

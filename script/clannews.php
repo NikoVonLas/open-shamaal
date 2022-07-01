@@ -52,7 +52,7 @@ if ( $city_rank == 1 )
 print "<table cellpadding=2 width=100%>
         <tr>
             <td>
-                <form action=clannews.php method=post>
+                <form action=/script/clannews.php method=post>
                     <div align='center'>
                         <input type=hidden name=city_id value={$city_id}>
                         Содержимое:&nbsp;<input name=\"news_filter\" value=\"{$news_filter}\">
@@ -68,7 +68,7 @@ print "<table cellpadding=2 width=100%>
 
 if ( $allow == 1 )
 {
-    print "<div align=center>| <a href=clannews.php?do=add&city_id={$city_id} class=menu><b>Добавить новость</b></a> |</div>";
+    print "<div align=center>| <a href=/script/clannews.php?do=add&city_id={$city_id} class=menu><b>Добавить новость</b></a> |</div>";
 }
 if ( $city_id != $cityz )
 {
@@ -147,14 +147,14 @@ for ( ; $i < $count; $i = $i + 30 )
     }
     else
     {
-        $p .= "|<a href=clannews.php?page={$i}&city_id={$city_id}&news_filter={$news_filter}&news_filter_sender=$news_filter_sender class=menu>{$i}-{$e}</a>|";
+        $p .= "|<a href=/script/clannews.php?page={$i}&city_id={$city_id}&news_filter={$news_filter}&news_filter_sender=$news_filter_sender class=menu>{$i}-{$e}</a>|";
     }
 }
 print "<div align=center>{$p}</div>";
 print "<table width=90% align=center bgcolor=7C8A9D cellspacing=1 cellpadding=3>";
 if ( $do == "add" && $allow == 1 )
 {
-    print "<form action=clannews.php method=post>
+    print "<form action=/script/clannews.php method=post>
             <input type=hidden name=do value=new>
             <input type=hidden name=city_id value={$city_id}>
             <tr bgcolor=D7DBDF>
@@ -206,7 +206,7 @@ while ( $row_num )
     $temp[1] = "Новость для клана";
     if ( $allow == 1 )
     {
-        $del = "<b>» <a href=clannews.php?do=del&id={$id}&city_id={$city_id} class=menu>Удалить</b>";
+        $del = "<b>» <a href=/script/clannews.php?do=del&id={$id}&city_id={$city_id} class=menu>Удалить</b>";
     }
     else
     {

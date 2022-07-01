@@ -120,7 +120,7 @@ function blacksmith( )
                     sql_do( $SQL );
                     $SQL = "delete from sw_obj where obj={$id} and owner={$player_id} and room=0 and num=0";
                     sql_do( $SQL );
-                    print "<script>top.forge({$obj['43']},{$obj['44']},{$obj['45']},{$obj['46']},{$obj['47']},{$obj['48']},{$obj['49']},{$ran},{$getnum});</script>";
+                    print "<script>window.top.forge({$obj['43']},{$obj['44']},{$obj['45']},{$obj['46']},{$obj['47']},{$obj['48']},{$obj['49']},{$ran},{$getnum});</script>";
                 }
                 else
                 {
@@ -148,7 +148,7 @@ function blacksmith( )
             {
                 SQL_free_result( $result );
             }
-            print "<script>top.forge({$obj['43']},{$obj['44']},{$obj['45']},{$obj['46']},{$obj['47']},{$obj['48']},{$obj['49']},50,-1);</script>";
+            print "<script>window.top.forge({$obj['43']},{$obj['44']},{$obj['45']},{$obj['46']},{$obj['47']},{$obj['48']},{$obj['49']},50,-1);</script>";
         }
     }
     else

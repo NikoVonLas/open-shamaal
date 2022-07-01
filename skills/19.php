@@ -28,7 +28,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 2)&& ($pl_cmana[$player_id] - 15 >= 0) )
 if (strpos(" $player_aff",",4);") == 0)
-	print "top.aflict(2,4);";
+	print "window.top.aflict(2,4);";
 $game_skill_mana[19][2]= 25;
 $game_skill_afflict_percent[19][2]= 100;
 $game_skill_afflict[19][2]= ",aff_def=$cur_time+8*12";
@@ -91,7 +91,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 5)&& ($pl_cmana[$player_id] - 40 >= 0) )
 if (strpos(" $player_aff",",14);") == 0)
-	print "top.aflict(2,14);";
+	print "window.top.aflict(2,14);";
 $game_skill_afflict_percent[19][5]= 100;
 $game_skill_afflict[19][5]= ",aff_skin=$cur_time+8*12";
 $game_skill_afflict_text[19][5]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Сопротивление`</font>.";

@@ -1,6 +1,8 @@
 ﻿<?
+require_once('skill.php');
+
 $opera = 0;
-include("skill.php");
+
 $SQL="select typ from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where sw_obj.owner=$player_id and room=0 and sw_stuff.obj_place=4 and sw_obj.active=1";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
@@ -17,12 +19,12 @@ $ltyp = 0;
 //if ($player_name == "Brayth")
 //{
 	if ($opera == 0)
-		print "top.createtop(-1,'Стандартные способности');"; //- Новогодние скилы
-        //print "top.createtop(0,'Стандартные способности');";
+		print "window.top.createtop(-1,'Стандартные способности');"; //- Новогодние скилы
+        //print "window.top.createtop(0,'Стандартные способности');";
 //}
 //else {
 //    if ($opera == 0)
-//        print "top.createtop(0,'Стандартные способности');";
+//        print "window.top.createtop(0,'Стандартные способности');";
 //}
 	
 $ltyp = "";
@@ -45,6 +47,9 @@ while ($row_num){
 	$s_name=$row_num[1];
 	$percent=$row_num[2];
 	$typ=$row_num[3];
+	if (empty($game_skill_num[$id])) {
+		continue;
+	}
 	for ($i=1;$i<=$game_skill_num[$id];$i++)
 	{
 		$was = 0;
@@ -78,7 +83,7 @@ while ($row_num){
 				if ($percent >= $game_skill_percent[$id][1])
 				if (($s_name <> $ltyp) )
 				{
-					print "top.endtop();top.createtop($id,'$s_name');";
+					print "window.top.endtop();window.top.createtop($id,'$s_name');";
 					$ltyp = $s_name;
 				}
 			
@@ -86,7 +91,7 @@ while ($row_num){
 				$type = $game_skill_type[$id][$i];
 				$name = $game_skill_name[$id][$i];
 				if ($percent >= $game_skill_percent[$id][$i])
-				print "top.mains($type,'$name',$id,$i);";
+				print "window.top.mains($type,'$name',$id,$i);";
 			}
 		}
 	}
@@ -94,7 +99,7 @@ while ($row_num){
 }
 if ($ltyp <> 0)
 	if ($opera == 0)
-		print "top.endtop();";
+		print "window.top.endtop();";
 if ($result)
 	SQL_free_result($result);
 ?>

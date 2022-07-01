@@ -1,5 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}
 $loop = 0;
 $go_to[1] = 's_id';
 $go_to[2] = 'sv_id';
@@ -15,7 +15,7 @@ $mytext = '';
 $pi = 0;
 $rand_go = rand(1,4);
 
-$SQL="select id,name,room,sex,con,wis,level,city,chp,cmana,race,aff_bleed_power,aff_bleed_time,aff_tree,party,pwr,typ,typ_num,typ2,typ2_num,typ3,typ3_num,heal,target,aggresive,move,on_location,yell,madeby,madecity from sw_users where npc=1 and online>$on_time";
+$SQL="select id,name,room,sex,con,wis,level,city,chp,cmana,race,aff_bleed_power,aff_bleed_time,aff_tree,party,pwr,typ,typ_num,typ2,typ2_num,typ3,typ3_num,heal,target,aggresive,move,on_location,yell,madeby,madecity, aff_invis from sw_users where npc=1 and online>$on_time";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
 	$pi++;
@@ -54,7 +54,7 @@ while ($row_num){
 	$npc_yell[$pi] = $row_num[27];
 	$npc_madeby[$pi] = $row_num[28];
 	$npc_madecity[$pi] = $row_num[29];
-	
+	$npc_aff_invis[$pi] = $row_num[30];
 	$row_num=SQL_next_num();
 }
 if ($result)
@@ -201,7 +201,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 								$trap_text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount] </b> попал в <b>ловушку</b>.</i>";
 							else
 								$trap_text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount] </b>попала в <b>ловушку</b>.</i>";
-							 $ptext .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+							 $ptext .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 							 $npchp += $dmg;
 							
 							$SQL="update sw_map SET trap=0 where id=$npc_room[$npccount]";
@@ -213,7 +213,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 								$trap_text= "[<b>$npc_name[$npccount]</b>]&nbsp;<i><b>$npc_name[$npccount] </b>обнаружил <b>ловушку</b>.</i>";
 							else
 								$trap_text= "[<b>$npc_name[$npccount]</b>]&nbsp;<i><b>$npc_name[$npccount] </b>обнаружила <b>ловушку</b>.</i>";
-							 	$ptext .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+							 	$ptext .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 						}
 					}
 					else if ($trap == 2)
@@ -226,7 +226,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 								$trap_text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i>попал в <b>капкан</b>.</i>";
 							else
 							$trap_text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount] </b>попала в <b>капкан</b>.</i>";
-							 $ptext .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+							 $ptext .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 							$npchp += $dmg;
 							 $player_do .= ",aff_paralize=$cur_time+5*12";
 							
@@ -239,21 +239,21 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 								$trap_text= "[<b>$npc_name[$npccount]</b>]&nbsp;<i><b>$npc_name[$npccount] </b>обнаружил  <b>капкан</b>.</i>";
 							else
 							$trap_text= "[<b>$npc_name[$npccount]</b>]&nbsp;<i><b>$npc_name[$npccount] </b>обнаружила  <b>капкан</b>.</i>";
-							 $ptext .= "top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
+							 $ptext .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 							
 						}
 					}
 					
 					if ($npc_aff_invis[$npccount] < $cur_time)
 					{
-						$ptext .= "top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,1);";
+						$ptext .= "window.top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,1);";
 						$SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where online > $online_time and room=$npc_room[$npccount] and npc=0";
 						SQL_do($SQL);
 					}
 					$player_do .= ",room=$room_id";
 					$npc_room[$npccount] = $room_id;
 					if ($npc_aff_invis[$npccount] < $cur_time)
-						$ptext = "top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,2);";
+						$ptext = "window.top.mtext(\"$time\",\"$npc_name[$npccount]\",$randgo,2);";
 				}
 			}
 		}

@@ -1,9 +1,6 @@
 <?php
 
-if ( !session_is_registered( "player" ) )
-{
-    exit( );
-}
+if (empty($_SESSION['player'])) {exit();}
 $fid = "";
 $SQL = "select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city,fid,sw_object.weight,clan from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id={$player_id}  and what='sunduk'";
 $row_num = sql_query_num( $SQL );
@@ -221,13 +218,13 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
                 $num = getobjinfo("sw_obj.owner = {$player_room} and room = 1 and sw_stuff.specif={$show_specif} order by sw_obj.price, sw_obj.id", "", "name=act value=buy");
             }
 
-            print "<script>top.addshop(0,{$num});";
+            print "<script>window.top.addshop(0,{$num});";
             //$i = 1;
             for ( $i = 1; $i <= $num; ++$i )
             {
-                print "top.addshop({$i},'{$info_obj[$i]}');";
+                print "window.top.addshop({$i},'{$info_obj[$i]}');";
             }
-            print "top.addshop(-1,{$gold});";
+            print "window.top.addshop(-1,{$gold});";
             print "</script>";
         }
         else
@@ -290,7 +287,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             $adm = "";
             if ( $owner_id == $player_id && $owner_city == 0 || $owner_id == $player_clan && $owner_city == 3 )
             {
-                $adm = "(<a href=menu.php?load=admsunduk&id={$fid} class=menu2 target=menu>Добавить</a>)";
+                $adm = "(<a href=/menu.php?load=admsunduk&id={$fid} class=menu2 target=menu>Добавить</a>)";
             }
             $player['text'] = "<table height=100% width=100% ><tr><td align=center><table width=100% height=120><tr><td height=70><table align=center><tr><td width=62 height=30><img src=/img/game/sunduk.gif></td><td valign=top><table><tr><td>Владелец: </td><td><b>{$owner_name}</b></td></tr><tr><td>Дата создания:</td><td> <b>{$obj_dat}</b></td></tr><tr><td>Вместимость: </td><td><b>{$raznov} / {$m_weight}</b></td></tr></table></td></tr></table></td></tr><tr><td align=center colspan=2>Вещи в рюкзаке разложены по категориям. {$adm}</td></tr></table></td></tr></table>";
 
@@ -303,7 +300,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             while ( $row_num )
             {
                 $place = $row_num[0];
-                $pl .= "<b><a href=menu.php?load=sunduk&do=show&show={$place} target=menu class=lin>» {$m_place[$place]}</b></a><br>";
+                $pl .= "<b><a href=/menu.php?load=sunduk&do=show&show={$place} target=menu class=lin>» {$m_place[$place]}</b></a><br>";
                 $row_num = sql_next_num( );
             }
             if ( $result )
@@ -320,7 +317,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             while ( $row_num )
             {
                 $specif = $row_num[0];
-                $pl .= "<b><a href=menu.php?load=sunduk&do=show&show_specif={$specif} target=menu class=lin>» {$m_specif[$specif]}</b></a><br>";
+                $pl .= "<b><a href=/menu.php?load=sunduk&do=show&show_specif={$specif} target=menu class=lin>» {$m_specif[$specif]}</b></a><br>";
                 $row_num = sql_next_num( );
             }
             if ( $result )
@@ -332,7 +329,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             {
                 $pl = "Вещей в сундуке нет.";
             }
-            print "<script>top.shop('{$cname}','{$cbuy}','{$text}','{$pl}');</script>";
+            print "<script>window.top.shop('{$cname}','{$cbuy}','{$text}','{$pl}');</script>";
         }
     }
     else

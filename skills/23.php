@@ -73,7 +73,7 @@ $game_skill_mana[23][3]= 40;
 if ($npc_kick == 0)
 if (($num == 3)&& ($pl_cmana[$player_id] - 40 >= 0) )
 if (strpos(" $player_aff",",16);") == 0)
-	print "top.aflict(2,16);";
+	print "window.top.aflict(2,16);";
 $game_skill_afflict_percent[23][3]= 100;
 $game_skill_afflict[23][3]= ",aff_best=$cur_time+6*12";
 $game_skill_afflict_text[23][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>стал$sex_a более <font class=atype>уверен$sex_noi</font> в себе.";
@@ -120,7 +120,7 @@ if ($num ==5)
 if ($npc_kick == 0)
 if (($num == 5)&& ($pl_cmana[$player_id] - 80 >= 0) )
 if (strpos(" $player_aff",",18);") == 0)
-	print "top.aflict(2,18);";
+	print "window.top.aflict(2,18);";
 $game_skill_name[23][5]= "Нечувствительность";
 $game_skill_mana[23][5]= 80;
 $game_skill_afflict_percent[23][5]= 100;

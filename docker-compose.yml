@@ -1,0 +1,68 @@
+version: '3.3'
+services:
+  nginx:
+    build:
+      context: './docker/nginx'
+    restart: always
+    ports:
+      - '80:80'
+    hostname: "${APP_DOMAIN}"
+    networks:
+      shaamnet:
+        aliases:
+          - "${APP_DOMAIN}"
+    volumes:
+      - '.:/var/www/shamaal'
+      - './docker/logs/nginx:/var/log/nginx'
+    environment:
+      - APP_DOMAIN
+      - APP_ENV
+    depends_on:
+      - php5-fpm
+    links:
+      - php5-fpm
+  mysql:
+    build:
+      context: './docker/mysql'
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_USER: ${DB_USERNAME_GAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD_GAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_GAME}
+      MYSQL_DATABASE: ${DB_DATABASE_GAME}
+    volumes:
+      - './docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
+      - 'db_data:/var/lib/mysql'
+    networks:
+      - shaamnet
+  php5-fpm:
+    build:
+      context: './docker/php5.3'
+      args:
+        environment: ${APP_ENV}
+    restart: always
+    depends_on:
+      - redis
+      - mysql
+    links:
+      - redis
+      - mysql
+    volumes:
+      - './:/var/www/shamaal'
+    networks:
+      - shaamnet
+
+  redis:
+    image: 'redis:6.0.9-alpine'
+    ports:
+      - '6379:6379'
+    networks:
+      - shaamnet
+
+volumes:
+  db_data:
+networks:
+  shaamnet:
+    driver: bridge

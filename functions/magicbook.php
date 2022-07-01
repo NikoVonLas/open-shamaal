@@ -24,14 +24,14 @@ function magicbook( )
     }
     $wis += $race_wis[$race];
     $wis = round( $wis / 2 );
-    print "<script>top.settop('Книга заклинаний');top.book({$wis});";
+    print "<script>window.top.settop('Книга заклинаний');window.top.book({$wis});";
     $SQL = "select id,name from sw_magic where owner={$player_id}";
     $row_num = sql_query_num( $SQL );
     while ( $row_num )
     {
         $id = $row_num[0];
         $name = $row_num[1];
-        print "top.addbook({$id},'{$name}','left');";
+        print "window.top.addbook({$id},'{$name}','left');";
         $row_num = sql_next_num( );
     }
     if ( $result )
@@ -48,7 +48,7 @@ function magicbook( )
         $name = $row_num[1];
         if ( $i <= $page * 13 && ( $page - 1 ) * 13 < $i )
         {
-            print "top.addbook({$id},'{$name}','right');";
+            print "window.top.addbook({$id},'{$name}','right');";
         }
         $row_num = sql_next_num( );
     }
@@ -57,7 +57,7 @@ function magicbook( )
         SQL_free_result( $result );
     }
     $a = $i / 13 + 1;
-    print "top.addbookpage({$a},{$page});";
+    print "window.top.addbookpage({$a},{$page});";
     print "</script>";
 }
 

@@ -28,7 +28,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 2)&& ($pl_cmana[$player_id] - 12 >= 0) )
 if (strpos(" $player_aff",",4);") == 0)
-	print "top.aflict(2,4);";
+	print "window.top.aflict(2,4);";
 $game_skill_mana[20][2]= 25;
 $game_skill_afflict_percent[20][2]= 100;
 $game_skill_afflict[20][2]= ",aff_def=$cur_time+7*12";
@@ -72,7 +72,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 4))
 if (strpos(" $player_aff",",6);") == 0)
-	print "top.aflict(2,6);";
+	print "window.top.aflict(2,6);";
 $game_skill_mana[20][4]= 35;
 $game_skill_afflict_percent[20][4]= 100;
 $game_skill_afflict[20][4]= ",aff_see=$cur_time+7*12,aff_see_all=$cur_time+7*12";
@@ -95,7 +95,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 5)&& ($pl_cmana[$player_id] - 35 >= 0))
 if (strpos(" $player_aff",",13);") == 0)
-	print "top.aflict(2,13);";
+	print "window.top.aflict(2,13);";
 $game_skill_mana[20][5]= 50;
 $game_skill_afflict_percent[20][5]= 100;
 $game_skill_afflict[20][5]= ",aff_speed=$cur_time+7*12";

@@ -9,7 +9,7 @@ if ($num ==1)
 if ($npc_kick == 0)
 if (($num == 1)&& ($pl_cmana[$player_id] - 10 >= 0) )
 if (strpos(" $player_aff",",20);") == 0)
-	print "top.aflict(2,20);";
+	print "window.top.aflict(2,20);";
 $game_skill_name[24][1]= "Ярость";
 $game_skill_mana[24][1]= 10;
 $game_skill_afflict_percent[24][1]= 100;
@@ -34,7 +34,7 @@ if ($num ==2)
 if ($npc_kick == 0)
 if (($num == 2)&& ($pl_cmana[$player_id] - 30 >= 0) )
 if (strpos(" $player_aff",",21);") == 0)
-	print "top.aflict(2,21);";
+	print "window.top.aflict(2,21);";
 $game_skill_name[24][2]= "Подготовка";
 $game_skill_mana[24][2]= 30;
 $game_skill_afflict_percent[24][2]= 100;
@@ -62,7 +62,7 @@ $game_skill_mana[24][3]= 35;
 if ($npc_kick == 0)
 if (($num == 3)&& ($pl_cmana[$player_id] - 35 >= 0) )
 if (strpos(" $player_aff",",17);") == 0)
-	print "top.aflict(2,17);";
+	print "window.top.aflict(2,17);";
 $game_skill_afflict_percent[24][3]= 100;
 $game_skill_afflict[24][3]= ",aff_fight=$cur_time+6*12";
 $game_skill_afflict_text[24][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>стал$sex_a более <font class=atype>отваж$sex_noi</font>.";
@@ -84,10 +84,10 @@ if ($num ==4)
 if ($npc_kick == 0)
 	if (($num == 4)&& ($pl_cmana[$player_id] - 50 >= 0) )
 	if (strpos(" $player_aff",",20);") == 0)
-		print "top.aflict(2,20);";
+		print "window.top.aflict(2,20);";
 if (($num == 4)&& ($pl_cmana[$player_id] - 50 >= 0) )
 	if (strpos(" $player_aff",",21);") == 0)
-		print "top.aflict(2,21);";
+		print "window.top.aflict(2,21);";
 $game_skill_name[24][4]= "Финт";
 $game_skill_mana[24][4]= 50;
 $game_skill_afflict_percent[24][4]= 100;

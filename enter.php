@@ -3,7 +3,7 @@ require_once('./include.php');
 
 $player_id = $player['id'];
 $player_name = $player['name'];
-$player_opt= $player['opt'];
+$player_opt= $player['options'];
 $player_sex = $player['sex'];
 $player_pass = $player['password'];
 $block = $player['block'];
@@ -89,7 +89,7 @@ Function checkletter($text)
 			{
 				$time = date("H:i");
 				$text2 = "&nbsp;Вы стали снова трезвыми.";
-				$jsptext = "top.add(\"$time\",\"\",\"$text2\",5,\"\");";
+				$jsptext = "window.top.add(\"$time\",\"\",\"$text2\",5,\"\");";
 				$player['drunk'] = 0;
 				print "<script>$jsptext</script>";
 			}
@@ -117,7 +117,7 @@ Function emote($text, $allow_html = false)
 	$text = checkletter($text);
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
-	print "<script>top.reset();$text</script>";
+	print "<script>window.top.reset();$text</script>";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and room=$room  and npc=0";
 	SQL_do($SQL);
 }
@@ -136,7 +136,7 @@ Function prtext($text)
 	$text = checkletter($text);
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"* $text *\",8,\"\");";
-	print "<script>top.reset();$text</script>";
+	print "<script>window.top.reset();$text</script>";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and room=$room  and npc=0";
 	SQL_do($SQL);
 
@@ -159,7 +159,7 @@ Function locprint($text)
 	$text = checkletter($text);
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"$text \",1,\"\",\"$addn\");";
-	print "<script>top.reset();$text</script>";
+	print "<script>window.top.reset();$text</script>";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and room=$room  and npc=0";
 	SQL_do($SQL);
 }
@@ -182,7 +182,7 @@ Function cityprint($text)
 	$time = date("H:i");
 	$text = "parent.add(\"$time\",\"$player_name\",\"$text \",2,\"$city_name\",\"$addn\");";
 	$m = "";
-	print "<script>top.reset();$text</script>";
+	print "<script>window.top.reset();$text</script>";
 	if ($city_id == 1)
 		$m = "OR (admin>0 AND admin<5 AND id <> $player_id )";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where city=$city_id and online > $online_time and id <> $player_id and npc=0 $m";
@@ -210,7 +210,7 @@ Function magpring($text)
 		$time = date("H:i");
 		$text_script = "parent.add(\"$time\",\"$player_name\",\"$text \",13,\"Общий => $city_name\");";
 		//print "<script>alert('Торговый канал отключён.');</script>";
-		print "<script>top.reset();$text_script</script>";
+		print "<script>window.top.reset();$text_script</script>";
 		$SQL="update sw_users SET mytext=CONCAT(mytext,'$text_script') where online > $online_time and id <> $player_id and npc=0 and options & 8";
 		SQL_do($SQL);
 
@@ -243,7 +243,7 @@ Function clanprint($text)
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",7,\"Клан\",\"$addn\");";
-		print "<script>top.reset();$text</script>";
+		print "<script>window.top.reset();$text</script>";
 		$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and clan=$city_id  and npc=0";
 		SQL_do($SQL);
 	}
@@ -271,7 +271,7 @@ Function merprint($text)
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",9,\"Переговоры городов\");";
-		print "<script>top.reset();$text</script>";
+		print "<script>window.top.reset();$text</script>";
 		$pt = '';
 		$SQL="select id from sw_position where city=1 and opt3=1";
 		$row_num=SQL_query_num($SQL);
@@ -314,7 +314,7 @@ Function mygodprint($text,$who)
 			$time = date("H:i");
 			$text2 = $text;
 			$text = "parent.add(\"$time\",\"\",\"$text\",11,\"$who от Бога\");";
-			print "<script>top.reset();$text</script>";
+			print "<script>window.top.reset();$text</script>";
 			$text = "parent.add(\"$time\",\"\",\"$text2\",11,\"Вам от Бога\");";
 			if ($id <> $player_id)
 			{
@@ -332,7 +332,7 @@ Function godprint($text)
 	$text = checkletter($text);
 	$time = date("H:i:s");
 	$mtext = "parent.add(\"$time\",\"$player_name\",\"$text \",10,\"Бог\");";
-	print "<script>top.reset();$mtext</script>";
+	print "<script>window.top.reset();$mtext</script>";
 	$text = "parent.add(\"$time\",\"$player_name\",\"$text \",12,\"Богу\");";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and admin=1";
 	SQL_do($SQL);
@@ -354,7 +354,7 @@ Function partyprint($text)
 		$text = checkletter($text);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\",\"$addn\");";
-		print "<script>top.reset();$text</script>";
+		print "<script>window.top.reset();$text</script>";
 		if ($party_id > 0)
 		{
 			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and party=$party_id  and npc=0";
@@ -383,7 +383,7 @@ Function privateprint($msg,$who)
 		$msg = checkletter($msg);
 		$time = date("H:i");
 		$text = "parent.add(\"$time\",\"$player_name\",\"$msg\",4,\"$name\");";
-		print "<script>top.reset();$text</script>";
+		print "<script>window.top.reset();$text</script>";
 
 		if ($id <> $player_id)
 		{
@@ -419,7 +419,7 @@ function noChat()
 {
 	$text = "<b>Вы всем надоели, отдохните.</b>";
 	$time = date("H:i");
-	$text = "<script>parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");top.reset();</script>";
+	$text = "<script>parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");window.top.reset();</script>";
 	print "$text";
 }
 
@@ -452,7 +452,7 @@ if ($load == 'block')
 		$SQL="update sw_users SET block=$id where id=$player_id";
 		SQL_do($SQL);
 		$time = date("H:i");
-		print "<script>top.setblock($block,$id);top.add('$time','','* Новое место блока: <b>$kick_place[$id] </b> *',6,'');</script>";
+		print "<script>window.top.setblock($block,$id);window.top.add('$time','','* Новое место блока: <b>$kick_place[$id] </b> *',6,'');</script>";
 	}
 }
 else
@@ -601,7 +601,7 @@ if (isset($ebar) && !empty($ebar))
 				SQL_free_result($result);
 			$text = "<b>Комната:</b> $n_name. <b>Номер:</b> $n_id";
 			$text = "parent.add(\"$time\",\"\",\"$text\",7,\"Сервер\");";
-			print "<script>top.reset();$text</script>";
+			print "<script>window.top.reset();$text</script>";
 		}
 
 		if (mb_strtoupper($comm) == "/TESTBOT")
@@ -663,7 +663,7 @@ if (isset($ebar) && !empty($ebar))
 
 
 					$text = "parent.add(\"$time\",\"\",\"$text\",7,\"Сервер\");";
-					print "<script>top.reset();$text</script>";
+					print "<script>window.top.reset();$text</script>";
 
 				}
 			}
@@ -695,7 +695,7 @@ if (isset($ebar) && !empty($ebar))
 				$text = "* Вас перенаправили в другую комнату. *";
 				$text = "parent.add(\"$time\",\"\",\"$text\",5,\"\");";
 
-				print "<script>top.reset();$text</script>";
+				print "<script>window.top.reset();$text</script>";
 			}
 		}
 
@@ -773,7 +773,7 @@ if (isset($ebar) && !empty($ebar))
 					}
 
 					$text = "parent.add(\"$time\",\"\",\"$text\",7,\"Сервер\");";
-					print "<script>top.reset();$text</script>";
+					print "<script>window.top.reset();$text</script>";
 				}
 			}
 		}
@@ -821,7 +821,7 @@ if (isset($ebar) && !empty($ebar))
 				SQL_free_result($result);
 			$text = "<b>* $timename[$H]. $text * </b>";
 			$text = "parent.add(\"$time\",\"\",\"$text\",6,\"\");";
-			print "<script>top.reset();$text</script>";
+			print "<script>window.top.reset();$text</script>";
 		}
 		if (($comm == "/переговоры") || ($comm == "/Переговоры"))
 		{
@@ -874,7 +874,7 @@ if (isset($ebar) && !empty($ebar))
 //			{
 //				$time = date("H:i");
 //				$text = 'parent.add("'.$time.'","'.$player_name.'","Вы не можете отправлять сообщения пока не достигнете 1-ого уровня",8,"");';
-//				print '<script>top.reset();'.$text.'</script>';
+//				print '<script>window.top.reset();'.$text.'</script>';
 //				exit();
 //			}
 

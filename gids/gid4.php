@@ -99,7 +99,7 @@ if ( 0 < $player_room )
             }
             else
             {
-                $map_t[$i] = "<form action=menu.php target=menu><table cellpadding=0 cellspacing=0><tr><input type=hidden name=dir value={$i}><input type=hidden name=load value={$load}><input type=hidden name=do value=build><input type=hidden name=obj_id value={$obj_id}><td><input type=submit value=Построить style=width:65></td></tr></table></form>";
+                $map_t[$i] = "<form action=/menu.php target=menu><table cellpadding=0 cellspacing=0><tr><input type=hidden name=dir value={$i}><input type=hidden name=load value={$load}><input type=hidden name=do value=build><input type=hidden name=obj_id value={$obj_id}><td><input type=submit value=Построить style=width:65></td></tr></table></form>";
             }
         }
         $text = "Создание усыпальницы клана";
@@ -107,7 +107,7 @@ if ( 0 < $player_room )
         $t .= "<table><tr><td><table><tr><td width=75 align=center><img src=/img/stuff/else/gid.gif></td><td><b>Название создаваемой комнаты:</b> `Усыпальница`<br><br>Выберите направление строительства комнаты относительно вашего текущего местоположения.</td></tr></table>";
         $t .= "<table><tr><td width=230 align=right><table cellspacing=1 bgcolor=BDCBDE><tr bgcolor=EFF3F6><td width=70 height=60 align=center>Нельзя</td><td width=70 align=center>{$map_t['2']}</td><td width=70 align=center>Нельзя</td></tr><tr bgcolor=EFF3F6><td width=70 height=60 align=center>{$map_t['4']}</td><td width=70 align=center>Вы</td><td width=70 align=center>{$map_t['5']}</td></tr><tr bgcolor=EFF3F6 ><td width=70 height=60 align=center>Нельзя</td><td width=70 align=center>{$map_t['7']}</td><td width=70 align=center>Нельзя</td></tr></table>";
         $t .= "</td><td valign=top><i>Постарайтесь выбрать наиболее подходящее место для усыпальницы, так как у вас не будет возможности её перенести в другое место.<br><br> В этом типе контаты, вы и ваши соклановцы сможете появляться после смерти.</i></td></tr></table></td></tr></table>";
-        print "<script>top.domir('{$text}','{$t}');</script>";
+        print "<script>window.top.domir('{$text}','{$t}');</script>";
     }
     else
     {

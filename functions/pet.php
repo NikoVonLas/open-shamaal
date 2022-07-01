@@ -1,9 +1,6 @@
 <?php
 
-if ( !session_is_registered( "player" ) )
-{
-    exit( );
-}
+if (empty($_SESSION['player'])) {exit();}
 $text = "";
 $SQL = "select sw_object.text,sw_object.id from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id={$player_id}  and what='horse'";
 $row_num = sql_query_num( $SQL );
@@ -192,7 +189,7 @@ if ( $action == "feed" )
                 $time = date( "H:i" );
                 $player['balance'] = $cur_time - $balance + 5;
                 $textt = "parent.add(\"{$time}\",\"{$player_name}\",\"* {$player_name} кормит животное. *\",6,\"\");";
-                print "<script>{$text} top.rbal(50,50);</script>";
+                print "<script>{$text} window.top.rbal(50,50);</script>";
                 $SQL = "update sw_users SET mytext=CONCAT(mytext,'{$textt}') where online > {$online_time} and id <> {$player_id} and room={$room}  and npc=0";
                 sql_do( $SQL );
                 $obj_obj = ( integer )$obj_obj;
@@ -246,7 +243,7 @@ for ( ; $i < $count; ++$i )
     }
     else
     {
-        $p .= " |<a href=menu.php?page={$i}&load=pet class=menu2 target=menu>{$e}</a>| ";
+        $p .= " |<a href=/menu.php?page={$i}&load=pet class=menu2 target=menu>{$e}</a>| ";
     }
 }
 if ( $count != 0 )
@@ -292,32 +289,32 @@ if ( $count != 0 )
         $else = "<tr><Td colspan=2 height=10></td></tr>";
         if ( $h_active == 0 )
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=out&id={$h_id}&page={$page} target=menu class=menu2><b>» Слезть с животного</b></a></td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=out&id={$h_id}&page={$page} target=menu class=menu2><b>» Слезть с животного</b></a></td></tr>";
         }
         else if ( $h_active == 1 )
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=in&id={$h_id}&page={$page} target=menu class=menu2><b>» Оседлать животное</b></a></td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=in&id={$h_id}&page={$page} target=menu class=menu2><b>» Оседлать животное</b></a></td></tr>";
         }
         else if ( $h_active == 2 )
         {
             $else .= "<tr><td colspan=2><b><font color=red>» Животное в конюшне</font></b></td></tr>";
         }
-        $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=feed&id={$h_id}&page={$page} target=menu class=menu2><b>» Накормить животное</b></a></td></tr>";
+        $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=feed&id={$h_id}&page={$page} target=menu class=menu2><b>» Накормить животное</b></a></td></tr>";
         if ( $h_active == 2 )
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=gethorse&id={$h_id}&page={$page} target=menu class=menu2><b><font color=red>» Взять из конюшни</font></b></a> ({$h_place})</td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=gethorse&id={$h_id}&page={$page} target=menu class=menu2><b><font color=red>» Взять из конюшни</font></b></a> ({$h_place})</td></tr>";
         }
         else
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=tohorse&id={$h_id}&page={$page} target=menu class=menu2><b>» Поставить в конюшню</b></a></td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=tohorse&id={$h_id}&page={$page} target=menu class=menu2><b>» Поставить в конюшню</b></a></td></tr>";
         }
         if ( $text != "" )
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=sell&id={$h_id}&page={$page} target=menu class=menu2><b>» Продать лошадь</b></a></td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=sell&id={$h_id}&page={$page} target=menu class=menu2><b>» Продать лошадь</b></a></td></tr>";
         }
         else if ($h_selling == 1)
         {
-            $else .= "<tr><td colspan=2><a href=menu.php?load={$load}&action=give&id={$h_id}&page={$page} target=menu class=menu2><b>» Передать выбранной цели</b></a></td></tr>";
+            $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=give&id={$h_id}&page={$page} target=menu class=menu2><b>» Передать выбранной цели</b></a></td></tr>";
         }
         $all .= "<tr><td colspan=2><table width=98%><tr><td width=150 align=center><img src=/img/pet/{$h_pic}></td><td valign=top align=right><table cellpadding=2><tr><td width=150><b>Тип животного: </b></td><td>{$h_name}</td></tr><tr><td><b>Сытость: </b></td><td>{$food}</td></tr><tr><td><b>Усталость: </b></td><td>{$str}</td></tr>{$else}</table></td></tr></table></td></tr>";
         $row_num = sql_next_num( );
@@ -327,7 +324,7 @@ if ( $count != 0 )
         SQL_free_result( $result );
     }
     $all .= "</table></td></tr></table>";
-    print "<script>top.domir('Список животных','{$all}');</script>";
+    print "<script>window.top.domir('Список животных','{$all}');</script>";
 }
 else
 {

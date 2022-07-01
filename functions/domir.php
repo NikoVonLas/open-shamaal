@@ -1,8 +1,10 @@
 <?
+
 function domir($type)
 {
-	global $player,$cur_balance,$cur_time,$balance,$balance_ten,$race_dex,$player_sex,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
+	global $player,$cur_balance,$cur_time,$balance,$balance_ten,$db,$player_id,$player_name,$action,$load,$scroll,$mobj1,$mobj2,$mobj3,$mobj1_num,$mobj2_num,$mobj3_num,$old_room,$player_race,$result;
 	include("functions/copyobj.php");
+
 	$SQL="select count(*) as num from sw_object where what='$load' and id=$old_room";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
@@ -118,7 +120,7 @@ function domir($type)
 								{
 									$player['balance'] = $cur_time+14;
 									$balance_ten = $balance_ten+140;
-									print "<script>top.rbal($balance_ten,$balance_ten);</script>";
+									print "<script>window.top.rbal($balance_ten,$balance_ten);</script>";
 									$time = date("H:i");
 									$sex_a[1] = "";
 									$sex_a[0] = "а";
@@ -127,7 +129,7 @@ function domir($type)
 										$sk = 0;
 									$r = rand(0,2);;
 									$text = $skill_all[$sk][0][$r];
-									$text = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+									$text = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 									$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and room=$old_room and id <> $player_id and npc=0";
 									SQL_do($SQL);
 									$text1 = $skill_text[$sk][1];
@@ -147,7 +149,7 @@ function domir($type)
 										$SQL="update sw_users SET exp=exp+$texp where id=$player_id";
 										SQL_do($SQL);
 										$mtext = "<br><b>* Опыт +$texp *</b>";
-										print "<script>top.makeobj(0,'$text1',30,'$text2',55,'$text3',98,'$text4 $mtext');</script>";
+										print "<script>window.top.makeobj(0,'$text1',30,'$text2',55,'$text3',98,'$text4 $mtext');</script>";
 										if (($sk == 4) || ($sk == 5))
 										{
 											$a = rand(0,1);
@@ -178,7 +180,7 @@ function domir($type)
 											$obj2_num = 1;
 										if ($obj3 <> 0)
 											$obj3_num = 1;
-										print "<script>top.makeobj(0,'$text1',30,'$text2',55,'$text3',95,'$text5');</script>";
+										print "<script>window.top.makeobj(0,'$text1',30,'$text2',55,'$text3',95,'$text5');</script>";
 										if (($sk == 4) || ($sk == 5))
 										{
 											$SQL="update sw_obj SET cur_cond=cur_cond-1 where id=$obj_typ_id";
@@ -297,8 +299,8 @@ function domir($type)
 			if ($result)
 				SQL_free_result($result);
 			$myobj .= "</select>";
-			$text = "<form action=menu.php method=post target=menu><table cellpadding=5 align=center><input type=hidden name=load value=$load><input type=hidden name=stg value=1><input type=hidden name=trade_id value=$trade_id><input type=hidden name=typ value=$typ><input type=hidden name=action value=do><tr><Td><table cellpadding=0 cellspacing=0><tr><td><b><font color=888888>- Изготовить предмет по свитку: </font></b></td><td>$myobj</td></tr></table></td></tr><tr><TD><table><tr><Td><img src=/img/game/$mpic[$type] width=100 height=84></td><td><table><Tr><TD><b>Первый материал:</td><td>$mat1</td><td><input type=text name=mobj1_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Второй материал:</td><td>$mat2</td><td><input type=text name=mobj2_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Третий материал:</td><td>$mat3</td><td><input type=text name=mobj3_num size=2 maxlength=2 value=0></td><td>шт.</td></tr></table></b></td></tr></table></td></tr><tr><td align=center id=makebutton><input type=submit value=Изготовить></td></tr><tr><td><table width=100%><Tr><Td id=perbar><table width=99% cellspacing=1 bgcolor=8C9AAD align=center height=15><tr><td bgcolor=BDC7DE align=center width=1></td><td bgcolor=E6EAEF> </td></tr></table></td><td width=10 id=pernum>0%</td></tr></table><table><Tr><TD id=maketext></td></tr></table></td></tr></table></form>";
-			print "<script>top.domir('$msk[$type]','$text');</script>";
+			$text = "<form action=/menu.php method=post target=menu><table cellpadding=5 align=center><input type=hidden name=load value=$load><input type=hidden name=stg value=1><input type=hidden name=trade_id value=$trade_id><input type=hidden name=typ value=$typ><input type=hidden name=action value=do><tr><Td><table cellpadding=0 cellspacing=0><tr><td><b><font color=888888>- Изготовить предмет по свитку: </font></b></td><td>$myobj</td></tr></table></td></tr><tr><TD><table><tr><Td><img src=/img/game/$mpic[$type] width=100 height=84></td><td><table><Tr><TD><b>Первый материал:</td><td>$mat1</td><td><input type=text name=mobj1_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Второй материал:</td><td>$mat2</td><td><input type=text name=mobj2_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Третий материал:</td><td>$mat3</td><td><input type=text name=mobj3_num size=2 maxlength=2 value=0></td><td>шт.</td></tr></table></b></td></tr></table></td></tr><tr><td align=center id=makebutton><input type=submit value=Изготовить></td></tr><tr><td><table width=100%><Tr><Td id=perbar><table width=99% cellspacing=1 bgcolor=8C9AAD align=center height=15><tr><td bgcolor=BDC7DE align=center width=1></td><td bgcolor=E6EAEF> </td></tr></table></td><td width=10 id=pernum>0%</td></tr></table><table><Tr><TD id=maketext></td></tr></table></td></tr></table></form>";
+			print "<script>window.top.domir('$msk[$type]','$text');</script>";
 		}
 	}
 	else

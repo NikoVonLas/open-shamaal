@@ -17,16 +17,16 @@ echo "<script>
 	{
 		if (isopen == 1)
 		{
-		    top.toppertext[n] = $(\"#delall\" + n)[0].outerHTML;
-			$(\"#delall\" + n).replaceWith(top.topper[n]);
+		    window.top.toppertext[n] = $(\"#delall\" + n)[0].outerHTML;
+			$(\"#delall\" + n).replaceWith(window.top.topper[n]);
         }
 		if (isopen == 2)
 		{
-			$(\"#delall\" + n).replaceWith(top.toppertext[n]);
+			$(\"#delall\" + n).replaceWith(window.top.toppertext[n]);
 		}
 	}
 
-	s = top.SkillText;
+	s = window.top.SkillText;
 	document.write(s);
 
 </script>\r\n";
@@ -36,7 +36,7 @@ echo '<script>
         {
             $("#skills-edit-button", window.parent.document).click(function() {
                 // read saved configs
-                var settings = top.readSkillsSettings();
+                var settings = window.top.readSkillsSettings();
 /*                var settingsString = $.cookie("skillSet-");
                 $(settingsString.split(";")).each(function () {
                     var abilityParts = this.split(":");
@@ -203,10 +203,10 @@ echo '<script>
                 $(".skill").removeAttr("disabled");
 
                 // set new settings
-                top.skillsSettings = top.readSkillsSettings();
+                window.top.skillsSettings = window.top.readSkillsSettings();
 
                 // apply hot changes
-                var settings = top.readSkillsSettings();
+                var settings = window.top.readSkillsSettings();
                 $("div[id^=\'delall\']").each(function () {
                     var abilityId = $(this).find(".abilities-disable-button").data("ability-id");
                     if (settings[abilityId] !== undefined) {

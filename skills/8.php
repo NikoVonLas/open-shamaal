@@ -10,7 +10,7 @@ if ( $num == 1 )
 }
 if ( $npc_kick == 0 && $target_id == $player_id && $num == 1 && 0 <= $pl_cmana[$player_id] - 20 && strpos( " {$player_aff}", ",5);" ) == 0 )
 {
-    print "top.aflict(2,5);";
+    print "window.top.aflict(2,5);";
 }
 $game_skill_afflict_percent[8][1] = 100;
 $game_skill_afflict[8][1] = ",aff_invis={$cur_time}+8*12";
@@ -34,7 +34,7 @@ if ( $num == 2 )
 }
 if ( $npc_kick == 0 && $target_id == $player_id && $num == 2 && 0 <= $pl_cmana[$player_id] - 30 && strpos( " {$player_aff}", ",6);" ) == 0 )
 {
-    print "top.aflict(2,6);";
+    print "window.top.aflict(2,6);";
 }
 $game_skill_afflict_percent[8][2] = 100;
 $game_skill_afflict[8][2] = ",aff_see={$cur_time}+10*12";
@@ -58,7 +58,7 @@ if ( $num == 3 )
 }
 if ( $npc_kick == 0 && $target_id == $player_id && $num == 3 && 0 <= $pl_cmana[$player_id] - 40 && strpos( " {$player_aff}", ",5);" ) == 0 )
 {
-    print "top.aflict(2,5);";
+    print "window.top.aflict(2,5);";
 }
 $game_skill_afflict_percent[8][3] = 100;
 $game_skill_afflict[8][3] = ",aff_invis={$cur_time}+15*12";

@@ -1,0 +1,1 @@
+* * * * * php /var/www/swonline/maingame/internal_server_update_g635950.php >> /var/log/cron.log 2>&1

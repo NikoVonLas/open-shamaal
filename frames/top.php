@@ -5,6 +5,7 @@ if ($player['server'] != 1) {
     $player['server'] = 0;
 }
 
+$pl_ignor = array();
 for ($i = 1 ; $i <= 12; ++$i ) {
     if (!empty($player["ignor{$i}"])) {
         $pl_ignor[] = $player["ignor{$i}"];
@@ -16,7 +17,7 @@ echo <<<EOT
         <html>
             <head>
                 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-                <link rel="stylesheet" type="text/css" href="style.css">
+                <link rel="stylesheet" type="text/css" href="/style.css">
                 <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
             </head>
             <title>Shamaal World</title>
@@ -64,15 +65,15 @@ echo <<<EOT
                 </tr>  
             </table>
             
-            <script type="text/javascript" src="jquery.min.js"></script>
-            <script type="text/javascript" src="stooltip.js"></script>
+            <script type="text/javascript" src="/jquery.min.js"></script>
+            <script type="text/javascript" src="/stooltip.js"></script>
             <script>
                 plname = '{$player['name']}';
                 server = {$player['server']};
                 var ignor = [];
                 ignor[0] = '1';
-                top.ignor = JSON.parse('{$pl_ignor}');
+                window.top.ignor = JSON.parse('{$pl_ignor}');
             </script>
-            <script src="navigation.js"></script>         
+            <script src="/navigation.js"></script>         
         </html> 
 EOT;

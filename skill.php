@@ -1,5 +1,11 @@
 <?php
 
+$game_skill_wep = array();
+$game_skill_num = array();
+$game_skill_name = array();
+$game_skill_type = array();
+$game_skill_percent = array();
+
 $game_skill_wep[0] = 6;
 $game_skill_num[0] = 2;
 $game_skill_name[0][1] = "Обычный удар";

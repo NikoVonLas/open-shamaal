@@ -24,11 +24,11 @@ if ($obj_name == "Здоровье")
 	$newhp = $chp + $ran;
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>, жизни <font class=dmg>+$ran</font>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир здоровья.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 	
 	if ($newhp > $player_max_hp)
 		$newhp = $player_max_hp;
-	print "$jsptext top.sh($newhp,$player_max_hp);top.drbal($btime,$btime);";
+	print "$jsptext window.top.sh($newhp,$player_max_hp);window.top.drbal($btime,$btime);";
 	if ($newhp <> $chp)
 	{
 		$chp_percent = $player_max_hp / $newhp*100;
@@ -44,11 +44,11 @@ else if ($obj_name == "Козье молоко")
 	$newhp = $chp + $ran;
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>, жизни <font class=dmg>+$ran</font>]&nbsp;<b>$player_name </b>выпил$t[$sex] козье молоко.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 	
 	if ($newhp > $player_max_hp)
 		$newhp = $player_max_hp;
-	print "$jsptext top.sh($newhp,$player_max_hp);top.drbal($btime,$btime);";
+	print "$jsptext window.top.sh($newhp,$player_max_hp);window.top.drbal($btime,$btime);";
 	if ($newhp <> $chp)
 	{
 		$chp_percent = $player_max_hp / $newhp*100;
@@ -64,11 +64,11 @@ else if ($obj_name == "Восстановление")
 	$newhp = $chp + $ran;
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>, жизни <font class=dmg>+$ran</font>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир восстановления.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 	
 	if ($newhp > $player_max_hp)	
 		$newhp = $player_max_hp;
-	print "$jsptext top.sh($newhp,$player_max_hp);top.drbal($btime,$btime);";
+	print "$jsptext window.top.sh($newhp,$player_max_hp);window.top.drbal($btime,$btime);";
 	if ($newhp <> $chp)
 	{
 		$chp_percent = $player_max_hp / $newhp*100;
@@ -83,11 +83,11 @@ else if ($obj_name == "Энергия")
 	$newmana = $cmana + $ran;
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>, энергия <font class=mana>+$ran</font>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир энергии.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 	
 	if ($newmana > $player_max_mana)
 		$newmana = $player_max_mana;
-	print "$jsptext top.sm($newmana,$player_max_mana);top.drbal($btime,$btime);";
+	print "$jsptext window.top.sm($newmana,$player_max_mana);window.top.drbal($btime,$btime);";
 	if ($newmana <> $cmana)
 	{
 		$SQL="update sw_users SET cmana=$newmana where id = $player_id";
@@ -99,8 +99,8 @@ else if ($obj_name == "Движение")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир движения.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.delaflict(22);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.delaflict(22);";
 	$SQL="update sw_users SET aff_paralize=0 where id = $player_id";
 	SQL_do($SQL);
 	$player['effect'] = "ref";
@@ -111,7 +111,7 @@ else if ($obj_name == "Хлопушка")
 	$time = date("H:i");
 	
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>использовал".$t[$sex]." хлопушку с текстом <font color=red>`$obj_inf`</font>.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");top.shake(1);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");window.top.shake(1);";
 	print "$jsptext";
 	$player['effect'] = "ref";
 	$online_time = time()-60;
@@ -125,11 +125,11 @@ else if ($obj_name == "Выносливость")
 	$newmana = $cmana + $ran;
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>, энергия <font class=mana>+$ran</font>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир выносливости.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 	
 	if ($newmana > $player_max_mana)
 		$newmana = $player_max_mana;
-	print "$jsptext top.sm($newmana,$player_max_mana);top.drbal($btime,$btime);";
+	print "$jsptext window.top.sm($newmana,$player_max_mana);window.top.drbal($btime,$btime);";
 	if ($newmana <> $cmana)
 	{
 		$SQL="update sw_users SET cmana=$newmana where id = $player_id";
@@ -141,8 +141,8 @@ else if ($obj_name == "Смелость")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир смелости.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.delaflict(1);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.delaflict(1);";
 	$SQL="update sw_users SET aff_afraid=0 where id = $player_id";
 	SQL_do($SQL);
 	$player['effect'] = "ref";
@@ -151,8 +151,8 @@ else if ($obj_name == "Ясное зрение")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир ясного зрения.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.aflict(2,6); top.aflict(2,15); top.delaflict(10);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.aflict(2,6); window.top.aflict(2,15); window.top.delaflict(10);";
 	$SQL="update sw_users SET aff_cantsee=0,aff_see=$cur_time+10*12,aff_see_all=$cur_time+8*12 where id = $player_id";
 	SQL_do($SQL);
 	$player['effect'] = "ref";
@@ -161,8 +161,8 @@ else if ($obj_name == "Скорость")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир скорости.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.aflict(2,13);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.aflict(2,13);";
 	$SQL="update sw_users SET aff_speed=($cur_time+7*12) where id = $player_id";
 	SQL_do($SQL);
 	
@@ -172,8 +172,8 @@ else if ($obj_name == "Ясность ума")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир ясного ума.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.delaflict(19);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.delaflict(19);";
 	$SQL="update sw_users SET aff_dream=0 where id = $player_id";
 	SQL_do($SQL);
 	$player['effect'] = "ref";
@@ -188,8 +188,8 @@ else if ($obj_name == "Эль")
 	$r  =rand(1,4);
 	$text = $ta[$r];
 	
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 	
 }
 else if ($obj_name == "Шампанское")
@@ -205,15 +205,15 @@ else if ($obj_name == "Шампанское")
 	$r  =rand(1,7);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Заживление ран")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>выпил$t[$sex] эликсир заживления ран.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); top.delaflict(2);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); window.top.delaflict(2);";
 	$SQL="update sw_users SET aff_cut=0,aff_bleed_time=0 where id = $player_id";
 	SQL_do($SQL);
 	$player['effect'] = "ref";
@@ -238,8 +238,8 @@ else if ($obj_name == "Удар Лешака" || $obj_name == "Меткий Тр
 	$r =rand(1, 14);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Свадебное шампанское")
 {
@@ -255,8 +255,8 @@ else if ($obj_name == "Свадебное шампанское")
 	$r =rand(1, 8);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Медовуха")
 {
@@ -274,8 +274,8 @@ else if ($obj_name == "Медовуха")
 	$r =rand(1, 10);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";	
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";	
 }
 else if ($obj_name == "Зеленый эль")
 {
@@ -293,8 +293,8 @@ else if ($obj_name == "Зеленый эль")
 	$r =rand(1, 10);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";	
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";	
 }
 
 
@@ -307,8 +307,8 @@ else if ($obj_name == "Апельсиновый сок" || $obj_name == "Ово�
 	$r =rand(1, 3);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Иллюзия")
 {
@@ -324,8 +324,8 @@ else if ($obj_name == "Иллюзия")
 	$r =rand(1, 7);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Вспомни все!")
 {
@@ -341,8 +341,8 @@ else if ($obj_name == "Вспомни все!")
 	$r =rand(1, 7);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Шамаальская ночь")
 {
@@ -358,15 +358,15 @@ else if ($obj_name == "Шамаальская ночь")
 	$r =rand(1, 7);
 	$text = $ta[$r];
 	$player['drunk'] = 1;
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime); ";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime); ";
 }
 else if ($obj_name == "Табак")
 {
 	$time = date("H:i");
 	$text = "[<b>$player_name</b>]&nbsp;<b>$player_name </b> жуёт табак.";
-	$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-	print "$jsptext top.drbal($btime,$btime);";
+	$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+	print "$jsptext window.top.drbal($btime,$btime);";
 	$player['effect'] = "ref";
 	$dont_delete = false;
 }
@@ -405,14 +405,14 @@ else if ($obj_name == "Трубка")
 		$ta[1] = "[<b>$player_name</b>, жизни <font class=dmg>$ran</font>, энергия <font class=mana>+$ran2</font>]&nbsp;<b>$player_name </b>закурил$t[$sex] трубку с табаком.";
 		$r  =rand(1,1);
 		$text = $ta[$r];
-		$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+		$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 		
 	
 		$newhp = $chp + $ran;
 	
 		if ($newhp > $player_max_hp)
 			$newhp = $player_max_hp;
-		print "$jsptext top.invobj($o_id,$o_num);top.sm($newmana,$player_max_mana); top.sh($newhp,$player_max_hp); top.drbal($btime,$btime);";
+		print "$jsptext window.top.invobj($o_id,$o_num);window.top.sm($newmana,$player_max_mana); window.top.sh($newhp,$player_max_hp); window.top.drbal($btime,$btime);";
 		
 		if ($newhp <> $chp)
 		{
@@ -429,8 +429,8 @@ else if ($obj_name == "Трубка")
 	    $ta[1] = "[<b>$player_name</b>]&nbsp;<b>$player_name </b>пытается закурить пустую трубку.";
 		$r  =rand(1,1);
 		$text = $ta[$r];
-		$jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
-		print "$jsptext top.drbal($btime,$btime);";
+		$jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
+		print "$jsptext window.top.drbal($btime,$btime);";
 		$player['effect'] = "ref";
 	}
 	$dont_delete = false;
@@ -445,7 +445,7 @@ if ($dont_delete)
 	else
 		$SQL="delete from sw_obj where id=$id";
 		SQL_do($SQL);
-	print "top.invobj($id,$obj_num);";
+	print "window.top.invobj($id,$obj_num);";
 }
 print "</script>";
 if ($obj_name != "Хлопушка")

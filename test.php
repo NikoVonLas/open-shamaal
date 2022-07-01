@@ -133,15 +133,15 @@ if (!isset($player['style'])) {
                         <div class="dropdown-menu" aria-labelledby="dropdownSoc">
                             <button class="dropdown-item" type="button">
                                 <img src="/img/city.gif">
-                                <a href="menu.php?load=city" class="menu2" target="menu">Город</a>
+                                <a href="/menu.php?load=city" class="menu2" target="menu">Город</a>
                             </button>
                             <button class="dropdown-item" type="button">
                                 <img src="/img/city.gif">
-                                <a href="menu.php?load=clan" class="menu2" target="menu">Клан</a>
+                                <a href="/menu.php?load=clan" class="menu2" target="menu">Клан</a>
                             </button>
                             <button class="dropdown-item" type="button">
                                 <img src="/img/party.gif">
-                                <a href="menu.php?load=party" class="menu2" target="menu">Группа</a>
+                                <a href="/menu.php?load=party" class="menu2" target="menu">Группа</a>
                             </button>
                         </div>
                     </div>
@@ -152,15 +152,15 @@ if (!isset($player['style'])) {
                         <div class="dropdown-menu" aria-labelledby="dropdownOpt">
                             <button class="dropdown-item" type="button">
                                 <img src="/img/opt.gif">
-                                <a href="menu.php?load=opt" class="menu2" target="menu">Настройки</a>
+                                <a href="/menu.php?load=opt" class="menu2" target="menu">Настройки</a>
                             </button>
                             <button class="dropdown-item" type="button">
                                 <img src="/img/opt.gif">
-                                <a href="menu.php?load=ignor" class="menu2" target="menu">Игнорирование</a>
+                                <a href="/menu.php?load=ignor" class="menu2" target="menu">Игнорирование</a>
                             </button>
                             <button class="dropdown-item" type="button">
                                 <img src="/img/opt.gif">
-                                <a href="menu.php?load=obraz" class="menu2" target="menu">Выбор образа</a>
+                                <a href="/menu.php?load=obraz" class="menu2" target="menu">Выбор образа</a>
                             </button>
                         </div>
                     </div>

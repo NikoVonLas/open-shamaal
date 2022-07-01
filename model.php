@@ -1,6 +1,7 @@
 <?php
 session_start();
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}}
+if (empty($_SESSION['player'])) {exit();}}
 
 $resize_with = 15;
 

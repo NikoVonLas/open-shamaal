@@ -1,5 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
+	if (empty($_SESSION['player'])) {exit();}
 	$allow = 0;
 	if (!(isset($page)))
 		$page = 1;
@@ -241,12 +241,12 @@ if ( !session_is_registered("player")) {exit();}
 					$player['leg'] = 1;
                     if ($show != '') {
                         print "<script>
-						if (confirm('Вы действительно хотите купить $name $count шт. ?') ) { document.location='menu.php?action=$action&load=$load&do=$do&page=$page&act=$act&count=$count&obj_id=$obj_id&show=$show&player_legs=1'; } else {document.location='menu.php?load=unset';}
+						if (confirm('Вы действительно хотите купить $name $count шт. ?') ) { document.location='/menu.php?action=$action&load=$load&do=$do&page=$page&act=$act&count=$count&obj_id=$obj_id&show=$show&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 						</script>";
                     }
                     else {
                         print "<script>
-						if (confirm('Вы действительно хотите купить $name $count шт. ?') ) { document.location='menu.php?action=$action&load=$load&do=$do&page=$page&act=$act&count=$count&obj_id=$obj_id&show_specif=$show_specif&player_legs=1'; } else {document.location='menu.php?load=unset';}
+						if (confirm('Вы действительно хотите купить $name $count шт. ?') ) { document.location='/menu.php?action=$action&load=$load&do=$do&page=$page&act=$act&count=$count&obj_id=$obj_id&show_specif=$show_specif&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 						</script>";
                     }
 					SQL_disconnect();
@@ -268,14 +268,14 @@ if ( !session_is_registered("player")) {exit();}
                 $show_specif = '';
             }
 
-			print "<script>top.addshop(0,$num);";
+			print "<script>window.top.addshop(0,$num);";
 			if ($pages_return > 10) {
-                print "top.shoppager($page,$pages_return,'$show','$show_specif');";
+                print "window.top.shoppager($page,$pages_return,'$show','$show_specif');";
             }
 			
 			for ($i=1;$i<=$num;$i++)
-				print "top.addshop($i,'$info_obj[$i]');";
-			print "top.addshop(-1,$gold);";
+				print "window.top.addshop($i,'$info_obj[$i]');";
+			print "window.top.addshop(-1,$gold);";
 			print "</script>";
 		}
 		else
@@ -328,7 +328,7 @@ if ( !session_is_registered("player")) {exit();}
 			$adm = '';
 	//		print " (($owner_id == $player_clan) && ($owner_city == 3) && ($allow == 1))";
 			if ((($owner_id == $player_id) && ($owner_city == 0))  || (($owner_id == $player_clan) && ($owner_city == 3) && ($allow == 1)))
-				$adm = "(<a href=menu.php?load=admshop&id=$fid class=menu2 target=menu>Добавить</a>)";
+				$adm = "(<a href=/menu.php?load=admshop&id=$fid class=menu2 target=menu>Добавить</a>)";
 			if ($owner_city == 0)
 				$player['text'] = "<table height=100% width=100% ><tr><td align=center><table width=100% height=120><tr><td height=70><table align=center><tr><td width=85 height=58 background=/img/map/shop4.jpg></td><td valign=top><table><tr><td>Владелец: </td><td><b>Частный магазин</b></td></tr><tr><td>Дата создания:</td><td> <b>$obj_dat</b></td></tr><tr><td>Товаров: </td><td><b>$raznov шт.</b></td></tr></table></td></tr></table></td></tr><tr><td align=center colspan=2>Выберите интересующий вас раздел c товарами. $adm</td></tr></table></td></tr></table>";
 			else
@@ -341,7 +341,7 @@ if ( !session_is_registered("player")) {exit();}
 			$row_num=SQL_query_num($SQL);
 			while ($row_num){
 				$place=$row_num[0];
-				$pl .= "<b><a href=menu.php?load=buy&do=show&show=$place target=menu class=lin>» $m_place[$place]</b></a><br>";
+				$pl .= "<b><a href=/menu.php?load=buy&do=show&show=$place target=menu class=lin>» $m_place[$place]</b></a><br>";
 				$row_num=SQL_next_num();
 			}
 			if ($result)
@@ -355,13 +355,13 @@ if ( !session_is_registered("player")) {exit();}
             $row_num=SQL_query_num($SQL);
             while ($row_num){
                 $specif=$row_num[0];
-                $pl .= "<b><a href=menu.php?load=buy&do=show&show_specif=$specif target=menu class=lin>» $m_specif[$specif]</b></a><br>";
+                $pl .= "<b><a href=/menu.php?load=buy&do=show&show_specif=$specif target=menu class=lin>» $m_specif[$specif]</b></a><br>";
                 $row_num=SQL_next_num();
             }
             if ($result)
                 SQL_free_result($result);
 
-			print "<script>top.shop('$cname','$cbuy','$text','$pl');</script>";
+			print "<script>window.top.shop('$cname','$cbuy','$text','$pl');</script>";
 		}
 	}
 	else

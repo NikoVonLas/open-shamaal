@@ -29,22 +29,22 @@
 	Titles[3]='<table cellpadding=1 cellspacing=1><tr><td><b>Функции</b></td><td id=upimg></td></tr></table>';
 	
 	Links[0]=vs
-	+OL+"<table width=80%><tr><td width=15><img src=/img/i.gif></td><td><a href=menu.php?load=inf class=menu2 target=menu>Информация</a></td></tr></table>"+CL
-	+OL+"<table width=80%><tr><td width=15><img src=/img/bag.gif></td><td><a href=menu.php?load=inv class=menu2 target=menu>Инвентарь</a></td></tr></table>"+CL
-	+OL+"<table width=80%><tr><td width=15><img src=/img/zak.gif></td><td><a href=menu.php?load=magicbook class=menu2 target=menu>Заклинания</a></td></tr></table>"+CL
-	+OL+"<table width=80%><tr><td width=15><img src=/img/skills.gif></td><td><a href=menu.php?load=skills class=menu2 target=menu>Умения</a></td></tr></table>"+CL
-	+OL+"<table width=80%><tr><td width=15><img src=/img/at.gif></td><td><a href=# onclick=top.gotoskills(0); class=menu2>Действия</a></td></tr></table>"+CL
+	+OL+"<table width=80%><tr><td width=15><img src=/img/i.gif></td><td><a href=/menu.php?load=inf class=menu2 target=menu>Информация</a></td></tr></table>"+CL
+	+OL+"<table width=80%><tr><td width=15><img src=/img/bag.gif></td><td><a href=/menu.php?load=inv class=menu2 target=menu>Инвентарь</a></td></tr></table>"+CL
+	+OL+"<table width=80%><tr><td width=15><img src=/img/zak.gif></td><td><a href=/menu.php?load=magicbook class=menu2 target=menu>Заклинания</a></td></tr></table>"+CL
+	+OL+"<table width=80%><tr><td width=15><img src=/img/skills.gif></td><td><a href=/menu.php?load=skills class=menu2 target=menu>Умения</a></td></tr></table>"+CL
+	+OL+"<table width=80%><tr><td width=15><img src=/img/at.gif></td><td><a href=# onclick=window.top.gotoskills(0); class=menu2>Действия</a></td></tr></table>"+CL
 	
 	Links[1]=vs
-	+OL+"<table width=60%><tr><td width=15><img src=/img/city.gif></td><td><a href=menu.php?load=city class=menu2 target=menu>Город</a></td></tr></table>"+CL
-	+OL+"<table width=60%><tr><td width=15><img src=/img/city.gif></td><td><a href=menu.php?load=clan class=menu2 target=menu>Клан</a></td></tr></table>"+CL
-	+OL+"<table width=60%><tr><td width=15><img src=/img/party.gif></td><td><a href=menu.php?load=party class=menu2 target=menu>Группа</a></a></td></tr></table>"+CL
+	+OL+"<table width=60%><tr><td width=15><img src=/img/city.gif></td><td><a href=/menu.php?load=city class=menu2 target=menu>Город</a></td></tr></table>"+CL
+	+OL+"<table width=60%><tr><td width=15><img src=/img/city.gif></td><td><a href=/menu.php?load=clan class=menu2 target=menu>Клан</a></td></tr></table>"+CL
+	+OL+"<table width=60%><tr><td width=15><img src=/img/party.gif></td><td><a href=/menu.php?load=party class=menu2 target=menu>Группа</a></a></td></tr></table>"+CL
 	
 	
 	Links[2]=vs
-	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=menu.php?load=opt class=menu2 target=menu>Настройки</a></td></tr></table>"+CL
-	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=menu.php?load=ignor class=menu2 target=menu>Игнорирование</a></td></tr></table>"+CL
-	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=menu.php?load=obraz class=menu2 target=menu>Выбор образа</a></td></tr></table>"+CL
+	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=/menu.php?load=opt class=menu2 target=menu>Настройки</a></td></tr></table>"+CL
+	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=/menu.php?load=ignor class=menu2 target=menu>Игнорирование</a></td></tr></table>"+CL
+	+OL+"<table width=90%><tr><td width=15><img src=/img/opt.gif></td><td><a href=/menu.php?load=obraz class=menu2 target=menu>Выбор образа</a></td></tr></table>"+CL
 	
 	Links[3]=vs
 	+ "<font id=upmenutext></font>"
@@ -77,4 +77,4 @@
 		+a1+""+Titles[i]+a2+"</div>");
 		}
 	}
-	top.frames['menu'].document.location = 'menu.php?load=inf';
+	window.top.frames['menu'].document.location = '/menu.php?load=inf';

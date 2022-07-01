@@ -7,7 +7,7 @@ if ($npc_aff_bleed_time[$npccount] > $cur_time) //
 
  $dmg = -rand($npc_aff_bleed_power[$npccount]/2+5,$npc_aff_bleed_power[$npccount]+5); 
  $text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount]</b> истекает кровью.</i>";
- $ptext .= "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+ $ptext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
  $npchp += $dmg;
 }
 
@@ -16,7 +16,7 @@ if ($npc_aff_tree[$npccount] > $cur_time) //
  
  $dmg = -round($npc_maxhp[$npccount]*0.05); 
  $text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i>Разгневанный <b>лес</b> наносит урон обидчику.</i>";
- $ptext .= "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+ $ptext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
  $npchp += $dmg;
 // print "|test|";
 }

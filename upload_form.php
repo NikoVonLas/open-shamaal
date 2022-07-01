@@ -43,7 +43,7 @@
 
 	   }
 	   else
-		$upload_form = "<form action=\'menu.php\' name=\'frm_main\' method=\'post\' target=menu enctype=\'multipart/form-data\'>";
+		$upload_form = "<form action=\'/menu.php\' name=\'frm_main\' method=\'post\' target=menu enctype=\'multipart/form-data\'>";
 
 		$upload_form = $upload_form. "<input type=\'file\' name=\'fotka\' value=\'$f\' class=myi><br>";
 		$upload_form = $upload_form. "<input type=submit name=Submit style=\'width:200\' value=\'Загрузить образ(300kb)\'>";

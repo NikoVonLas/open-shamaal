@@ -140,11 +140,11 @@ function showskills()
         $n = '';
         $n2 = '';
         if ($skill_down > 0) {
-            $n = "<a href=menu.php?load=skills&downskill=$id target=menu><img src=/img/game/down.gif height=8 width=8></a>";
+            $n = "<a href=/menu.php?load=skills&downskill=$id target=menu><img src=/img/game/down.gif height=8 width=8></a>";
         }
 
         if ($s_up > 0) {
-            $n2 = "<a href=menu.php?load=skills&upskill=$id target=menu><img src=/img/game/up.gif height=8 width=8></a>";
+            $n2 = "<a href=/menu.php?load=skills&upskill=$id target=menu><img src=/img/game/up.gif height=8 width=8></a>";
         }
 
         $text .= "<tr><td class=mainb id=toptext valign=top height=10><table cellpadding=0 cellspacing=0 width=100%><tr><td width=140>$name</td><td width=60 align=center>$p</td><td width=8>$n</td><td width=40 align=right>$skill[$id]/$percent</td><td align=right width=8>$n2</td></tr></table></td></tr>";
@@ -161,5 +161,5 @@ function showskills()
     if ($skill_down > 0) {
         $p = "Сбросов: <b>$skill_down.</b>";
     }
-    print "<script charset=utf-8>top.ttext('Умения (Всего уроков: <b>$s_up</b>. Максимум уроков в одном умении: <b>$l</b>. $p)','$text');</script>";
+    print "<script charset=utf-8>window.top.ttext('Умения (Всего уроков: <b>$s_up</b>. Максимум уроков в одном умении: <b>$l</b>. $p)','$text');</script>";
 }

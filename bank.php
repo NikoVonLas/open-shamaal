@@ -1,6 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
-
+if (empty($_SESSION['player'])) {exit();}
 $player_leg = $player['leg'];
 
 if (($action == "putgold") || ($action == "getgold")) 
@@ -80,7 +79,7 @@ if ($what == "bank")
 		{
 			$player['leg'] = 1;
 			print "<script>
-				if (confirm('Вы действительно хотите положить $put_gold злт в банк?') ) { document.location='menu.php?action=$action&load=$load&put_gold=$put_gold&player_legs=1'; } else {document.location='menu.php?load=unset';}
+				if (confirm('Вы действительно хотите положить $put_gold злт в банк?') ) { document.location='/menu.php?action=$action&load=$load&put_gold=$put_gold&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 				</script>";
 			SQL_disconnect();
 			exit();
@@ -118,15 +117,15 @@ if ($what == "bank")
 		{
 			$player['leg'] = 1;
 			print "<script>
-				if (confirm('Вы действительно хотите снять $get_gold злт из банка?') ) { document.location='menu.php?action=$action&load=$load&get_gold=$get_gold&player_legs=1'; } else {document.location='menu.php?load=unset';}
+				if (confirm('Вы действительно хотите снять $get_gold злт из банка?') ) { document.location='/menu.php?action=$action&load=$load&get_gold=$get_gold&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 				</script>";
 			SQL_disconnect();
 			exit();
 		}
 	}
 	
-	$main = "<table width=99% align=center cellpadding=5><tr><td width=350><font color=AAAAAA><b>- У вас на руках</b></font></td><td><font color=444400 class=80><b>$gold злт.</b></font></td></tr><tr><td><font color=AAAAAA><b>- На счету в банке</b></font></td><td><font color=444400><b>$bank_gold злт.</b></font></td></tr><tr><td><font color=AAAAAA><b>- Налог города $name</b></font></td><td><font color=444400><b>$bank %</b></font></td></tr><tr><td colspan=2 height=10><hr width=98% align=333333></td></tr><tr><td width=350><font color=AAAAAA><b>- Положить на счёт</b></font></td><td><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=putgold><input type=text name=put_gold size=5 maxlength=6 value=$gold>&nbsp;<input type=submit value=Положить style=width:70></td></form></tr><tr><td><font color=AAAAAA><b>- Снять со счёта</b></font></td><td><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=getgold><input type=text name=get_gold size=5 maxlength=6 value=$bank_gold>&nbsp;<input type=submit value=Снять style=width:70></form></td></tr>$add</table>";
-	print "<script>top.domir('$text','$main');</script>";
+	$main = "<table width=99% align=center cellpadding=5><tr><td width=350><font color=AAAAAA><b>- У вас на руках</b></font></td><td><font color=444400 class=80><b>$gold злт.</b></font></td></tr><tr><td><font color=AAAAAA><b>- На счету в банке</b></font></td><td><font color=444400><b>$bank_gold злт.</b></font></td></tr><tr><td><font color=AAAAAA><b>- Налог города $name</b></font></td><td><font color=444400><b>$bank %</b></font></td></tr><tr><td colspan=2 height=10><hr width=98% align=333333></td></tr><tr><td width=350><font color=AAAAAA><b>- Положить на счёт</b></font></td><td><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=putgold><input type=text name=put_gold size=5 maxlength=6 value=$gold>&nbsp;<input type=submit value=Положить style=width:70></td></form></tr><tr><td><font color=AAAAAA><b>- Снять со счёта</b></font></td><td><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=getgold><input type=text name=get_gold size=5 maxlength=6 value=$bank_gold>&nbsp;<input type=submit value=Снять style=width:70></form></td></tr>$add</table>";
+	print "<script>window.top.domir('$text','$main');</script>";
 }
 else
 	print "<script>alert('Функция недоступна.')</script>";

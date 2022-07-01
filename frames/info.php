@@ -17,13 +17,16 @@
         <html>
             <head>
                 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-                <link rel="stylesheet" type="text/css" href="style.css">
+                <link rel="stylesheet" type="text/css" href="/style.css">
                 <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
             </head>
             <title>Shamaal World</title>
             
             <div id="stooltipmsg" class="stooltip">
-                <div id="stooltip_e1"></div><div id="stooltip_e2"></div><div id="stooltip_e3"></div><div id="stooltip_e4"></div>
+                <div id="stooltip_e1"></div>
+                <div id="stooltip_e2"></div>
+                <div id="stooltip_e3"></div>
+                <div id="stooltip_e4"></div>
                 <div id="stooltip_e5">  
                   <div id="stooltip_e6">
                       <div id="stooltiptext" style="padding: 0; margin: 0;"></div>
@@ -52,7 +55,7 @@
                                     </b>
                                 </td>
                                 <td width="35" align="left">
-                                    <a href="menu.php?load=exit" target=menu>
+                                    <a href="/menu.php?load=exit" target=menu>
                                         <img src="/img/exit.gif" width="32" height="18"  alt="Выход из игры">
                                     </a>
                                 </td>
@@ -199,6 +202,6 @@
                     </td>
                 </tr>
             </table>
-            <script type="text/javascript" src="stooltip.js"></script>
+            <script type="text/javascript" src="/stooltip.js"></script>
         </html> 
 EOT;

@@ -1,29 +1,29 @@
 <?php
-    require_once('./include.php');
+    require_once('../include.php');
 
     if ($player['show'] == 0) {
         $location = '<b>Локация</b>';
     } else {
-        $location = '<a href="menu.php?load=c_user&to=0" class="menu" target="menu">Локация</a>';
+        $location = '<a href="/menu.php?load=c_user&to=0" class="menu" target="menu">Локация</a>';
     }
 
     if ($player['show'] == 1) {
         $city = '<b>Город</b>';
     } else {
-        $city = '<a href="menu.php?load=c_user&to=1" class="menu" target="menu">Город</a>';
+        $city = '<a href="/menu.php?load=c_user&to=1" class="menu" target="menu">Город</a>';
     }
 
     if ($player['show'] == 2) {
         $world = '<b>Мир</b>';
     } else {
-        $world = '<a href="menu.php?load=c_user&to=2" class="menu" target="menu">Мир</a>';
+        $world = '<a href="/menu.php?load=c_user&to=2" class="menu" target="menu">Мир</a>';
     }
 
     echo <<<EOT
     <html>
         <head>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-            <link rel="stylesheet" type="text/css" href="style.css">
+            <link rel="stylesheet" type="text/css" href="/style.css">
             <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
         </head>
         <title>Shamaal World</title>

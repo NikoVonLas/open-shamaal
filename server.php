@@ -1,7 +1,7 @@
 <?
 
-if ($internal_server_update_secure_key == getenv('SERVER_UPDATE_KEY')) {
-    if (session_is_registered("player")) {
+if (!empty($internal_server_update_secure_key) && $internal_server_update_secure_key == getenv('SERVER_UPDATE_KEY')) {
+    if (!empty($_SESSION['player'])) {
         exit();
     }
 
@@ -9,7 +9,7 @@ if ($internal_server_update_secure_key == getenv('SERVER_UPDATE_KEY')) {
     fputs($file, time());
     fclose($file);
 } else {
-    if (!session_is_registered("player")) {
+    if (empty($_SESSION['player'])) {
         exit();
     }
 }
@@ -244,7 +244,7 @@ if ($min2 + 120 < $cur_time)
 	for ($k = 1;$k <= $i; $k++)
 	{
 		$text = "Ваше животное умерло от голода.";
-		$ptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+		$ptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 		$SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where id=$own[$k]";
 		SQL_do($SQL);
 	}
@@ -266,7 +266,7 @@ if ($min2 + 120 < $cur_time)
 	$SQL="select id,resp_room,on_location from sw_users where npc=1 and online+resp_time<$on_time";
 	$row_num=SQL_query_num($SQL);
 	while ($row_num){
-        //print "top.add(\"$time\",\"\",\"$row_num[0]\",2,\"\");";
+        //print "window.top.add(\"$time\",\"\",\"$row_num[0]\",2,\"\");";
 		$i++;
 		$np_id[$i]=$row_num[0];
 		$np_rr[$i]=$row_num[1];
@@ -375,7 +375,7 @@ if ($min2 + 120 < $cur_time)
 				if ($ggold >= $f_gold)
 				{
 					$text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b> (Выигрыш: $f_gold злт.).";
-					$jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex = "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
 					$SQL="update sw_users set gold=gold+$f_gold where id=$arenaid";
 					SQL_do($SQL);
 					$SQL="update sw_city set money=money-$f_gold where id=$acity[$k]";
@@ -384,9 +384,9 @@ if ($min2 + 120 < $cur_time)
 				else
 				{
 					$text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b>.";
-					$jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex = "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
 					$text = "У города нет средств, чтобы выплатить выигрыш победителю.";
-					$jsptex .= "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+					$jsptex .= "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
 				}
 				if ($arncity[$k] <> 0)
 					$SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
@@ -436,7 +436,7 @@ if ($min2 + 120 < $cur_time)
 			$SQL="delete from sw_total where owner=$fg[$k]";
 			SQL_do($SQL);
 			$tattext = "<b> * Деньги с тотализатора были возвращены в связи с ничьей. * </b>";
-			$tattext = "top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
+			$tattext = "window.top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
 			for ($n = 1;$n<=$p;$n++)
 			{
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$tattext'),gold=gold+$total_money[$n] where npc=0 and id=$total_owner[$n]";
@@ -475,7 +475,7 @@ if ($min2 + 120 < $cur_time)
 				$total_old = $total_money[$n];
 				$total_money[$n] = $total_money[$n]/$sumwon * $sum;
 				$tattext = "<b> * Ваша ставка выиграла на тотализаторе. Ставка: <font color=555500>$total_old злт</font>, выигрыш:<font color=555500> $total_money[$n] злт</font>.* </b>";
-				$tattext = "top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
+				$tattext = "window.top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$tattext'),gold=gold+$total_money[$n] where npc=0 and id=$total_owner[$n]";
 				SQL_do($SQL);
 				//print "alert($p);";

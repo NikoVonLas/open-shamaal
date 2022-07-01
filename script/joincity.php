@@ -81,7 +81,7 @@ if ( $id != "" )
     $mtext = str_replace( chr( 10 ), "", $mtext );
     $mtext = str_replace( chr( 13 ), "", $mtext );
     $mtext = str_replace( chr( 13 ), "", $mtext );
-    $info = "<form action=menu.php method=post target=menu><table width=100% height=100%><input type=hidden name=do value=backjoin><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><tr><td valign=top><font color=AAAAAA><b>- Информация о заявке</b></font><br>";
+    $info = "<form action=/menu.php method=post target=menu><table width=100% height=100%><input type=hidden name=do value=backjoin><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><tr><td valign=top><font color=AAAAAA><b>- Информация о заявке</b></font><br>";
     $info .= "<table width=290 cellpadding=1 cellspacing=0><tr><td><table width=90% align=center cellspacing=0 cellspacing=0><tr><td><b>- Заявка в городе {$name}</b></td></tr></table></td></tr></table>";
     $info .= "<table width=290 cellpadding=1 cellspacing=0><tr><td><table width=90% align=center cellspacing=0 cellspacing=0><tr><td><b>- Дата подачи заявки <font color=AA0000>{$date}</a></b></td></tr></table></td></tr></table>";
     $info .= "<table width=290 cellpadding=1 cellspacing=0><tr><td><table width=90% align=center cellspacing=0 cellspacing=0><tr><td><b>- Время подачи заявки <font color=AA0000>{$time}</a></b></td></tr></table></td></tr></table>";
@@ -91,7 +91,7 @@ if ( $id != "" )
 }
 else
 {
-    $info = "<form action=menu.php method=post target=menu><table width=100% height=100% cellpadding=0 cellspacing=2><input type=hidden name=do value=joincity><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><tr><td valign=top><font color=AAAAAA><b>- Заполнение формы</b></font><br>";
+    $info = "<form action=/menu.php method=post target=menu><table width=100% height=100% cellpadding=0 cellspacing=2><input type=hidden name=do value=joincity><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><tr><td valign=top><font color=AAAAAA><b>- Заполнение формы</b></font><br>";
     $SQL = "select id,name from sw_city where id<>7 and id<>1";
     $row_num = sql_query_num( $SQL );
     while ( $row_num )

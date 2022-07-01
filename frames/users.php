@@ -5,10 +5,10 @@
     if ($player['users'] != "") {
         $oldUsersScript = "
                 <script>
-                    top.setchan({$show});
-                    top.du('');
+                    window.top.setchan({$show});
+                    window.top.du('');
                     {$player['users']};
-                    top.fu(0,0);
+                    window.top.fu(0,0);
                 </script>
         ";
     }
@@ -19,7 +19,7 @@
         <head>
             <title>Shamaal World</title>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-            <link rel="stylesheet" type="text/css" href="style.css" title="style">
+            <link rel="stylesheet" type="text/css" href="/style.css" title="style">
             <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
         </head>
         <body>
@@ -30,12 +30,11 @@
                 <div id="stooltip_e4"></div>
                 <div id="stooltip_e5">  
                     <div id="stooltip_e6">
-                        <div id="stooltiptext" style="padding: 0; margin: 0;"></div>
+                        <div id="stooltip
+                        text" style="padding: 0; margin: 0;"></div>
                     </div>
                 </div>
             </div>
-            <script type="text/javascript" src="stooltip.js"></script>
-            <script type="text/javascript" src="jquery.min.js"></script>
             <table cellpadding="0" cellspacing="0" width="100%" height="100%">
                 <tr>
                     <td width="1" height="100%" bgcolor="#8898AF">
@@ -51,8 +50,8 @@
                                                 <b>»</b>&nbsp;Список&nbsp;игроков
                                             </td>
                                             <td>
-                                                &nbsp;<a href="map.php?dir=-1" target="emap">
-                                                    <img src="pic/game/ref.gif">
+                                                &nbsp;<a href="/map.php?dir=-1" target="emap">
+                                                    <img src="/img/game/ref.gif">
                                                 </a>&nbsp;
                                             </td>
                                             <td>:</td>
@@ -67,19 +66,19 @@
                                 <td width="12"></td>
                                 <td width="40"> 
                                     <div id="mute" width="18" style="float:left;"></div>
-                                    <a href="../fullinfo.php?name={$player['name']}" target="_blank">
-                                        <img src="pic/game/info.gif" width="13" height="13">
+                                    <a href="/fullinfo.php?name={$player['name']}" target="_blank">
+                                        <img src="/img/game/info.gif" width="13" height="13">
                                     </a>
                                 </td>
                                 <td width="18"></td>
                                 <td width="18">
-                                    <img src="pic/game/attack.gif" width="15" height="15">
+                                    <img src="/img/game/attack.gif" width="15" height="15">
                                 </td>
                                 <td width="20">
-                                    [<a onclick="top.textenter('/приват {$player['name']}';);" style="cursor:hand"><span color="00237B"><b>П</b></span></a>]
+                                    [<a onclick="window.top.textenter('/приват {$player['name']}';);" style="cursor:hand"><span color="00237B"><b>П</b></span></a>]
                                 </td>
                                 <td class="usergood">
-                                    <a onclick="top.entertext('{$player['name']}')"; style="cursor:hand">{$player['name']}</a>&nbsp;
+                                    <a onclick="window.top.entertext('{$player['name']}')"; style="cursor:hand">{$player['name']}</a>&nbsp;
                                     <span id="myclantext" class="userclan"></span>
                                 </td>
                             </tr>
@@ -94,6 +93,8 @@
                     </td>
                 </tr>
             </table>
+            <script type="text/javascript" src="/stooltip.js"></script>
+            <script type="text/javascript" src="/jquery.min.js"></script>
             {$oldUsersScript}
         </body>
     </html>

@@ -1,5 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}
 $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id=$player_id and what='rep'";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
@@ -153,5 +153,5 @@ For ($i=1;$i<=$numcount;$i++)
 }
 $player['text'] = $mtext;
 $text .= " (<font color=777700 id=ggold>$gold</font> злт.)";
-print "<script>top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
+print "<script>window.top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
 ?>

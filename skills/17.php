@@ -85,7 +85,7 @@ if ($wepontype[$player_id] == 4) {
     if ($npc_kick == 0) {
         if (($target_id == $player_id) && ($num == 4) && ($pl_cmana[$player_id] - 15 >= 0)) {
             if (strpos(" $player_aff", ",9);") == 0) {
-                print "top.aflict(2,9);";
+                print "window.top.aflict(2,9);";
             }
         }
     }

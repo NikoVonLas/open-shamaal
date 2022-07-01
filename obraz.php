@@ -60,7 +60,7 @@ if ( !isset( $show ) )
 {
     $show = 0;
 }
-$text = "<form action=menu.php method=post target=menu><table cellpadding=0 cellspacing=0 width=100%><input type=hidden name=load value={$load}><tr><td>Выбрать образ из:&nbsp;</td><td align=right><select name=show><option value=0 sel0>Стандартных</option><option value=1  sel1>Дополнительных</option><option value=2 sel2>Своих образов</option></select> <input type=submit value=Показать style=margin-right:10px></td></tr></table></form>";
+$text = "<form action=/menu.php method=post target=menu><table cellpadding=0 cellspacing=0 width=100%><input type=hidden name=load value={$load}><tr><td>Выбрать образ из:&nbsp;</td><td align=right><select name=show><option value=0 sel0>Стандартных</option><option value=1  sel1>Дополнительных</option><option value=2 sel2>Своих образов</option></select> <input type=submit value=Показать style=margin-right:10px></td></tr></table></form>";
 $text = str_replace( "sel{$show}", "SELECTED", $text );
 if ( $show == 1 )
 {
@@ -89,7 +89,7 @@ if ( $show == 1 )
         if ($from == $page) {
             $page_html .= "|<b>{$page_text}</b>|";
         } else {
-            $page_html .= "|<a href=menu.php?load={$load}&page={$from}&show={$show} class=menu target=menu>{$page_text}</a>|";
+            $page_html .= "|<a href=/menu.php?load={$load}&page={$from}&show={$show} class=menu target=menu>{$page_text}</a>|";
         }
     }
 
@@ -108,7 +108,7 @@ if ( $show == 1 )
         $mc = '';
 
         if ($pack & 1) {
-            $mc = "<a href=menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict=obraz{$i}{$sx}.gif class=menu target=menu>Выбрать</a>";
+            $mc = "<a href=/menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict=obraz{$i}{$sx}.gif class=menu target=menu>Выбрать</a>";
         }
         $info .= "<td align=center><img src=/img/obraz/obraz{$i}{$sx}.gif width={$i_x} height={$i_y}><br><br>{$mc}</td>";
     }
@@ -155,7 +155,7 @@ else if ( $show == 2 )
             if ($from == $page) {
                 $page_html .= "|<b>{$page_text}</b>|";
             } else {
-                $page_html .= "|<a href=menu.php?load={$load}&page={$from}&show={$show} class=menu target=menu>{$page_text}</a>|";
+                $page_html .= "|<a href=/menu.php?load={$load}&page={$from}&show={$show} class=menu target=menu>{$page_text}</a>|";
             }
         }
 
@@ -174,7 +174,7 @@ else if ( $show == 2 )
             $mc = '';
 
             if ($pack & 1) {
-                $mc = "<a href=menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict={$avatars[$i - 1]['user_id']}%2F{$avatars[$i - 1]['filename']} class=menu target=menu>Выбрать</a>";
+                $mc = "<a href=/menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict={$avatars[$i - 1]['user_id']}%2F{$avatars[$i - 1]['filename']} class=menu target=menu>Выбрать</a>";
             }
             $info .= "<td align=center><img src=/img/obraz/{$avatars[$i - 1]['user_id']}/{$avatars[$i - 1]['filename']} width={$i_x} height={$i_y}><br><br>{$mc}</td>";
         }
@@ -222,7 +222,7 @@ else
         }
         else
         {
-            $p .= "|<a href=menu.php?load={$load}&page={$i} class=menu target=menu>{$i}-{$e}</a>|";
+            $p .= "|<a href=/menu.php?load={$load}&page={$i} class=menu target=menu>{$i}-{$e}</a>|";
         }
     }
     $info .= "<br><div align=center>{$p}</div><br><table cellpadding=0 width=100%>";
@@ -237,12 +237,12 @@ else
             $imagehw = getimagesize( "../img/obraz/obraz".$n.$sx."fr.gif" );
             $i_x = round( $imagehw[0] / 2 );
             $i_y = round( $imagehw[1] / 2 );
-            $info .= "<td align=center><img src=/img/obraz/obraz".$n.$sx."fr.gif width={$i_x} height={$i_y}><br><br><a href=menu.php?load={$load}&action=setnormal&page={$page}&pict=obraz".$n.$sx."fr.gif class=menu target=menu>Выбрать</a></td>";
+            $info .= "<td align=center><img src=/img/obraz/obraz".$n.$sx."fr.gif width={$i_x} height={$i_y}><br><br><a href=/menu.php?load={$load}&action=setnormal&page={$page}&pict=obraz".$n.$sx."fr.gif class=menu target=menu>Выбрать</a></td>";
             continue;
             break;
         }
     }
     $info .= "</table>";
 }
-print "<script>top.settop('Выбор образа');top.obraz('',`{$pic}`,`{$menu}`,`{$text}`,`{$info}`,1);</script>";
+print "<script>window.top.settop('Выбор образа');window.top.obraz('',`{$pic}`,`{$menu}`,`{$text}`,`{$info}`,1);</script>";
 ?>

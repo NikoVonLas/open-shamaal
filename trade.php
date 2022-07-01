@@ -9,7 +9,7 @@ function noTrade()
 	$fftext = "parent.add(\"$time\",\"$target_name\",\"** $text ** \",6,\"\");";
 	//$fftext = "<script>".$ftext."</script>";
 	$SQL="update sw_users SET mytext=CONCAT(mytext,'$fftext') where id=$hid";
-	print "top.".$ftext."</script>";
+	print "window.top.".$ftext."</script>";
 	
 	SQL_do($SQL);
 	$SQL="delete from sw_trade where owner=$trade_id";
@@ -83,9 +83,9 @@ else if ($action == 'addtrade')
 				$text = "Вы подали заявку на торговлю герою <b>$target_name</b>.";
 	   			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",5,\"$player_name\");";
 				$t = "Торговля";
-				$main = "<table cellpadding=3 width=100%><tr><Td><b>В данный момент вы можете:</b><br></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Обновить onclick=\"top.frames[\'menu\'].document.location = \'menu.php?load=trade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>текущий статус торговых отношений.</b></font></td></tr></table></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Убрать onclick=\"top.frames[\'menu\'].document.location = \'menu.php?load=trade&action=deltrade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>заявку на торговые отношения.</b></font></td></tr></table></td></tr><tr><td><hr size=1 color=#555555><br> - Подождите, пока пользователь подтвердит вашу заявку на торговлю.</td></tr><tr><td> - Для торговли требуется как минимум $level_need уровень.</td></tr><tr><td> - В одной торговле может участвовать не более 3-x предметов.</td></tr><tr><td> - Вся торговля контролируется администрацией, а поэтому все нарушения будут<br>&nbsp; выявлены и наказаны.</td></tr></table>";
-				print "<script>$text top.domir('$t','$main'); refresh = setTimeout(\"document.location = 'menu.php?load=trade&trade_id=$max';\",12000);</script>";
-				$text = "<b>$player_name</b> предлагает торговать.&nbsp;<a href=menu.php?load=trade&action=accept&trade_id=$max class=menu target=menu><b>[Согласиться]</b></a>";
+				$main = "<table cellpadding=3 width=100%><tr><Td><b>В данный момент вы можете:</b><br></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Обновить onclick=\"window.top.frames[\'menu\'].document.location = \'/menu.php?load=trade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>текущий статус торговых отношений.</b></font></td></tr></table></td></tr><tr><td><table><tr><td>- </td><td><input type=submit value=Убрать onclick=\"window.top.frames[\'menu\'].document.location = \'/menu.php?load=trade&action=deltrade&trade_id=$max\';\"></td><td><b><font color=AAAAAA>заявку на торговые отношения.</b></font></td></tr></table></td></tr><tr><td><hr size=1 color=#555555><br> - Подождите, пока пользователь подтвердит вашу заявку на торговлю.</td></tr><tr><td> - Для торговли требуется как минимум $level_need уровень.</td></tr><tr><td> - В одной торговле может участвовать не более 3-x предметов.</td></tr><tr><td> - Вся торговля контролируется администрацией, а поэтому все нарушения будут<br>&nbsp; выявлены и наказаны.</td></tr></table>";
+				print "<script>$text window.top.domir('$t','$main'); refresh = setTimeout(\"document.location = '/menu.php?load=trade&trade_id=$max';\",12000);</script>";
+				$text = "<b>$player_name</b> предлагает торговать.&nbsp;<a href=/menu.php?load=trade&action=accept&trade_id=$max class=menu target=menu><b>[Согласиться]</b></a>";
 	   			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",5,\"$player_name\");";
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id=$target_id";
 				SQL_do($SQL);
@@ -160,7 +160,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 					$num = getobjinfo("sw_obj.owner = $player_id and room = 0 and active=0 and sw_obj.id=$obj_id  and sw_stuff.client=0","","name=action value=addobj",0,0.3,1,$gold);
 					if (($num > 0) && ($info_obj_id[$num] == $obj_id))
 					{
-						print "top.addinvobj($info_obj_id[$num],$info_obj_num[$num],'$info_obj[$num]');";
+						print "window.top.addinvobj($info_obj_id[$num],$info_obj_num[$num],'$info_obj[$num]');";
 						$SQL="delete from sw_trade where owner=$trade_id and obj_id=$obj_id and pl_id=$player_id";
 						SQL_do($SQL);
 						$SQL="update sw_trading set pl_ask1=0,pl_ask2=0 where id=$trade_id ";
@@ -214,10 +214,10 @@ if ((isset($trade_id)) && ($trade_id > 0))
 								SQL_do($SQL);
 							}
 							if ($o_num == 0)
-								print " top.addtrade(0,$obj_id,'mytr','$info_obj[$num]','$info_obj_name[$num]',$count,$trade_id); ";
+								print " window.top.addtrade(0,$obj_id,'mytr','$info_obj[$num]','$info_obj_name[$num]',$count,$trade_id); ";
 							else
-								print " top.addtrade(1,$obj_id,'mytr','$info_obj[$num]','$info_obj_name[$num]',$n,$trade_id); ";
-							print "top.invobj($obj_id,$info_obj_num[$num]);";
+								print " window.top.addtrade(1,$obj_id,'mytr','$info_obj[$num]','$info_obj_name[$num]',$n,$trade_id); ";
+							print "window.top.invobj($obj_id,$info_obj_num[$num]);";
 							
 						}
 					}
@@ -250,7 +250,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 				$t = $player['text'];
 				
 				$max_weight = round(($race_str[$race]+$str)*(1+$bag_q/9));
-				print "top.trade($max_weight,'$player_name','$hname');";
+				print "window.top.trade($max_weight,'$player_name','$hname');";
 			}
 			$s = '';
 			$n = 0;
@@ -295,7 +295,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 			if ($result)
 				SQL_free_result($result);
 			$cur_weight -=  $weight/10;
-			print "top.tradeweight($cur_weight);";
+			print "window.top.tradeweight($cur_weight);";
 			if ($pl_id1 <> $player_id)
 			{
 				$t = $pl_ask1;
@@ -482,7 +482,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 								
 							}
 						}
-						print "top.asktrade($trade_id,$pl_ask1,$pl_ask2);</script>";
+						print "window.top.asktrade($trade_id,$pl_ask1,$pl_ask2);</script>";
 						$SQL="delete from sw_trade where owner=$trade_id";
 						SQL_do($SQL);
 						$SQL="select name,ip from sw_users where id=$hid";
@@ -520,7 +520,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 					print "alert('Вы не сможете поднять столько вещей');";
 				
 			}
-			print "top.asktrade($trade_id,$pl_ask1,$pl_ask2);";
+			print "window.top.asktrade($trade_id,$pl_ask1,$pl_ask2);";
 			if (($pl_ask2 == 2) && ($pl_ask1 == 2))
 			{
 				print "</script>";
@@ -531,7 +531,7 @@ if ((isset($trade_id)) && ($trade_id > 0))
 				SQL_disconnect();
 				exit();
 			}
-			print " top.addtrade(2,0,'hetr','','',0,$trade_id); ";
+			print " window.top.addtrade(2,0,'hetr','','',0,$trade_id); ";
 			if ($s <> "")
 			{
 				$s = " and (".$s.")";
@@ -547,17 +547,17 @@ if ((isset($trade_id)) && ($trade_id > 0))
 					if ($nm > 0)
 					{
 						$p++;
-						print " top.addtrade(0,$info_obj_id[$i],'hetr','$info_obj[$i]','$info_obj_name[$i]',$nm,$trade_id); ";
+						print " window.top.addtrade(0,$info_obj_id[$i],'hetr','$info_obj[$i]','$info_obj_name[$i]',$nm,$trade_id); ";
 					}
 				}
 			}
 			
-			print " refresh = setTimeout(\"document.location = 'menu.php?load=trade&trade_id=$trade_id&stg=1';\",12000);</script>";
+			print " refresh = setTimeout(\"document.location = '/menu.php?load=trade&trade_id=$trade_id&stg=1';\",12000);</script>";
 			
 		}
 		else if ($stage == 0)
 		{
-			print "<script>refresh = setTimeout(\"document.location = 'menu.php?load=trade&trade_id=$trade_id';\",12000);</script>";
+			print "<script>refresh = setTimeout(\"document.location = '/menu.php?load=trade&trade_id=$trade_id';\",12000);</script>";
 		}
 		
 	}

@@ -1,9 +1,6 @@
 <?php
 
-if ( !session_is_registered( "player" ) )
-{
-    exit( );
-}
+if (empty($_SESSION['player'])) {exit();}
 $showit = 1;
 $what = "";
 $SQL = "select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bank_gold,bag_q,city,level,chp_percent,race,sex,arena_post from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id={$player_id} and sw_object.fid={$id}";
@@ -142,7 +139,7 @@ if ( $what == "arena" )
             }
             if ( $gtim != "")
             {
-                $info = "<table><tr><td><b><font color=AAAAAA> - Ваша заявка была предложена сопернику.</font></b></td></tr><tr><td><table><tr><td> - </td><form action=menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=onl value=1><td><input type=submit value=Обновить></td></form><td> текущий статус предложения.</td></tr></table><table><tr><td> - </td><form action=menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=do value=del><td><input type=submit value=Убрать></td></form><td> предложение и вернуться к списку заявок.</td></tr></table></td></tr></table>";
+                $info = "<table><tr><td><b><font color=AAAAAA> - Ваша заявка была предложена сопернику.</font></b></td></tr><tr><td><table><tr><td> - </td><form action=/menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=onl value=1><td><input type=submit value=Обновить></td></form><td> текущий статус предложения.</td></tr></table><table><tr><td> - </td><form action=/menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=do value=del><td><input type=submit value=Убрать></td></form><td> предложение и вернуться к списку заявок.</td></tr></table></td></tr></table>";
                 $rtext = "Заявка подана";
             }
             else
@@ -178,14 +175,14 @@ if ( $what == "arena" )
                     }
                     else
                     {
-                        $p .= "|<a href=menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
+                        $p .= "|<a href=/menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
                     }
                 }
                 if ( $p == "" )
                 {
                     $p = "Подходящих заявок не найдено.";
                 }
-                print "<script>top.regdo(0,-1,'',0,0,0,'{$p}');";
+                print "<script>window.top.regdo(0,-1,'',0,0,0,'{$p}');";
                 $n = 0;
                 $SQL = "select id,name,level,tim,allow_bet from sw_arena_reg where level<={$level}+5 and level>={$level}-5 order by tim desc limit {$page},10";
                 $row_num = sql_query_num( $SQL );
@@ -197,7 +194,7 @@ if ( $what == "arena" )
                     $slevel = $row_num[2];
                     $stim = $row_num[3];
                     $sallow_bet = $row_num[4];
-                    print "top.regdo({$id},{$sid},'{$sname}',{$slevel},'{$stim}',{$sallow_bet},'');";
+                    print "window.top.regdo({$id},{$sid},'{$sname}',{$slevel},'{$stim}',{$sallow_bet},'');";
                     $row_num = sql_next_num( );
                 }
                 if ( $result )
@@ -208,20 +205,20 @@ if ( $what == "arena" )
                 if ( $onl == 1 )
                 {
                     $showit = 0;
-                    print "<script>top.doreguest({$random});</script>";
+                    print "<script>window.top.doreguest({$random});</script>";
                 }
                 else
                 {
                     $random = rand( 1, 9999 );
-                    $player['text'] = "<div id=regall></div><script>top.doreguest({$random});</script>";
+                    $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
                     $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=\'iframe{$random}\' name=\'iframe{$random}\'></iframe>";
                 }
             }
-            print "<script>refresh = setTimeout(\"document.location = 'menu.php?load={$load}&action={$action}&id={$id}&onl=1&random={$random}';\",12000);</script>";
+            print "<script>refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&random={$random}';\",12000);</script>";
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=1&id={$id} target=menu class=menu><b>» Список заявок</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=1&id={$id} target=menu class=menu><b>» Список заявок</b></a>";
         }
         if ( $action == 2 )
         {
@@ -336,10 +333,10 @@ if ( $what == "arena" )
                             }
                         }
                         $text = "* <b>Вы</b> подтвердили вызов соперника. Бой начнётся через 1 минуту. *";
-                        $jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");top.rbal(600,600);";
+                        $jsptex = "window.top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");window.top.rbal(600,600);";
                         setbalance( $race );
                         $player['balance'] = $cur_time - $balance + 60;
-                        print "<script>top.gotoskills(0);{$jsptex}</script>";
+                        print "<script>window.top.gotoskills(0);{$jsptex}</script>";
                         if ( $player_sex == 1 )
                         {
                             $text = "* <b>{$player_name}</b> подтвердил  ваш вызов. Бой начнётся через 1 минуту. *";
@@ -348,7 +345,7 @@ if ( $what == "arena" )
                         {
                             $text = "* <b>{$player_name}</b> подтвердила  ваш вызов. Бой начнётся через 1 минуту. *";
                         }
-                        $jsptex = "top.gotoskills(0);top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");";
+                        $jsptex = "window.top.gotoskills(0);window.top.add(\"{$time}\",\"\",\"{$text}\",8,\"\");";
                         setbalance( $hsrace );
                         $bal = $cur_time - $balance + 60;
                         if ( $player_id != $pl1_id )
@@ -443,10 +440,10 @@ if ( $what == "arena" )
 							}
 							$arena_post_time = time();
 							$text = "<a href=http://www.shamaal.ru/fullinfo.php?name={$player_name}  target=_blank class=menu2><b>{$player_name}</b></a> Бросил$sex_a вызов 1 на 1, на арене `<b>{$arn_name}</b>`, уровни {$minlvl} - {$maxlvl} могут принять вызов.";
-							$jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+							$jsptex = "window.top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
 							print "<script>{$jsptex}</script>";
 							$text = "<a href=http:\/\/www.shamaal.ru/fullinfo.php?name={$player_name}  target=_blank class=menu2><b>{$player_name}</b></a> Бросил$sex_a вызов 1 на 1, на арене `<b>{$arn_name}</b>`, уровни {$minlvl} - {$maxlvl} могут принять вызов.";
-							$jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+							$jsptex = "window.top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
 							$SQL = "update sw_users set arena_post={$arena_post_time} where id={$player_id}";
 							sql_do( $SQL );
 							$SQL = "update sw_users set mytext=CONCAT(mytext,'{$jsptex}') where id<>{$player_id} and level>={$minlvl} and level<={$maxlvl} and online>{$online_time} and npc=0";
@@ -508,14 +505,14 @@ if ( $what == "arena" )
                     }
                     else
                     {
-                        $p .= "|<a href=menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
+                        $p .= "|<a href=/menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
                     }
                 }
                 if ( $p == "" )
                 {
                     $p = "Предложений на Вашу заявку не найдено.";
                 }
-                $info = "<div><img height=3></div><div align=center>| <a href=menu.php?load={$load}&id={$id}&action={$action} class=menu target=menu><b>Обновить</b></a> | <a href=menu.php?load={$load}&id={$id}&action={$action}&do=del class=menu target=menu><b>Убрать заявку</b></a> |</div><div><img height=3></div><table width=100%><tr><td><b>- Ваша ставка на бой:</b> <font color=888800><b>{$setmoney}</b></font> злт.</td></tr></table>";
+                $info = "<div><img height=3></div><div align=center>| <a href=/menu.php?load={$load}&id={$id}&action={$action} class=menu target=menu><b>Обновить</b></a> | <a href=/menu.php?load={$load}&id={$id}&action={$action}&do=del class=menu target=menu><b>Убрать заявку</b></a> |</div><div><img height=3></div><table width=100%><tr><td><b>- Ваша ставка на бой:</b> <font color=888800><b>{$setmoney}</b></font> злт.</td></tr></table>";
                 $info .= "<table width=100% cellspacing=1 bgcolor=7C8A9D cellpadding=3><tr bgcolor=D7DBDF><TD  align=center width=10><b>Время</b></td><TD  align=center><b>Имя персонажа</b></td><TD  align=center width=10><b>Уровень</b></td><TD align=center width=100><b>Действие</b></td></tr><tr><td colspan=4 bgcolor=E7EBEF align=center>{$p}</td></tr>";
                 $SQL = "select sw_arena_app.id,sw_arena_app.name,sw_arena_app.level,sw_arena_app.tim from sw_arena_app inner join sw_arena_reg on sw_arena_reg.id=sw_arena_app.owner where sw_arena_reg.owner={$player_id} limit {$page},9";
                 $row_num = sql_query_num( $SQL );
@@ -525,7 +522,7 @@ if ( $what == "arena" )
                     $xname = $row_num[1];
                     $xlevel = $row_num[2];
                     $xtim = $row_num[3];
-                    $info .= "<tr bgcolor=D7DBDF><TD  align=center width=40>{$xtim}</td><TD><table cellpadding=0 cellspacing=0><Tr><td><a href=./fullinfo.php?name={$xname} target=_blank><img src=/img/game/info.gif></td><td>&nbsp;{$xname}</td></tr></table></td><TD width=60 align=center>{$xlevel}</td><TD align=center width=100><form action=menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=acp value={$xid}><input type=hidden name=do value=acp><input type=submit value=Подтвердить></form></td></tr>";
+                    $info .= "<tr bgcolor=D7DBDF><TD  align=center width=40>{$xtim}</td><TD><table cellpadding=0 cellspacing=0><Tr><td><a href=./fullinfo.php?name={$xname} target=_blank><img src=/img/game/info.gif></td><td>&nbsp;{$xname}</td></tr></table></td><TD width=60 align=center>{$xlevel}</td><TD align=center width=100><form action=/menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=acp value={$xid}><input type=hidden name=do value=acp><input type=submit value=Подтвердить></form></td></tr>";
                     $row_num = sql_next_num( );
                 }
                 if ( $result )
@@ -533,16 +530,16 @@ if ( $what == "arena" )
                     SQL_free_result( $result );
                 }
                 $info .= "</table>";
-                print "<script>refresh = setTimeout(\"document.location = 'menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}';\",12000);</script>";
+                print "<script>refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}';\",12000);</script>";
             }
             else
             {
-                $info = "<form action=menu.php target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=do value=add><tr><TD><b><font color=AAAAAA>- Подать заявку</font></b></td></tr><tr><td><table><tr><td><input type=checkbox id=stav name=stavka value=1 onclick=\"if (document.getElementById(\\'stav\\').checked == true){ document.getElementById(\\'stbut\\').disabled= false; } else {document.getElementById(\\'stbut\\').disabled= true;}\"></td><TD> - Разрешить ставки на ваш бой.</td></tr><tr><td><input type=text name=sgold size=3 maxlength=3 value=0 id=stbut disabled></td><td> - Ставка на вашу победу (с 10 уровня).</td></tr><tr><td colspan=2 align=center><input type=\"submit\" value=\"Подать заявку\"></td></tr></table></td></tr></table></form>";
+                $info = "<form action=/menu.php target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=do value=add><tr><TD><b><font color=AAAAAA>- Подать заявку</font></b></td></tr><tr><td><table><tr><td><input type=checkbox id=stav name=stavka value=1 onclick=\"if (document.getElementById(\\'stav\\').checked == true){ document.getElementById(\\'stbut\\').disabled= false; } else {document.getElementById(\\'stbut\\').disabled= true;}\"></td><TD> - Разрешить ставки на ваш бой.</td></tr><tr><td><input type=text name=sgold size=3 maxlength=3 value=0 id=stbut disabled></td><td> - Ставка на вашу победу (с 10 уровня).</td></tr><tr><td colspan=2 align=center><input type=\"submit\" value=\"Подать заявку\"></td></tr></table></td></tr></table></form>";
             }
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=2&id={$id} target=menu class=menu><b>» Подать заявку</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=2&id={$id} target=menu class=menu><b>» Подать заявку</b></a>";
         }
         if ( $action == 3 )
         {
@@ -622,14 +619,14 @@ if ( $what == "arena" )
                 }
                 else
                 {
-                    $p .= "|<a href=menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
+                    $p .= "|<a href=/menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
                 }
             }
             if ( $p == "" )
             {
                 $p = "Подходящих боёв не найдено.";
             }
-            print "<script>top.tatol({$id},-1,0,'',0,'',0,'{$p}',0);";
+            print "<script>window.top.tatol({$id},-1,0,'',0,'',0,'{$p}',0);";
             $n = 0;
             $SQL = "select id,pl1,pl2 from sw_fights where tim>{$cur_time}-120 and allow_bet=1 and from_room={$player_room} order by tim desc limit {$page},10";
             $row_num = sql_query_num( $SQL );
@@ -698,25 +695,25 @@ if ( $what == "arena" )
                 {
                     SQL_free_result( $result );
                 }
-                print "top.tatol({$id},{$sid[$n]},{$spl1[$p]},'{$spl1_name[$p]}',{$spl2[$p]},'{$spl2_name[$p]}',{$sum},'',{$num});";
+                print "window.top.tatol({$id},{$sid[$n]},{$spl1[$p]},'{$spl1_name[$p]}',{$spl2[$p]},'{$spl2_name[$p]}',{$sum},'',{$num});";
             }
             if ( $onl == 1 )
             {
                 $showit = 0;
-                print "top.doreguest({$random});";
+                print "window.top.doreguest({$random});";
             }
             else
             {
                 $random = rand( 1, 9999 );
-                $player['text'] = "<div id=regall></div><script>top.doreguest({$random});</script>";
+                $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
                 $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
             }
-            print "refresh = setTimeout(\"document.location = 'menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
+            print "refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
             print "</script>";
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=3&id={$id} target=menu class=menu><b>» Тотализатор</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=3&id={$id} target=menu class=menu><b>» Тотализатор</b></a>";
         }
         if ( $action == 4 )
         {
@@ -753,14 +750,14 @@ if ( $what == "arena" )
                 }
                 else
                 {
-                    $p .= "|<a href=menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
+                    $p .= "|<a href=/menu.php?page={$i}&load={$load}&action=&action&ref=1&id={$id} class=menu>{$i}-{$e}</a>|";
                 }
             }
             if ( $p == "" )
             {
                 $p = "Подходящих боёв не найдено.";
             }
-            print "<script>top.tatol({$id},-1,0,'',0,'',0,'{$p}',0);";
+            print "<script>window.top.tatol({$id},-1,0,'',0,'',0,'{$p}',0);";
             $n = 0;
             $SQL = "select id,pl1,pl2 from sw_fights where from_room={$player_room} order by tim desc limit {$page},10";
             $row_num = sql_query_num( $SQL );
@@ -819,29 +816,29 @@ if ( $what == "arena" )
                 {
                     $sum = 0;
                 }
-                print "top.tatol({$id},{$sid[$n]},{$spl1[$p]},'{$spl1_name[$p]}',{$spl2[$p]},'{$spl2_name[$p]}',{$sum},'',-1,{$spl1_HP[$p]},{$spl2_HP[$p]});";
+                print "window.top.tatol({$id},{$sid[$n]},{$spl1[$p]},'{$spl1_name[$p]}',{$spl2[$p]},'{$spl2_name[$p]}',{$sum},'',-1,{$spl1_HP[$p]},{$spl2_HP[$p]});";
             }
             if ( $onl == 1 )
             {
                 $showit = 0;
-                print "top.doreguest({$random});";
+                print "window.top.doreguest({$random});";
             }
             else
             {
                 $random = rand( 1, 9999 );
-                $player['text'] = "<div id=regall></div><script>top.doreguest({$random});</script>";
+                $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
                 $info = "<iframe src=iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
             }
-            print "refresh = setTimeout(\"document.location = 'menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
+            print "refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
             print "</script>";
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=4&id={$id} target=menu class=menu><b>» Проходящие бои</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=4&id={$id} target=menu class=menu><b>» Проходящие бои</b></a>";
         }
         if ( $showit == 1 )
         {
-            print "<script>top.city('','stuff/else/arena.jpg','{$menu}','{$rtext}','{$info}');</script>";
+            print "<script>window.top.city('','stuff/else/arena.jpg','{$menu}','{$rtext}','{$info}');</script>";
         }
     }
     else if ( $arena_typ == 1 )
@@ -916,7 +913,7 @@ if ( $what == "arena" )
                             $t = $cur_time - $tim;
                             $player['balance'] = $cur_time - $balance + 180 - $t;
                             $t = ( 180 - $t ) * 10;
-                            print "<script>top.rbal({$t},{$t});</script>";
+                            print "<script>window.top.rbal({$t},{$t});</script>";
                             $r = rand( $str, $enr );
                             $SQL = "update sw_users set room={$r},arena_room={$player_room} where id={$player_id}";
                             sql_do( $SQL );
@@ -972,7 +969,7 @@ if ( $what == "arena" )
                 {
                     $a = "<input type=submit value=Вступить style=width:55>";
                 }
-                $info .= "<tr bgcolor=E7EBEF><td width=6 {$c}></td><TD  align=center><a href=# onclick=\"javascript:NewWnd=window.open(\\'arenainfo.php?arena={$aren}\\', \\'Arena\\', \\'width=\\'+500+\\',height=\\'+500+\\', toolbar=0,location=no,status=0,scrollbars=1,resizable=0,left=20,top=20\\');\" class=menu>{$arena_name}</a></td><TD  align=center width=50>{$levelfrom}-{$levelto}</td><TD  align=center width=65>{$cty[$arena_city]}</td><td align=center>{$f_gold[$acity]}</td><TD align=center width=60><form action=menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=do value=join><input type=hidden name=action value={$action}><input type=hidden name=aren value={$aren}><input type=hidden name=id value={$id}>{$a} </form></td></tr>";
+                $info .= "<tr bgcolor=E7EBEF><td width=6 {$c}></td><TD  align=center><a href=# onclick=\"javascript:NewWnd=window.open(\\'arenainfo.php?arena={$aren}\\', \\'Arena\\', \\'width=\\'+500+\\',height=\\'+500+\\', toolbar=0,location=no,status=0,scrollbars=1,resizable=0,left=20,top=20\\');\" class=menu>{$arena_name}</a></td><TD  align=center width=50>{$levelfrom}-{$levelto}</td><TD  align=center width=65>{$cty[$arena_city]}</td><td align=center>{$f_gold[$acity]}</td><TD align=center width=60><form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=do value=join><input type=hidden name=action value={$action}><input type=hidden name=aren value={$aren}><input type=hidden name=id value={$id}>{$a} </form></td></tr>";
                 $row_num = sql_next_num( );
             }
             if ( $result )
@@ -984,7 +981,7 @@ if ( $what == "arena" )
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=1&id={$id} target=menu class=menu><b>» Обзор арен</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=1&id={$id} target=menu class=menu><b>» Обзор арен</b></a>";
         }
         if ( $action == 2 )
         {
@@ -1030,7 +1027,7 @@ if ( $what == "arena" )
                                         setbalance( $race );
                                         $t = $cur_time - $balance + 180;
                                         $player['balance'] = $t;
-                                        print "<script>top.rbal(1800,1800);</script>";
+                                        print "<script>window.top.rbal(1800,1800);</script>";
                                         $SQL = "update sw_arena set free=1,tim={$cur_time},lvlfrom={$minlvl},lvlto={$maxlvl},pl={$maxpl},city={$ct} where owner={$player_room} and typ=1";
                                         sql_do( $SQL );
                                         $r = rand( $start_room, $end_room );
@@ -1038,8 +1035,8 @@ if ( $what == "arena" )
                                         sql_do( $SQL );
                                         $SQL = "update sw_city set money=money+10 where id={$acity}";
                                         sql_do( $SQL );
-                                        $text = "На арене `<a href=# onclick=top.arenainfo({$arena_id}); class=menu2><b>{$arn_name}</b></a>` для {$minlvl} - {$maxlvl} уровней создан общий бой.";
-                                        $jsptex = "top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
+                                        $text = "На арене `<a href=# onclick=window.top.arenainfo({$arena_id}); class=menu2><b>{$arn_name}</b></a>` для {$minlvl} - {$maxlvl} уровней создан общий бой.";
+                                        $jsptex = "window.top.add(\"{$time}\",\"\",\"{$text}\",2,\"Арена\");";
                                         print "<script>{$jsptex}</script>";
                                         if ( $ct != 0 )
                                         {
@@ -1083,17 +1080,17 @@ if ( $what == "arena" )
                     {
                         if ( 10 <= $level )
                         {
-                            $info .= "<form action=menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=do value=add><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td colspan=3><font color=AAAAAA><b>- Создание боя</b></td></tr><tr><td width=5></td><td width=15><input type=checkbox name=allowcity value=1></td><td>Разрешить другим городам принять участие в бое.</td></tr><tr><td width=5></td><td width=15><input type=text name=minlvl value=10 size=2 maxlength=3></td><td>Минимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxlvl value=100 size=2 maxlength=3></td><td>Максимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxpl value=6 size=2 maxlength=3></td><td>Максимальное количество игроков в бое.</td></tr><tr><td width=5></td><td colspan=2><font color=888800><b>10 золотых</b></font> для создания боя.</td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table></form>";
+                            $info .= "<form action=/menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=do value=add><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td colspan=3><font color=AAAAAA><b>- Создание боя</b></td></tr><tr><td width=5></td><td width=15><input type=checkbox name=allowcity value=1></td><td>Разрешить другим городам принять участие в бое.</td></tr><tr><td width=5></td><td width=15><input type=text name=minlvl value=10 size=2 maxlength=3></td><td>Минимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxlvl value=100 size=2 maxlength=3></td><td>Максимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxpl value=6 size=2 maxlength=3></td><td>Максимальное количество игроков в бое.</td></tr><tr><td width=5></td><td colspan=2><font color=888800><b>10 золотых</b></font> для создания боя.</td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table></form>";
                         }
                         else
                         {
-                            $info .= "<form action=menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=do value=add><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td colspan=3><font color=AAAAAA><b>- Создание боя</b></td></tr><tr><td width=5></td><td width=15><input type=text name=minlvl value=0 size=2 maxlength=3></td><td>Минимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxlvl value=9 size=2 maxlength=3></td><td>Максимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxpl value=6 size=2 maxlength=3></td><td>Максимальное количество игроков в бое.</td></tr><tr><td width=5></td><td colspan=2><font color=888800><b>10 золотых</b></font> для создания боя.</td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table></form>";
+                            $info .= "<form action=/menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=do value=add><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td colspan=3><font color=AAAAAA><b>- Создание боя</b></td></tr><tr><td width=5></td><td width=15><input type=text name=minlvl value=0 size=2 maxlength=3></td><td>Минимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxlvl value=9 size=2 maxlength=3></td><td>Максимальный уровень для вступления.</td></tr><tr><td width=5></td><td width=15><input type=text name=maxpl value=6 size=2 maxlength=3></td><td>Максимальное количество игроков в бое.</td></tr><tr><td width=5></td><td colspan=2><font color=888800><b>10 золотых</b></font> для создания боя.</td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table></form>";
                         }
                     }
                 }
                 else
                 {
-                    $info .= "<form action=menu.php method=post target=menu><table><form action=menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td>»</td><td></td><td> <b>Вы не можете</b> создавать бои  на чужой арене. </td></tr></table></form>";
+                    $info .= "<form action=/menu.php method=post target=menu><table><form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td>»</td><td></td><td> <b>Вы не можете</b> создавать бои  на чужой арене. </td></tr></table></form>";
                 }
             }
             else
@@ -1102,14 +1099,14 @@ if ( $what == "arena" )
                 {
                     print "<script>alert('Бои уже создан другим игроком.');</script>";
                 }
-                $info .= "<form action=menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td>»</td><td><input type=submit value=Обновить></td><td> <b>{$arn_name}</b> занята. </td></tr></table></form>";
+                $info .= "<form action=/menu.php method=post target=menu><table><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><tr><td>»</td><td><input type=submit value=Обновить></td><td> <b>{$arn_name}</b> занята. </td></tr></table></form>";
             }
         }
         else
         {
-            $menu .= "<br><a href=menu.php?load={$load}&action=2&id={$id} target=menu class=menu><b>» Создать бой</b></a>";
+            $menu .= "<br><a href=/menu.php?load={$load}&action=2&id={$id} target=menu class=menu><b>» Создать бой</b></a>";
         }
-        print "<script>top.city('','stuff/else/arena.jpg','{$menu}','{$rtext}','{$info}');</script>";
+        print "<script>window.top.city('','stuff/else/arena.jpg','{$menu}','{$rtext}','{$info}');</script>";
     }
 }
 else

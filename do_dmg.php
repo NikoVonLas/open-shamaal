@@ -77,15 +77,15 @@ if (($loop == 0) || ($npc_kick == 0)) {
                 }
                 if ($ggold >= $f_gold) {
                     $text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b> (Выигрыш: $f_gold злт.).";
-                    $jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+                    $jsptex = "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
                     $mysql_text .=  ",gold=gold+$f_gold";
                     $SQL="update sw_city set money=money-$f_gold where id=$acity[$k]";
                     SQL_do($SQL);
                 } else {
                     $text = "Победитель общего боя на арене <b>`$txt[$k]`</b> для $lvlfrom[$k] - $lvlto[$i] уровней: <b>$arenaname</b>.";
-                    $jsptex = "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+                    $jsptex = "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
                     $text = "У города нет средств, чтобы выплатить выигрыш победителю.";
-                    $jsptex .= "top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
+                    $jsptex .= "window.top.add(\"$time\",\"\",\"$text\",2,\"Арена\");";
                 }
                 if ($arncity[$k] <> 0) {
                     $SQL="update sw_users set mytext=CONCAT(mytext,'$jsptex') where city=$acity[$k] and level>=$lvlfrom[$k] and level<=$lvlto[$k] and online>$cur_time-60 and npc=0";
@@ -195,7 +195,7 @@ if (($loop == 0) || ($npc_kick == 0)) {
                 $total_old = $total_money[$n];
                 $total_money[$n] = $total_money[$n]/$sumwon * $sum;
                 $tattext = "<b> * Ваша ставка выиграла на тотализаторе. Ставка: <font color=555500>$total_old злт</font>, выигрыш:<font color=555500> $total_money[$n] злт</font>.* </b>";
-                $tattext = "top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
+                $tattext = "window.top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
                 $total_owner[$n] = (integer) $total_owner[$n];
                 $total_money[$n] = (integer) $total_money[$n];
                 $SQL="update sw_users SET mytext=CONCAT(mytext,'$tattext'),gold=gold+$total_money[$n] where npc=0 and id=$total_owner[$n]";
@@ -215,7 +215,7 @@ if (($loop == 0) || ($npc_kick == 0)) {
         $t[1] = "[<b>$player_name</b>] <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
         $r = rand(0, 1);
         $text = $t[$r];
-        $jsptext .= "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+        $jsptext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 
         if ($npc_kick == 1) {
             $mysql_text .= ",target=0";
@@ -311,7 +311,7 @@ if (($loop == 0) || ($npc_kick == 0)) {
             $SQL="update sw_pet set owner=$player_id where owner=$target_id and active<>2 limit ".(3-$player_count);
             SQL_do($SQL);
             $text = "[<b>$player_name</b>] Вы приручили  найденное после смерти животное.";
-            $ptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+            $ptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
             $SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where id=$player_id";
             SQL_do($SQL);
             }
@@ -366,7 +366,7 @@ if (($loop == 0) || ($npc_kick == 0)) {
             $SQL="update sw_pet set owner=$plgive[$k] where owner=$target_id and active<>2 limit ".($d);
             SQL_do($SQL);
             $text = "[<b>$plname[$k]</b>] Вы приручили найденное после смерти животное.";
-            $ptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+            $ptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
             $SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where id=$plgive[$k]";
             SQL_do($SQL);
             }
@@ -1243,7 +1243,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                 }
                 $player['balance'] = $cur_time+$ref;
                 $balance_ten = $balance_ten + $ref*10 + 3;  // + 3 означает +300 милисекунд, для компенсации пинга
-                print "top.rbal($balance_ten,$balance_ten);";
+                print "window.top.rbal($balance_ten,$balance_ten);";
             }
 
             if (($pl_block[$target_id] <> $kickto) || ($game_skill_canblock[$skill_id][$num] == 0)) {
@@ -1315,9 +1315,9 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
 
                                     $breaking_text = "";
                                     if ($ob_condition == 2) {
-                                        $breaking_text = "top.add(\"$time\",\"\",\"<b>** Состояние предмета `$ob_name` достигло <span style=''color: #b30000;''>критического</span> уровня. **</b>\",8,\"\");";
+                                        $breaking_text = "window.top.add(\"$time\",\"\",\"<b>** Состояние предмета `$ob_name` достигло <span style=''color: #b30000;''>критического</span> уровня. **</b>\",8,\"\");";
                                     } elseif ($ob_condition == 1) {
-                                        $breaking_text = "top.add(\"$time\",\"\",\"<b>** Предмет `$ob_name` <span style=''color: #b30000;''>сломался</span>. **</b>\",8,\"\");";
+                                        $breaking_text = "window.top.add(\"$time\",\"\",\"<b>** Предмет `$ob_name` <span style=''color: #b30000;''>сломался</span>. **</b>\",8,\"\");";
                                     }
 
                                     if ($breaking_text <> "") {
@@ -1396,7 +1396,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         }
                         $mysql_text = $mysql_text.",cmana=$pl_cmana[$player_id]";
                         if ($npc_kick == 0) {
-                            print "top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
+                            print "window.top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
                         }
                         $player['cmana'] = $mana;
                     }
@@ -1562,7 +1562,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                     $text = str_replace("<DMG>", $dmgtext, $text);
                     $time = date("H:i");
                     if ($game_skill_textnum[$skill_id][$num] <> 0) {
-                        $jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                        $jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                     }
                     if ($do_not_shoot == 0) {
                         if ($game_skill_afflict[$skill_id][$num] <> "") { // afflict
@@ -1571,7 +1571,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                             if ($ran <= $game_skill_afflict_percent[$skill_id][$num]) {
                                 if ($game_skill_afflict_text[$skill_id][$num] <> "") {
                                     $text = $game_skill_afflict_text[$skill_id][$num];
-                                    $jptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                                    $jptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                                     $jsptext .= $jptext;
                                 }
                                 $sql_text .=$game_skill_afflict[$skill_id][$num];
@@ -1583,7 +1583,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         $SQL="update sw_map SET  $a where id=$pl_room[$player_id]";
                         SQL_do($SQL);
                         $text = $game_skill_afflict_text[$skill_id][$num];
-                        $jptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                        $jptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                         $jsptext .= $jptext;
                     }
 
@@ -1614,12 +1614,12 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                             $htext = "";
                             if ($texp <> 0) {
                                 $mtext = "<b>* Опыт $texp *</b>";
-                                $htext .= "top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
+                                $htext .= "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
                                 if (($pl_gold[$target_id] > 0) && ($pl_npc[$player_id] == 0) && ($pl_npc[$target_id] == 0)) {
                                     $m = round($pl_gold[$target_id] / 10);
                                     if ($m > 0) {
                                         $mtext = "<b>* При смерти вы потеряли $m злт. *</b>";
-                                        $htext .= "top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
+                                        $htext .= "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
                                         $sql_text .= ",gold=GREATEST(0, gold-$m)";
                                         $mysql_text .= ",gold=gold+$m";
 
@@ -1632,7 +1632,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                         } else {
                                             $text = "* <b>$player_name</b> обнаружил$sex_a $m злт в обездвиженном трупе. *";
                                         }
-                                        $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                        $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                     }
                                 }
@@ -1657,10 +1657,10 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                         $SQL="UPDATE sw_obj SET owner=".$player_id.", active=0 WHERE owner=".$target_id." AND room=0 AND id=".$flagid[$i];
                                         SQL_do($SQL);
                                         $mtext = "<b>* При смерти вы потеряли <font color=red><b>".$flagname[$i]."</b></font>. *</b>";
-                                        $htext .= "top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
+                                        $htext .= "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
 
                                         $text = "* <b>$player_name</b> обнаружил(а) <font color=red><b>".$flagname[$i]."</b></font> в обездвиженном трупе. *";
-                                        $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                        $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                     }
                                 }
@@ -1675,7 +1675,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                     }
                     if (($dead == 1) && (($npc_kick == 0) || ($pl_madeby[$player_id] <> 0))) {
                         $text = "<b>* Опыт + $exp *</b>";
-                        $myptext = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                        $myptext = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                     }
                     if (($dead == 1) && ($exp >= 0) && ($npc_kick == 0)) {
                         if ($pl_npc[$target_id] == 1) {
@@ -1706,7 +1706,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                     } else {
                                         $text = "* <b>$player_name</b> обнаружил$sex_a $rnd в обездвиженном трупе. *";
                                     }
-                                    $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                    $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                     print "$jsptex";
                                     $jsptext .= $jsptex;
                                 }
@@ -1754,12 +1754,12 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                                 $text = "* <b>$player_name</b> обнаружил$sex_a предмет `$obname` в обездвиженном трупе. *";
                                             }
                                         }
-                                        $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                        $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                         print "$jsptex";
                                     } else {
                                         $text = "* <b>$player_name </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
-                                        $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                        $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                         print "$jsptex";
                                     }
@@ -1798,13 +1798,13 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                                 } else {
                                                     $text = "* <b>$player_name </b> обнаружил$sex_a предмет `$oname` в обездвиженном трупе. *";
                                                 }
-                                                $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                                $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                                 $jsptext .= $jsptex;
                                                 print "$jsptex";
                                             }
                                         } else {
                                             $text = "* <b>$player_name </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
-                                            $jsptex = "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+                                            $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                             $jsptext .= $jsptex;
                                             print "$jsptex";
                                         }
@@ -1880,7 +1880,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         $SQL="update sw_users SET $mysql_text where id=$player_id";
                         SQL_do($SQL);
                         if ($npc_kick == 0) {
-                            print "top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
+                            print "window.top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
                         }
                         $player['cmana'] = $mana;
                     }
@@ -1892,7 +1892,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         $text = str_replace("[DMG_FROM]", "", $text);
                     }
                     $time = date("H:i");
-                    $jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                    $jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                     if ($npc_kick == 0) {
                         print "$jsptext";
                     }
@@ -1911,7 +1911,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                 $SQL="update sw_users SET $mysql_text where id=$player_id";
                 SQL_do($SQL);
                 if ($npc_kick == 0) {
-                    print "top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
+                    print "window.top.sm($pl_cmana[$player_id],$pl_maxmana[$player_id]);";
                 }
                 $player['cmana'] = $mana;
                 $text = $game_skill_block[$skill_id][$num]; // block
@@ -1921,7 +1921,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                     $text = str_replace("[DMG_FROM]", "", $text);
                 }
                 $time = date("H:i");
-                $jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+                $jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
                 if ($npc_kick == 0) {
                     print "$jsptext";
                 }
@@ -1939,6 +1939,6 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
             print "$text";
         }
         $a = ($cur_time + $balance - $cur_balance) * 10;
-        print "top.rbal($a,$a);";
+        print "window.top.rbal($a,$a);";
     }
 }

@@ -1,6 +1,6 @@
 <?php
 require_once('./include.php');
-//print $player['id']."-";
+
 function fpOpen(
     $key,
     $file,
@@ -29,7 +29,7 @@ function fpClose($semaphor)
 
 $player_id = $player['id'];
 $player_name = $player['name'];
-$player_skill = $player['skill'];
+$player_skill = empty($player['skill']) ? '' : $player['skill'];
 $target_id = $player['target_id'];
 
 $target_name = $player['target_name'];
@@ -40,7 +40,7 @@ $player_aff = $player['effect'];
 $sleep = $player['sleep'];
 $old_room = $player['room'];
 $player_race = $player['race'];
-$player_opt = $player['opt'];
+$player_opt = $player['options'];
 $player_sex = $player['sex'];
 $server_id = $player['server'];
 if ($server_id != 1) {
@@ -109,7 +109,7 @@ if ($load == "unset") {
             $obj_name=$row_num[0];
             $obj_id=$row_num[1];
             $obj_num=$row_num[2];
-            $links .= "<tr><td id=objfull$obj_id><a href=menu.php?load=useobj&obj_id=$obj_id target=menu class=menu><font class=skillname><b>$obj_name</b></font> </a></td><td id=objfull2$obj_id class=skillname><b> - <font id=objnum$obj_id class=class=skillname>$obj_num</font></b></td></tr>";
+            $links .= "<tr><td id=objfull$obj_id><a href=/menu.php?load=useobj&obj_id=$obj_id target=menu class=menu><font class=skillname><b>$obj_name</b></font> </a></td><td id=objfull2$obj_id class=skillname><b> - <font id=objnum$obj_id class=class=skillname>$obj_num</font></b></td></tr>";
             $row_num=SQL_next_num();
         }
         if ($result) {
@@ -118,7 +118,7 @@ if ($load == "unset") {
         $links .= "</table>";
         //endregion
 
-        print "top.dowarskills($block,'$links');</script>";
+        print "window.top.dowarskills($block,'$links');</script>";
     }
 } elseif ($load == 'bank') {
     include('bank.php');
@@ -159,7 +159,7 @@ if ($load == "unset") {
     $text = $textq[$r];
 
     $time = date("H:i");
-    $jsptext = "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+    $jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
     print "<script>".$jsptext."</script>";
     $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room and id <> $player_id and npc=0";
     //print "$SQL";
@@ -178,7 +178,7 @@ if ($load == "unset") {
     }
     if ($obj_name <> '') {
         print "<script>
-		if (confirm('Вы действительно хотите выбросить $obj_name (1 шт.)') ) { document.location='menu.php?load=delobj2&id=$id'; }
+		if (confirm('Вы действительно хотите выбросить $obj_name (1 шт.)') ) { document.location='/menu.php?load=delobj2&id=$id'; }
 		</script>
 		";
     }
@@ -256,7 +256,7 @@ if ($load == "unset") {
         if ((($owner_id == $player_id) && ($owner_typ == 0)) || (($owner_id == $clan) && ($owner_typ == 1))) {
             if ($resp_room <> $player_room) {
                 $mtext = "* Ваша точка появления после смерти изменена. *";
-                $htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+                $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
                 print "<script>$htext</script>";
                 $SQL="UPDATE sw_users SET resp_room=$player_room where id=$player_id";
                 SQL_do($SQL);
@@ -309,7 +309,7 @@ if ($load == "unset") {
     if ((($owner_id == $player_id) && ($owner_typ == 0)) || (($owner_id == $clan) && ($owner_typ == 1))) {
         if ($resp_room == $player_room) {
             $mtext = "* Ваша точка появления после смерти изменена. *";
-            $htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+            $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
             print "<script>$htext</script>";
             $SQL="UPDATE sw_users SET resp_room=$dead_room where id=$player_id";
             SQL_do($SQL);
@@ -351,9 +351,9 @@ if ($load == "unset") {
         SQL_free_result($result);
     }
     if ($er == 0) {
-        print "<script>top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Выход из игры произойдёт автоматически через <span id=\"countdown\" >30</span> секунд.$rg</b></td></tr></table>');top.startExTimer(30); ExitTimer = setTimeout('document.location=\'menu.php?load=exit2\'',30000);</script>";
+        print "<script>window.top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Выход из игры произойдёт автоматически через <span id=\"countdown\" >30</span> секунд.$rg</b></td></tr></table>');window.top.startExTimer(30); ExitTimer = setTimeout('document.location=\'/menu.php?load=exit2\'',30000);</script>";
     } else {
-        print "<script>top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Вы не можете выйти из игры.</b></td></tr></table>');</script>";
+        print "<script>window.top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Вы не можете выйти из игры.</b></td></tr></table>');</script>";
     }
     $player['player_exit_time'] = $cur_time;
 } elseif ($load == 'exit2') {
@@ -364,7 +364,7 @@ if ($load == "unset") {
         $SQL="UPDATE sw_users SET online=$cur_time-61 where id=$player_id";
         SQL_do($SQL);
         session_destroy();
-        print "<script>top.wclose();</script>";
+        print "<script>window.top.wclose();</script>";
     }
 } elseif ($load == 'univer') {
     include("functions/univer.php");
@@ -374,7 +374,7 @@ if ($load == "unset") {
     include('arena.php');
 } elseif ($load == 'sleep') {
     if ($sleep == 1) {
-        print "<script>top.sleep('sleep.gif');</script>";
+        print "<script>window.top.sleep('sleep.gif');</script>";
         $player['sleep'] = 0;
     } else {
         $id = 0;
@@ -390,7 +390,7 @@ if ($load == "unset") {
             SQL_free_result($result);
         }
         if ($id > 0) {
-            print "<script>top.sleep('sleep2.gif');</script>";
+            print "<script>window.top.sleep('sleep2.gif');</script>";
             $player['sleep'] = 1;
             $time = date("H:i");
             if ($player_sex == 1) {
@@ -444,7 +444,7 @@ if ($load == "unset") {
     if (($do == 'del') && ($id <> "")) {
         $SQL="delete from sw_magic where owner=$player_id and id=$id";
         SQL_do($SQL);
-        print "<script>top.delbook($id,'left');</script>";
+        print "<script>window.top.delbook($id,'left');</script>";
     }
     if (($do == 'add') && ($id <> "")) {
         $SQL="select sw_stuff.name from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where sw_obj.owner=$player_id and sw_obj.room=0 and sw_stuff.specif=1 and sw_obj.id=$id";
@@ -504,8 +504,8 @@ if ($load == "unset") {
                     $SQL="delete from sw_obj where id=$id";
                     SQL_do($SQL);
 
-                    print "<script>top.delbook($id,'right');";
-                    print "top.addbook($newid,'$name','left');</script>";
+                    print "<script>window.top.delbook($id,'right');";
+                    print "window.top.addbook($newid,'$name','left');</script>";
                 } else {
                     print "<script>alert('Такое заклинание уже есть в книге.');</script>";
                 }
@@ -535,7 +535,7 @@ if ($load == "unset") {
         }
         $player['target_level'] = $level;
         $player['target_name'] = $name;
-        print "<script>top.settarget('$name','$level');</script>";
+        print "<script>window.top.settarget('$name','$level');</script>";
     }
 } elseif ($load == 'attack') {
     include("functions/copyobj.php");
@@ -595,7 +595,7 @@ if ($load == "unset") {
         $SQL="update sw_users SET block=$id where id=$player_id";
         SQL_do($SQL);
         $time = date("H:i");
-        print "<script>top.setblock($block,$id);top.add('$time','','* Новое место блока: <b>$kick_place[$id] </b> *',6,'');</script>";
+        print "<script>window.top.setblock($block,$id);window.top.add('$time','','* Новое место блока: <b>$kick_place[$id] </b> *',6,'');</script>";
     }
 } elseif ($load == 'addparam') {
     include("functions/plinfo.php");
@@ -626,7 +626,7 @@ if ($load == "unset") {
     round($to+1-1);
     if (($to >=0) && ($to <=2)) {
         $player['show'] = $to;
-        print "<script>top.setchan($to);</script>";
+        print "<script>window.top.setchan($to);</script>";
         $SQL="select chp,city,clan,party,room,aff_see,aff_invis,sex,aff_see_all,aff_paralize from sw_users where id=$player_id";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
@@ -708,7 +708,7 @@ if ($load == "unset") {
                         } else {
                             $party_id = $player_id;
                         }
-                        $text = "$player_name пригласил(а) вас к себе в группу. <a href=menu.php?load=okparty target=menu class=party><b>[Согласиться]</b></a>";
+                        $text = "$player_name пригласил(а) вас к себе в группу. <a href=/menu.php?load=okparty target=menu class=party><b>[Согласиться]</b></a>";
                         $text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\");";
                         $SQL="update sw_users SET mytext=CONCAT(mytext,'$text'),party_time=$cur_time,party_from=$party_id where online > $online_time and id = $id";
                         SQL_do($SQL);
@@ -814,7 +814,7 @@ if ($load == "unset") {
 
     if (($own_id == $player_id) && ($own_typ == 0)) {
         $mtext = "* Вы открыли дверь. *";
-        $htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
         print "<script>$htext</script>";
         $SQL="update sw_map set opendoor=1 where id=$room";
         SQL_do($SQL);
@@ -835,7 +835,7 @@ if ($load == "unset") {
     }
     if (($own_id == $player_id) && ($own_typ == 0)) {
         $mtext = "* Вы закрыли дверь. *";
-        $htext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
         print "<script>$htext</script>";
         $SQL="update sw_map set opendoor=0 where id=$room";
         SQL_do($SQL);
@@ -914,9 +914,9 @@ if ($load == "unset") {
                 $leader = $name;
             } else {
                 if ($online_time < $online) {
-                    $group .=  "<tr><td>&nbsp;&nbsp;» $name</td><td width=10><a href=menu.php?load=party&action=del&id=$pid target=menu and class=menu>[<b>X</b>]</a></td></tr>";
+                    $group .=  "<tr><td>&nbsp;&nbsp;» $name</td><td width=10><a href=/menu.php?load=party&action=del&id=$pid target=menu and class=menu>[<b>X</b>]</a></td></tr>";
                 } else {
-                    $group .=  "<tr><td><font color=666666>&nbsp;&nbsp;» $name</font></td><td width=10><a href=menu.php?load=party&action=del&id=$pid target=menu and class=menu>[<b>X</b>]</a></td></tr>";
+                    $group .=  "<tr><td><font color=666666>&nbsp;&nbsp;» $name</font></td><td width=10><a href=/menu.php?load=party&action=del&id=$pid target=menu and class=menu>[<b>X</b>]</a></td></tr>";
                 }
             }
             $row_num=SQL_next_num();
@@ -931,16 +931,16 @@ if ($load == "unset") {
             $left = "<b><font color=AAAAAA>- Настройки группы</font></b><table cellpadding=4><tr><td>Каждый член группы может удалять и добавлять новых игроков. ";
         }
         if (($player_id == $party_id)) {
-            $left .= "<a href=menu.php?load=party&action=opt&set=$opt target=menu and class=menu><b>[Изменить]</b></a>";
+            $left .= "<a href=/menu.php?load=party&action=opt&set=$opt target=menu and class=menu><b>[Изменить]</b></a>";
         }
         $left .= "</td></tr></table>";
-        $menu = "<a href=menu.php?load=party&action=del&id=$player_id target=menu class=menu><b>» Выйти из группы</b></a>";
+        $menu = "<a href=/menu.php?load=party&action=del&id=$player_id target=menu class=menu><b>» Выйти из группы</b></a>";
         $right = "<b><font color=AAAAAA>- Основатель группы</font><br>&nbsp;&nbsp;&nbsp;» $leader<br><br><font color=AAAAAA>- Состав группы</font></b>$group";
         $info = "<table width=100% cellpadding=5><tr><td  valign=top width=50%>$right</td><td valign=top>$left</td></tr></table>";
-        print "<script>top.settop('Группа');top.city('','stuff/else/party.gif','$menu','Информация о группе','$info');</script>";
+        print "<script>window.top.settop('Группа');window.top.city('','stuff/else/party.gif','$menu','Информация о группе','$info');</script>";
     } else {
         $info = "<table width=100% cellpadding=5><tr><td  valign=top width=100%><b><font color=AAAAAA>- Группа не обнаружена</font></b></td><td valign=top></td></tr></table>";
-        print "<script>top.settop('Группа');top.city('','stuff/else/party.gif','$menu','Информация о группе','$info');</script>";
+        print "<script>window.top.settop('Группа');window.top.city('','stuff/else/party.gif','$menu','Информация о группе','$info');</script>";
     }
 } elseif ($load == "city") {
     if ((!isset($action)) || ($action == 0)) {
@@ -1085,7 +1085,7 @@ if ($load == "unset") {
             $text = "Информация о городе <b>$city_name</b>";
             include("script/infocity.php");
         } else {
-            $menu .= "<a href=menu.php?load=city&action=1 target=menu class=menu><b>» Информация</b></a>";
+            $menu .= "<a href=/menu.php?load=city&action=1 target=menu class=menu><b>» Информация</b></a>";
         }
         if ($action == 2) {
             $menu .= "<br><font color=AA0000><b>» Новости</b></font>";
@@ -1093,7 +1093,7 @@ if ($load == "unset") {
             $r = rand(0, 999999);
             $info .= "<iframe src=script/citynews.php?r=$r width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
         } else {
-            $menu .= "<br><a href=menu.php?load=city&action=2 target=menu class=menu><b>» Новости</b></a>";
+            $menu .= "<br><a href=/menu.php?load=city&action=2 target=menu class=menu><b>» Новости</b></a>";
         }
         if (($action == 3)) {
             $menu .= "<br><font color=AA0000><b>» Должности</b></font>";
@@ -1170,11 +1170,11 @@ if ($load == "unset") {
                 $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Мэрия</b></td><td  align=center>1</td><td  align=center>0 / 0</td><td align=center><input type=submit value=Разрушить style=width:70 disabled></td></tr>";
                 $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Банк</b></td><td  align=center>1</td><td  align=center>0 / 0</td><td align=center><input type=submit value=Разрушить style=width:70 disabled></td></tr>";
                 if ($city_dead == 0) {
-                    $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Усыпальница<br> с регенирацией</b></td><td  align=center>0</td><td  align=center>5000 / 0</td><td align=center><form action=menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=adddead><input type=submit value=Купить style=width:70></form></td></tr>";
+                    $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Усыпальница<br> с регенирацией</b></td><td  align=center>0</td><td  align=center>5000 / 0</td><td align=center><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=adddead><input type=submit value=Купить style=width:70></form></td></tr>";
                 } else {
-                    $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Усыпальница<br> с регенирацией</b></td><td  align=center>1</td><td  align=center>5000 / 0</td><td align=center><form action=menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=deldead><input type=submit value=Разрушить style=width:70></form></td></tr>";
+                    $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Усыпальница<br> с регенирацией</b></td><td  align=center>1</td><td  align=center>5000 / 0</td><td align=center><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=deldead><input type=submit value=Разрушить style=width:70></form></td></tr>";
                 }
-                $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Стража</b></td><td  align=center>$city_npc</td><td  align=center>1000 / 0</td><td align=center><table cellpadding=0 cellspacing=0><tr><TD><form action=menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=addguard><input type=submit value=Нанять style=width:70></form></td></tr><tr><td><form action=menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=delguard><input type=submit value=Уволить style=width:70></form></td></tr></table></td></tr>";
+                $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Стража</b></td><td  align=center>$city_npc</td><td  align=center>1000 / 0</td><td align=center><table cellpadding=0 cellspacing=0><tr><TD><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=addguard><input type=submit value=Нанять style=width:70></form></td></tr><tr><td><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=do value=delguard><input type=submit value=Уволить style=width:70></form></td></tr></table></td></tr>";
             } else {
                 $info .= "<tr bgcolor=D6DBDE><td  align=center><b>Название</b></td><td  align=center>Кол-во</td><td  align=center>Цена / Аренда</td></tr>";
                 $info .= "<tr bgcolor=F7FBFF><td  align=center><b>Мэрия</b></td><td  align=center>1</td><td  align=center>0 / 0</td></tr>";
@@ -1188,7 +1188,7 @@ if ($load == "unset") {
             }
             $info .= "</table>";
         } else {
-            $menu .= "<br><a href=menu.php?load=city&action=5 target=menu class=menu><b>» Постройки</b></a>";
+            $menu .= "<br><a href=/menu.php?load=city&action=5 target=menu class=menu><b>» Постройки</b></a>";
         }
         if ($action == 6) {
             $no_drow = 0;
@@ -1287,7 +1287,7 @@ if ($load == "unset") {
                                         $text = "Магазин города <b>$city_name</b>";
                                         $menu .= "<br><font color=AA0000><b>» Экономика</b></font>";
 
-                                        $info = "<form action=menu.php method=post target=menu><input type=hidden name=toplace value=$toplace>";
+                                        $info = "<form action=/menu.php method=post target=menu><input type=hidden name=toplace value=$toplace>";
                                         if ($plname == 'Магазин') {
                                             $info .= "<table cellpadding=4 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Добавить предмет в магазин</font></b></td></tr>";
                                         } else {
@@ -1358,14 +1358,14 @@ if ($load == "unset") {
 
                     $text = "Магазин города <b>$city_name</b>";
                     $menu .= "<br><font color=AA0000><b>» Экономика</b></font>";
-                    $info = "<form action=menu.php method=post target=menu><table cellpadding=2 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Добавить предмет в магазин</font></b></td></tr>";
+                    $info = "<form action=/menu.php method=post target=menu><table cellpadding=2 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Добавить предмет в магазин</font></b></td></tr>";
                     $info .= "<tr><td><b>&nbsp;&nbsp;Золота в казне:</b></td><td>$city_money злт.</td></tr>";
                     $info .= "<tr><input type=hidden name=load value=$load><input type=hidden name=toplace value=$mag_id><input type=hidden name=action value=$action><input type=hidden name=do value=$do><input type=hidden name=isshop value=yes><input type=hidden name=do2 value=next><td><b>&nbsp;&nbsp;Добавить предмет:</b></td><td>$select</td></tr>";
                     $info .= "<tr><td><b>&nbsp;&nbsp;Количество предметов:</b></td><td><input type=text name=objcount size=6 maxlength=6 value=1></td></tr>";
                     $info .= "<tr><td colspan=2 align=center><input type=\"submit\" value=\"Предварительный просмотр\"></td><td></td></tr>";
                     $info .= "</table></form>";
 
-                    $info .= "<form action=menu.php method=post target=menu><table cellpadding=2 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Добавить предмет в библиотеку</font></b></td></tr>";
+                    $info .= "<form action=/menu.php method=post target=menu><table cellpadding=2 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Добавить предмет в библиотеку</font></b></td></tr>";
                     $info .= "<tr><td><b>&nbsp;&nbsp;Золота в казне:</b></td><td>$city_money злт.</td></tr>";
                     $info .= "<tr><input type=hidden name=load value=$load><input type=hidden name=toplace value=$bib_id><input type=hidden name=action value=$action><input type=hidden name=do value=$do><input type=hidden name=do2 value=next><td><b>&nbsp;&nbsp;Добавить предмет:</b></td><td>$select2</td></tr>";
                     $info .= "<tr><td><b>&nbsp;&nbsp;Количество предметов:</b></td><td><input type=text name=objcount size=6 maxlength=6 value=1></td></tr>";
@@ -1391,15 +1391,15 @@ if ($load == "unset") {
                     SQL_free_result($result);
                 }
                 if ($city_rank == 1) {
-                    $info = "<table cellpadding=1 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Налоги</font></b></td></tr><tr><td><b>&nbsp;&nbspНалог с покупок</b></td><td class=usergood width=130><form action=menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_buy value=$city_buy size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspНалог с продаж</b></td><td class=usergood><form action=menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_sell value=$city_sell size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspНалог с починок</b></td><td class=usergood><form action=menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_rep value=$city_rep size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspБанковский налог</b></td><td class=usergood><form action=menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_bank value=$city_bank size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr>";
+                    $info = "<table cellpadding=1 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Налоги</font></b></td></tr><tr><td><b>&nbsp;&nbspНалог с покупок</b></td><td class=usergood width=130><form action=/menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_buy value=$city_buy size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspНалог с продаж</b></td><td class=usergood><form action=/menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_sell value=$city_sell size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspНалог с починок</b></td><td class=usergood><form action=/menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_rep value=$city_rep size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><td><b>&nbsp;&nbspБанковский налог</b></td><td class=usergood><form action=/menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_bank value=$city_bank size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr>";
 
-                    $info .= "<tr><td><b>&nbsp;&nbspПремия на арене</b></td><td class=usergood><form action=menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_fight value=$city_fight size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас города</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr><tr><td colspan=2><b>&nbsp;&nbsp;</b><a href=menu.php?load=city&action=6&do=admshop target=menu class=menu2 style=\"padding: 0;margin: 0;display: inline;\"><b>» Перейти к управление магазином<b></a></td></tr></table>";
+                    $info .= "<tr><td><b>&nbsp;&nbspПремия на арене</b></td><td class=usergood><form action=/menu.php method=post target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=ccity_fight value=$city_fight size=3 maxlength=3>&nbsp;<input type=submit value=Изменить></form></td></tr><tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас города</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr><tr><td colspan=2><b>&nbsp;&nbsp;</b><a href=/menu.php?load=city&action=6&do=admshop target=menu class=menu2 style=\"padding: 0;margin: 0;display: inline;\"><b>» Перейти к управление магазином<b></a></td></tr></table>";
                 } else {
                     $info = "<table cellpadding=2 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Налоги</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspНалог с покупок</b></td><td class=usergood>$city_buy %</td></tr><tr><td><b>&nbsp;&nbspНалог с продаж</b></td><td class=usergood>$city_sell %</td></tr><tr><td><b>&nbsp;&nbspНалог с починок</b></td><td class=usergood>$city_rep %</td></tr><tr><td><b>&nbsp;&nbspБанковский налог</b></td><td class=usergood>$city_bank %</td></tr><tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspПремия на арене</b></td><td class=usergood>$city_fight злт</td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас города</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr></table>";
                 }
             }
         } else {
-            $menu .= "<br><a href=menu.php?load=city&action=6 target=menu class=menu><b>» Экономика</b></a>";
+            $menu .= "<br><a href=/menu.php?load=city&action=6 target=menu class=menu><b>» Экономика</b></a>";
         }
         if (($rank_opt3 == 1) || ($city_rank == 1)) {
             if ($action == 10) {
@@ -1408,7 +1408,7 @@ if ($load == "unset") {
                 $r = rand(0, 999999);
                 $info .= "<iframe src=script/citymsg.php?r=$r width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
             } else {
-                $menu .= "<br><a href=menu.php?load=city&action=10 target=menu class=menu><b>» Переговоры</b></a>";
+                $menu .= "<br><a href=/menu.php?load=city&action=10 target=menu class=menu><b>» Переговоры</b></a>";
             }
         }
         if ($city_id <> 1) {
@@ -1418,7 +1418,7 @@ if ($load == "unset") {
                 $r = rand(0, 999999);
                 $info .= "<iframe src=script/citypact.php?r=$r width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
             } elseif ($city_id <> 1) {
-                $menu .= "<br><a href=menu.php?load=city&action=7 target=menu class=menu><b>» Договоры</b></a>";
+                $menu .= "<br><a href=/menu.php?load=city&action=7 target=menu class=menu><b>» Договоры</b></a>";
             }
         }
         if (($rank_opt1 == 1) || ($city_rank == 1)) {
@@ -1429,7 +1429,7 @@ if ($load == "unset") {
                 $r = rand(0, 999999);
                 $info .= "<iframe src=script/acceptcity.php?r=$r width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
             } else {
-                $menu .= "<br><a href=menu.php?load=city&action=9 target=menu class=menu><b>» Приём заявок</b></a>";
+                $menu .= "<br><a href=/menu.php?load=city&action=9 target=menu class=menu><b>» Приём заявок</b></a>";
             }
         }
         if (($rank_opt5 == 1) || ($city_rank == 1)) {
@@ -1438,7 +1438,7 @@ if ($load == "unset") {
                     $text = "Управление жителями города <b>$city_name</b>";
                     $menu .= "<br><font color=AA0000><b>» Жители</b></font>";
                     $r = rand(0, 999999);
-                    $info .= "<form action=menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del><tr><td colspan=3><b><font color=AAAAAA>- Выгнать жителя города.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name value=\"$name\" size=10></td><td><input type=submit value=Выгнать></td></tr></table></form>";
+                    $info .= "<form action=/menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del><tr><td colspan=3><b><font color=AAAAAA>- Выгнать жителя города.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name value=\"$name\" size=10></td><td><input type=submit value=Выгнать></td></tr></table></form>";
                     if ($do == "del") {
                         $up_name = strtoupper($name);
                         $nname = "";
@@ -1458,7 +1458,7 @@ if ($load == "unset") {
                             if (($c_rank == 1) && ($city_rank <> 1)) {
                                 $info .= "<table cellpadding=4><tr><td><b>Вы не можете выгнать мэра города.</b></td></tr></table>";
                             } else {
-                                $info .= "<form action=menu.php method=post target=menu><table cellpadding=4><input type=hidden name=plid value=$id><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del2><tr><td><b>Пользователь найден:</b> $nname <i>$level уровень.</i></td></tr><tr><td>Причина:<br><div align=center><textarea cols=50 rows=5 name=for></textarea><br><input type=submit value=Выгнать></div></td></tr></table></form>";
+                                $info .= "<form action=/menu.php method=post target=menu><table cellpadding=4><input type=hidden name=plid value=$id><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del2><tr><td><b>Пользователь найден:</b> $nname <i>$level уровень.</i></td></tr><tr><td>Причина:<br><div align=center><textarea cols=50 rows=5 name=for></textarea><br><input type=submit value=Выгнать></div></td></tr></table></form>";
                             }
                         }
                     } elseif ($do == "del2") {
@@ -1493,7 +1493,7 @@ if ($load == "unset") {
                         }
                     }
                 } elseif ($city_id <> 1) {
-                    $menu .= "<br><a href=menu.php?load=city&action=11 target=menu class=menu><b>» Жители</b></a>";
+                    $menu .= "<br><a href=/menu.php?load=city&action=11 target=menu class=menu><b>» Жители</b></a>";
                 }
             }
         }
@@ -1506,10 +1506,10 @@ if ($load == "unset") {
             if ($city_id <> 1) {
                 $text = "Уйти из города <b>$city_name</b>";
                 $menu .= "<br><br><font color=AA0000><b>» Уйти из города</b></font>";
-                $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br><br>&nbsp;&nbsp;&nbsp;- Вы будете нейтральным по отношению ко всем игрокам.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении города.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками других городов.<br>&nbsp;&nbsp;&nbsp;- Вы сможете подать заявки на вступление в другие города мира.<br><br><br><div align=center><b>Вы действительно хотите выйти из состава города?<br><br><a href=menu.php?load=city&do=exitcity&action=8 class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.php?load=city&action=1 class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
+                $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br><br>&nbsp;&nbsp;&nbsp;- Вы будете нейтральным по отношению ко всем игрокам.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении города.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками других городов.<br>&nbsp;&nbsp;&nbsp;- Вы сможете подать заявки на вступление в другие города мира.<br><br><br><div align=center><b>Вы действительно хотите выйти из состава города?<br><br><a href=/menu.php?load=city&do=exitcity&action=8 class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/menu.php?load=city&action=1 class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
             }
         } elseif ($city_id <> 1) {
-            $menu .= "<br><br><a href=menu.php?load=city&action=8 target=menu class=menu><b>» Уйти из города</b></a>";
+            $menu .= "<br><br><a href=/menu.php?load=city&action=8 target=menu class=menu><b>» Уйти из города</b></a>";
         }
     } else {
         if ($action == 1) {
@@ -1518,14 +1518,14 @@ if ($load == "unset") {
             $text = "Вступление в города мира Shamaal";
             include("script/joincity.php");
         } else {
-            $menu .= "<a href=menu.php?load=city&action=1 target=menu class=menu><b>» Вступление</b></a>";
+            $menu .= "<a href=/menu.php?load=city&action=1 target=menu class=menu><b>» Вступление</b></a>";
         }
     }
 
     if ($city_pic == "") {
         $city_pic = "city1.gif";
     }
-    print "<script>top.settop('Город');top.city('$city_name','city/$city_pic','$menu','$text','$info');</script>";
+    print "<script>window.top.settop('Город');window.top.city('$city_name','city/$city_pic','$menu','$text','$info');</script>";
 } elseif ($load == "clan") {
     if ((!isset($action)) || ($action == 0)) {
         $action = 1;
@@ -1739,7 +1739,7 @@ if ($load == "unset") {
             } else {
                 $player['leg'] = 1;
                 print "<script>
-					if (confirm('Вы действительно хотите взять $get_money злт из казны?') ) { document.location='menu.php?action=$action&load=$load&city_id=$city_id&get_money=$get_money&player_legs=1'; } else {document.location='menu.php?load=unset';}
+					if (confirm('Вы действительно хотите взять $get_money злт из казны?') ) { document.location='/menu.php?action=$action&load=$load&city_id=$city_id&get_money=$get_money&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 					</script>";
                 SQL_disconnect();
                 exit();
@@ -1770,7 +1770,7 @@ if ($load == "unset") {
         } else {
             $player['leg'] = 1;
             print "<script>
-				if (confirm('Вы действительно хотите положить $put_money злт в казну клана?') ) { document.location='menu.php?action=$action&load=$load&city_id=$city_id&put_money=$put_money&player_legs=1'; } else {document.location='menu.php?load=unset';}
+				if (confirm('Вы действительно хотите положить $put_money злт в казну клана?') ) { document.location='/menu.php?action=$action&load=$load&city_id=$city_id&put_money=$put_money&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 				</script>";
             SQL_disconnect();
             exit();
@@ -1831,7 +1831,7 @@ if ($load == "unset") {
                         $info = "<table width=100%><tr><td align=center><img src=$go width=$i_x height=$i_y><br><br>Лого отправлено на проверку модератору.<br>".$upload_form."</td></tr></table>";
                     }
                 } else {
-                    $menu .= "<a href=menu.php?load=clan&action=15&city_id=$city_id target=menu class=menu><b>» Загрузка лого</b></a><br>";
+                    $menu .= "<a href=/menu.php?load=clan&action=15&city_id=$city_id target=menu class=menu><b>» Загрузка лого</b></a><br>";
                 }
             }
         }
@@ -1843,16 +1843,16 @@ if ($load == "unset") {
             $lt = getmicrotime();
             print(round(($lt-$pt)*1000)/1000)."-t<br>";
         } else {
-            $menu .= "<a href=menu.php?load=clan&action=1&city_id=$city_id target=menu class=menu><b>» Информация</b></a>";
+            $menu .= "<a href=/menu.php?load=clan&action=1&city_id=$city_id target=menu class=menu><b>» Информация</b></a>";
         }
 
         if ($action == 2) {
             $menu .= "<br><font color=AA0000><b>» Новости</b></font>";
             $text = "Новости клана <b>$city_name</b>";
             $r = rand(0, 999999);
-            $info .= "<iframe src=script/clannews.php?r=$r&city_id=$city_id width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
+            $info .= "<iframe src=/script/clannews.php?r=$r&city_id=$city_id width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
         } else {
-            $menu .= "<br><a href=menu.php?load=clan&action=2&city_id=$city_id target=menu class=menu><b>» Новости</b></a>";
+            $menu .= "<br><a href=/menu.php?load=clan&action=2&city_id=$city_id target=menu class=menu><b>» Новости</b></a>";
         }
         if ($city_type > 0) {
             if ($city_id == $myclan) {
@@ -1890,15 +1890,15 @@ if ($load == "unset") {
                     SQL_free_result($result);
                     if (($city_rank == 1) || ($rank_opt5 == 1)) {
                         if ($do <> "showlog") {
-                            $info = "<table cellpadding=3 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspВзять золото</b></td><td class=usergood width=130><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=get_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Забрать></form></td></tr><tr><td><b>&nbsp;&nbspПополнить казну</b></td><td class=usergood><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=put_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Пополнить></form></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Информация</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас клана</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr><tr><td colspan=2><br><a href=menu.php?load=clan&action=6&do=showlog&sh=0 target=menu class=menu2><b>&nbsp;» Посмотреть лог казны<b></a><br><a href=menu.php?load=clan&action=6&do=showlog&sh=1 target=menu class=menu2><b>&nbsp;» Посмотреть лог магазина<b></a></td></tr></table>";
+                            $info = "<table cellpadding=3 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspВзять золото</b></td><td class=usergood width=130><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=get_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Забрать></form></td></tr><tr><td><b>&nbsp;&nbspПополнить казну</b></td><td class=usergood><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=put_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Пополнить></form></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Информация</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас клана</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr><tr><td colspan=2><br><a href=/menu.php?load=clan&action=6&do=showlog&sh=0 target=menu class=menu2><b>&nbsp;» Посмотреть лог казны<b></a><br><a href=/menu.php?load=clan&action=6&do=showlog&sh=1 target=menu class=menu2><b>&nbsp;» Посмотреть лог магазина<b></a></td></tr></table>";
                         } else {
                             $info .= "<iframe src=script/clanlog.php?city_id=$city_id&sh=$sh width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
                         }
                     } else {
-                        $info = "<table cellpadding=3 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td><b>&nbsp;&nbspПополнить казну</b></td><td class=usergood><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=put_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Пополнить></form></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Информация</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас клана</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr></table>";
+                        $info = "<table cellpadding=3 width=100%><tr><Td colspan=2><b><font color=AAAAAA>- Золотой запас</font></b></td></tr><tr><td><b>&nbsp;&nbspПополнить казну</b></td><td class=usergood><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=text name=put_money value=1 size=5 maxlength=5>&nbsp;<input type=submit value=Пополнить></form></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Информация</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspЗолотой запас клана</b></td><td class=usergood>$city_money <b>злт</b></td></tr><tr><td colspan=2></td></tr><tr><Td colspan=2><b><font color=AAAAAA>- Статистика</font></b></td></tr><tr><td colspan=2></td></tr><tr><td><b>&nbsp;&nbspМесто по финансам</b></td><td class=usergood>$place место</td></tr></table>";
                     }
                 } else {
-                    $menu .= "<br><a href=menu.php?load=clan&action=6&city_id=$city_id target=menu class=menu><b>» Финансы</b></a>";
+                    $menu .= "<br><a href=/menu.php?load=clan&action=6&city_id=$city_id target=menu class=menu><b>» Финансы</b></a>";
                 }
             }
         }
@@ -1910,7 +1910,7 @@ if ($load == "unset") {
                     $r = rand(0, 999999);
                     $info .= "<iframe src=script/clanmsg.php?r=$r width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
                 } else {
-                    $menu .= "<br><a href=menu.php?load=clan&action=10&city_id=$city_id target=menu class=menu><b>» Переговоры</b></a>";
+                    $menu .= "<br><a href=/menu.php?load=clan&action=10&city_id=$city_id target=menu class=menu><b>» Переговоры</b></a>";
                 }
             }
         }
@@ -1922,7 +1922,7 @@ if ($load == "unset") {
                     $r = rand(0, 999999);
                     $info .= "<iframe src=script/clanpact.php?r=$r&city_id=$city_id width=100% height=100% marginwidth=10 marginheight=10 frameborder=0></iframe>";
                 } else {
-                    $menu .= "<br><a href=menu.php?load=clan&action=7&city_id=$city_id target=menu class=menu><b>» Договоры</b></a>";
+                    $menu .= "<br><a href=/menu.php?load=clan&action=7&city_id=$city_id target=menu class=menu><b>» Договоры</b></a>";
                 }
             }
         }
@@ -1930,7 +1930,7 @@ if ($load == "unset") {
             if ($action == 11) {
                 $text = "Управление жителями клана <b>$city_name</b>";
                 $menu .= "<br><font color=AA0000><b>» Жители</b></font>";
-                $info .= "<form action=menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=add><tr><td colspan=3><b><font color=AAAAAA>- Принять в клан.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name2 value=\"$name2\" size=10></td><td><input type=submit value=Принять></td></tr></table></form>";
+                $info .= "<form action=/menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=add><tr><td colspan=3><b><font color=AAAAAA>- Принять в клан.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name2 value=\"$name2\" size=10></td><td><input type=submit value=Принять></td></tr></table></form>";
                 if ($do == "add") {
                     $up_name = strtoupper($name2);
                     $nname = '';
@@ -1959,7 +1959,7 @@ if ($load == "unset") {
                                 $time = date('H:i');
                                 $SQL='update sw_users set join_clan="'.$city_id.'" where id='.$id;
                                 SQL_do($SQL);
-                                $text2 = 'Клан <b>`'.$city_name.'`</b> приглашает вас <a href=menu.php?load=join_clan&id='.$city_id.' class=party target=menu>вступить </a> в их ряды. ';
+                                $text2 = 'Клан <b>`'.$city_name.'`</b> приглашает вас <a href=/menu.php?load=join_clan&id='.$city_id.' class=party target=menu>вступить </a> в их ряды. ';
                                 $text2 = "parent.add(\"$time\",\"$player_name\",\"$text2 \",7,\"Клан\");";
                                 $SQL="update sw_users SET mytext=CONCAT(mytext,'$text2') where id=$id";
                                 SQL_do($SQL);
@@ -1975,7 +1975,7 @@ if ($load == "unset") {
                 }
                 $r = rand(0, 999999);
                 if ($city_rank == 1) {
-                    $info .= "<form action=menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del><tr><td colspan=3><b><font color=AAAAAA>- Выгнать из клана.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name value=\"$name\" size=10></td><td><input type=submit value=Выгнать></td></tr></table></form>";
+                    $info .= "<form action=/menu.php method=post target=menu><table cellpadding=4><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del><tr><td colspan=3><b><font color=AAAAAA>- Выгнать из клана.</a></b></td></tr><td><b>Имя персонажа:</b> </td><td><input type=text name=name value=\"$name\" size=10></td><td><input type=submit value=Выгнать></td></tr></table></form>";
 
                     if ($do == "del") {
                         $up_name = strtoupper($name);
@@ -1996,7 +1996,7 @@ if ($load == "unset") {
                             if (($c_rank == 1)) {
                                 $info .= "<table cellpadding=4><tr><td><b>Вы не можете выгнать главу клана.</b></td></tr></table>";
                             } else {
-                                $info .= "<form action=menu.php method=post target=menu><table cellpadding=4><input type=hidden name=plid value=$id><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del2><tr><td><b>Пользователь найден:</b> $nname <i>$level уровень.</i></td></tr><tr><td>Причина:<br><div align=center><textarea cols=50 rows=5 name=for></textarea><br><input type=submit value=Выгнать></div></td></tr></table></form>";
+                                $info .= "<form action=/menu.php method=post target=menu><table cellpadding=4><input type=hidden name=plid value=$id><input type=hidden name=action value=$action><input type=hidden name=load value=$load><input type=hidden name=do value=del2><tr><td><b>Пользователь найден:</b> $nname <i>$level уровень.</i></td></tr><tr><td>Причина:<br><div align=center><textarea cols=50 rows=5 name=for></textarea><br><input type=submit value=Выгнать></div></td></tr></table></form>";
                             }
                         } else {
                             $info .= "<table cellpadding=4><tr><td><b>Пользователь не найден.</b></td></tr></table>";
@@ -2047,7 +2047,7 @@ if ($load == "unset") {
                     }
                 }
             } else {
-                $menu .= "<br><a href=menu.php?load=clan&action=11&city_id=$city_id target=menu class=menu><b>» Жители</b></a>";
+                $menu .= "<br><a href=/menu.php?load=clan&action=11&city_id=$city_id target=menu class=menu><b>» Жители</b></a>";
             }
         }
         if ($city_id == $myclan) {
@@ -2065,7 +2065,7 @@ if ($load == "unset") {
                         $SQL="update sw_users SET exp=GREATEST(0, exp-50) where id=$player_id";
                         SQL_do($SQL);
                         $mtext = "<b>* Опыт -50 *</b>";
-                        $htext = "top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
+                        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
                         $SQL="insert into sw_obj (owner,obj,min_attack,max_attack,magic_attack,magic_def,def_all,fire_attack,cold_attack,drain_attack,cur_cond,max_cond,num,inf,room,price) values ($player_id,$clan_ring,$clan_param[1],$clan_param[1],$clan_param[2],$clan_param[3],$clan_param[4],$clan_param[5],$clan_param[6],$clan_param[7],20,20,1,'Кольцо клана $city_name',0,0)";
                         SQL_do($SQL);
                         print "<script>$htext</script>";
@@ -2084,7 +2084,7 @@ if ($load == "unset") {
                         $par[6] = "Атака холодом";
                         $par[7] = "Вампиризм";
                         if ($par[$what] <> "") {
-                            $tm = "<a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add2&what=$what class=menu2 target=menu><font class=small><b>$par[$what] + 1.<br>Вы уверены в этом решении ?</b></font></a>";
+                            $tm = "<a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add2&what=$what class=menu2 target=menu><font class=small><b>$par[$what] + 1.<br>Вы уверены в этом решении ?</b></font></a>";
                         }
                     }
                     if (($do == "add2") && ($clan_plus+$cst <= 20) && ($city_rank == 1)) {
@@ -2145,13 +2145,13 @@ if ($load == "unset") {
                     $gg = 100 + ($clan_plus) * 25;
                     $info .= "<table width=100%><tr><td align=center width=55% valign=top><table cellpadding=1><tr><td width=45 align=center rowspan=8><img src=/img/stuff/$ring_pic></td><td colspan=3><b>$ring_name</b></td></tr>";
                     if ($city_rank == 1) {
-                        $info .= "<tr><td>Атака: </td><td>$ring_attack(1)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=1 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack(1)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=2 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Маг защита: </td><td>$ring_magic_def(2)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=3 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Защита: </td><td>$ring_def_all(2)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=4 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Атака огнём: </td><td>$ring_fire_attack(2)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=5 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Атака холодом: </td><td>$ring_cold_attack(2)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=6 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Вампиризм: </td><td>$ring_drain_attack(2)</td><td><a href=menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=7 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака: </td><td>$ring_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=1 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=2 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Маг защита: </td><td>$ring_magic_def(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=3 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Защита: </td><td>$ring_def_all(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=4 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака огнём: </td><td>$ring_fire_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=5 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака холодом: </td><td>$ring_cold_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=6 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Вампиризм: </td><td>$ring_drain_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=7 target=menu><img src=/img/game/up.gif></a></td></tr>";
                     } else {
                         $info .= "<tr><td>Атака: </td><td>$ring_attack</td><td></td></tr>";
                         $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack</td><td></td></tr>";
@@ -2165,12 +2165,12 @@ if ($load == "unset") {
                     $info .= "<tr><td valign=top>Золота для улучшения: </td><td>$gg злт.</td></tr>";
                     $info .= "<tr><td valign=top colspan=2><br><br>Параметр одной характеристики не должен превышать 10.</td></tr>";
                     if ($is_ring == 0) {
-                        $info .= "</table></td></tr><tr><td colspan=2 align=center>$tm</td></tr><tr><td colspan=2 align=center><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=city_id value=$city_id><input type=hidden name=do value=take><input type=hidden name=load value=$load><br><input type=submit value=\'Взять такое кольцо (-50 опыта).\' style=width:80%></td></tr></form></table>";
+                        $info .= "</table></td></tr><tr><td colspan=2 align=center>$tm</td></tr><tr><td colspan=2 align=center><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=city_id value=$city_id><input type=hidden name=do value=take><input type=hidden name=load value=$load><br><input type=submit value=\'Взять такое кольцо (-50 опыта).\' style=width:80%></td></tr></form></table>";
                     } else {
-                        $info .= "</table></td></tr><tr><td colspan=2 align=center>$tm</td></tr><tr><td colspan=2 align=center><form action=menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=city_id value=$city_id><input type=hidden name=do value=take><input type=hidden name=load value=$load><br><input type=submit value=\'Взять такое кольцо (-50 опыта).\' style=width:80% disabled></td></tr></form></table>";
+                        $info .= "</table></td></tr><tr><td colspan=2 align=center>$tm</td></tr><tr><td colspan=2 align=center><form action=/menu.php method=post target=menu><input type=hidden name=load value=$load><input type=hidden name=action value=$action><input type=hidden name=city_id value=$city_id><input type=hidden name=do value=take><input type=hidden name=load value=$load><br><input type=submit value=\'Взять такое кольцо (-50 опыта).\' style=width:80% disabled></td></tr></form></table>";
                     }
                 } else {
-                    $menu .= "<br><a href=menu.php?load=clan&action=20&city_id=$city_id target=menu class=menu><b>» Клановое кольцо</b></a>";
+                    $menu .= "<br><a href=/menu.php?load=clan&action=20&city_id=$city_id target=menu class=menu><b>» Клановое кольцо</b></a>";
                 }
             }
         }
@@ -2191,15 +2191,15 @@ if ($load == "unset") {
                 $text = "Уйти из клана <b>$city_name</b>";
                 $menu .= "<br><br><font color=AA0000><b>» Уйти из клана</b></font>";
                 if ($clan_rank ==1) {
-                    $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении клана.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками клана.<br>&nbsp;&nbsp;&nbsp;- Вы сможете вступуть в любой другой клан сразу после ухода из этого.<br><b>&nbsp;&nbsp;&nbsp;- Вы расформуруете клан, но получите $price з. компенсации</b><br><br><br><div align=center><b>Вы действительно хотите выйти из состава клана?<br><br><a href=menu.php?load=clan&do=exitcity&action=8&city_id=$city_id class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.php?load=clan&action=1&city_id=$city_id class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
+                    $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении клана.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками клана.<br>&nbsp;&nbsp;&nbsp;- Вы сможете вступуть в любой другой клан сразу после ухода из этого.<br><b>&nbsp;&nbsp;&nbsp;- Вы расформуруете клан, но получите $price з. компенсации</b><br><br><br><div align=center><b>Вы действительно хотите выйти из состава клана?<br><br><a href=/menu.php?load=clan&do=exitcity&action=8&city_id=$city_id class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/menu.php?load=clan&action=1&city_id=$city_id class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
                 } else {
-                    $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении клана.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками клана.<br>&nbsp;&nbsp;&nbsp;- Вы сможете вступуть в любой другой клан сразу после ухода из этого.<br><br><br><div align=center><b>Вы действительно хотите выйти из состава клана?<br><br><a href=menu.php?load=clan&do=exitcity&action=8&city_id=$city_id class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=menu.php?load=clan&action=1&city_id=$city_id class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
+                    $info = "<table width=100% height=100%><tr><td valign=top><font color=AAAAAA><b>- Последствия</b></font><br>&nbsp;&nbsp;&nbsp;- Вы не сможете участвовать в общественной жизни и общении клана.<br>&nbsp;&nbsp;&nbsp;- Вы не сможете пользоваться постройками клана.<br>&nbsp;&nbsp;&nbsp;- Вы сможете вступуть в любой другой клан сразу после ухода из этого.<br><br><br><div align=center><b>Вы действительно хотите выйти из состава клана?<br><br><a href=/menu.php?load=clan&do=exitcity&action=8&city_id=$city_id class=menu target=menu><font color=red>Да</a></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/menu.php?load=clan&action=1&city_id=$city_id class=menu target=menu><font color=blue>Нет</font></a></b></div></td></tr></table>";
                 }
             } else {
-                $menu .= "<br><br><a href=menu.php?load=clan&action=8&city_id=$city_id target=menu class=menu><b>» Уйти из клана</b></a>";
+                $menu .= "<br><br><a href=/menu.php?load=clan&action=8&city_id=$city_id target=menu class=menu><b>» Уйти из клана</b></a>";
             }
         }
-        print "<script>top.settop('Клан $city_name');top.city('$city_name','clan/$city_pic','$menu','$text','$info');</script>";
+        print "<script>window.top.settop('Клан $city_name');window.top.city('$city_name','clan/$city_pic','$menu','$text','$info');</script>";
     }
 } elseif ($load == 'alch') {
     include("functions/domir.php");
@@ -2231,7 +2231,7 @@ if ($load == "unset") {
         while ($row_num) {
             $i++;
             $who_name = $row_num[0];
-            print "top.ignor[$i] = '$who_name'; ";
+            print "window.top.ignor[$i] = '$who_name'; ";
             $player['ignor'.$i] = $who_name;
             $row_num=SQL_next_num();
         }
@@ -2239,7 +2239,7 @@ if ($load == "unset") {
             SQL_free_result($result);
         }
         for ($k=$i+1;$k<=12;$k++) {
-            print "top.ignor[$k] = ''; ";
+            print "window.top.ignor[$k] = ''; ";
             $player['ignor'.$k] = '';
         }
 
@@ -2291,14 +2291,14 @@ if ($load == "unset") {
                         $i++;
                         $who_name = $row_num[0];
                         $player['ignor'.$i] = $who_name;
-                        print "top.ignor[$i] = '$who_name'; ";
+                        print "window.top.ignor[$i] = '$who_name'; ";
                         $row_num=SQL_next_num();
                     }
                     if ($result) {
                         SQL_free_result($result);
                     }
                     for ($k=$i+1;$k<=12;$k++) {
-                        print "top.ignor[$k] = ''; ";
+                        print "window.top.ignor[$k] = ''; ";
                         $player['ignor'.$k] = '';
                     }
 
@@ -2313,21 +2313,21 @@ if ($load == "unset") {
             print "<script>alert('Разрешено добавить не больше 12 человек.');</script>";
         }
     }
-    $link = "<form action=menu.php method=post target=menu><table cellspacing=3 border=0 width=300>";
+    $link = "<form action=/menu.php method=post target=menu><table cellspacing=3 border=0 width=300>";
     $link .= "<tr><input type=hidden name=load value=$load><input type=hidden name=do value=add><tD><font color=AAAAAA><b>- Добавить</b></Font></td><td align=right><input type=text name=name size=14> <input type=submit value=Добавить></td></tr></form>";
     $SQL="select who_id,who_name from sw_ignor where owner=$player_id";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $id = $row_num[0];
         $name = $row_num[1];
-        $link .= "<tr><tD colspan=2 align=right><table cellpadding=0 cellspacing=0 width=95%><tr><td width=18><a href=./fullinfo.php?name=$name target=_blank><img src=/img/game/info.gif width=13 height=13></a></td><td width=150><b>$name</b></td><td align=right><a href=menu.php?load=$load&action=del&who_id=$id class=menu2 target=menu>Удалить</a></td></tr></table></td></tr>";
+        $link .= "<tr><tD colspan=2 align=right><table cellpadding=0 cellspacing=0 width=95%><tr><td width=18><a href=./fullinfo.php?name=$name target=_blank><img src=/img/game/info.gif width=13 height=13></a></td><td width=150><b>$name</b></td><td align=right><a href=/menu.php?load=$load&action=del&who_id=$id class=menu2 target=menu>Удалить</a></td></tr></table></td></tr>";
         $row_num=SQL_next_num();
     }
     if ($result) {
         SQL_free_result($result);
     }
     $link .= "</table>";
-    print "<script>top.settop('Игнорирование');top.city('','ign.gif','','Игнорирование','$link');</script>";
+    print "<script>window.top.settop('Игнорирование');window.top.city('','ign.gif','','Игнорирование','$link');</script>";
 } elseif ($load == 'opt') {
     $SQL="select level, telegram_chat_token from sw_users where id=$player_id";
     $row_num=SQL_query_num($SQL);
@@ -2351,7 +2351,7 @@ if ($load == "unset") {
             }
 
             $player_opt = $sm;
-            $player['opt'] = $player_opt;
+            $player['options'] = $player_opt;
             $SQL="update sw_users set options=$player_opt where id=$player_id";
             SQL_do($SQL);
         } else {
@@ -2368,38 +2368,38 @@ if ($load == "unset") {
             }
         }
         $player_opt = $sm;
-        $player['opt'] = $player_opt;
+        $player['options'] = $player_opt;
         $SQL="update sw_users set options=$player_opt where id=$player_id";
         SQL_do($SQL);
     }
     $link = "<table width=100% cellpadding=4>";
     $link .= "<tr><td colspan=3><font color=AAAAAA><b>- Настройки игры</b></font></td></tr>";
     if ($player_opt & 1) {
-        $link .= "<tr><td width=1></td><td>Картинки под комнатами карты.</td><td width=80 align=center><a href=menu.php?load=opt&unset=1 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Картинки под комнатами карты.</td><td width=80 align=center><a href=/menu.php?load=opt&unset=1 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
     } else {
-        $link .= "<tr><td width=1></td><td>Картинки под комнатами карты.</td><td width=80 align=center><a href=menu.php?load=opt&set=1 class=menu2 target=menu><b>Включено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Картинки под комнатами карты.</td><td width=80 align=center><a href=/menu.php?load=opt&set=1 class=menu2 target=menu><b>Включено</b></a></td></tr>";
     }
     if ($player_opt & 2) {
-        $link .= "<tr><td width=1></td><td>Алерт сообщения при любом неправильном действии.</td><td width=80 align=center><a href=menu.php?load=opt&unset=2 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Алерт сообщения при любом неправильном действии.</td><td width=80 align=center><a href=/menu.php?load=opt&unset=2 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
     } else {
-        $link .= "<tr><td width=1></td><td>Алерт сообщения при любом неправильном действии.</td><td width=80 align=center><a href=menu.php?load=opt&set=2 class=menu2 target=menu><b>Включено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Алерт сообщения при любом неправильном действии.</td><td width=80 align=center><a href=/menu.php?load=opt&set=2 class=menu2 target=menu><b>Включено</b></a></td></tr>";
     }
     $link .= "<tr><td colspan=3><font color=AAAAAA><b>- Настройки чата</b></font></td></tr>";
     if ($player_opt & 4) {
-        $link .= "<tr><td width=1></td><td>Cообщения о переходах по комнатам.</td><td width=80 align=center><a href=menu.php?load=opt&unset=3 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Cообщения о переходах по комнатам.</td><td width=80 align=center><a href=/menu.php?load=opt&unset=3 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
     } else {
-        $link .= "<tr><td width=1></td><td>Cообщения о переходах по комнатам.</td><td width=80 align=center><a href=menu.php?load=opt&set=3 class=menu2 target=menu><b>Включено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Cообщения о переходах по комнатам.</td><td width=80 align=center><a href=/menu.php?load=opt&set=3 class=menu2 target=menu><b>Включено</b></a></td></tr>";
     }
     if ($player_opt & 8) {
-        $link .= "<tr><td width=1></td><td>Общий канал /общий.</td><td width=80 align=center><a href=menu.php?load=opt&unset=4 class=menu2 target=menu><b>Включено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Общий канал /общий.</td><td width=80 align=center><a href=/menu.php?load=opt&unset=4 class=menu2 target=menu><b>Включено</b></a></td></tr>";
     } else {
-        $link .= "<tr><td width=1></td><td>Общий канал /общий.</td><td width=80 align=center><a href=menu.php?load=opt&set=4 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Общий канал /общий.</td><td width=80 align=center><a href=/menu.php?load=opt&set=4 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
     }
 
     if ($player_opt & 16) {
-        $link .= "<tr><td width=1></td><td>Показывать городские сообщения относящиеся только к Вам.</td><td width=80 align=center><a href=menu.php?load=opt&unset=5 class=menu2 target=menu><b>Включено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Показывать городские сообщения относящиеся только к Вам.</td><td width=80 align=center><a href=/menu.php?load=opt&unset=5 class=menu2 target=menu><b>Включено</b></a></td></tr>";
     } else {
-        $link .= "<tr><td width=1></td><td>Показывать городские сообщения относящиеся только к Вам.</td><td width=80 align=center><a href=menu.php?load=opt&set=5 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
+        $link .= "<tr><td width=1></td><td>Показывать городские сообщения относящиеся только к Вам.</td><td width=80 align=center><a href=/menu.php?load=opt&set=5 class=menu2 target=menu><b>Выключено</b></a></td></tr>";
     }
 
         ;
@@ -2412,7 +2412,7 @@ if ($load == "unset") {
     $link .= "<tr><td width=1></td><td>Для того, чтобы писать из телеграма в общий чат игры - отправьте боту <a href=\"https://t.me/shamaal_bot?start\" target=\"_blank\">@shamaal_bot</a> ваш токен.</td></tr>";
 
     $link .= "</table>";
-    print "<script>top.settop('Настройки');top.city('','game/opt.gif','','Настройки игры','$link');</script>";
+    print "<script>window.top.settop('Настройки');window.top.city('','game/opt.gif','','Настройки игры','$link');</script>";
 } elseif ($load == 'join_clan') {
     $SQL="select join_clan,clan,sex from sw_users where id=$player_id";
     $row_num=SQL_query_num($SQL);

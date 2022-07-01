@@ -95,16 +95,16 @@ $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what
 			$name=$row_num[1];
 			$skill_max=$row_num[2];
 			if (($pack & 1) && ($sm > 0))
-				$t .= "<tr><td width=200>$name</td><td width=50 align=center>$skill[$id2] / $skill_max</td><td><form action=menu.php target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=upskill value=$id2><input type=hidden name=id value=$id><input type=hidden name=do value=up><input type=submit value=Улучшить style=width:70></form></td></tr>";
+				$t .= "<tr><td width=200>$name</td><td width=50 align=center>$skill[$id2] / $skill_max</td><td><form action=/menu.php target=menu style=\"padding: 0;margin: 0;display: inline;\"><input type=hidden name=load value=$load><input type=hidden name=upskill value=$id2><input type=hidden name=id value=$id><input type=hidden name=do value=up><input type=submit value=Улучшить style=width:70></form></td></tr>";
 			else
 				$t .= "<tr><input type=hidden name=id value=$id><input type=hidden name=do value=up><td width=200>$name</td><td width=50 align=center>$skill[$id2] / $skill_max</td><td><input type=submit value=Улучшить style=width:70 disabled></td></tr>";
 			$row_num=SQL_next_num();
 		}
 		if ($result)
 			SQL_free_result($result);
-		//$t .= "<tr><form action=menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=id value=$id><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag$i.gif></td><td>Качество: $bquality[$i]</td><td><input type=submit value=Улучшить style=width:70></td></form></tr>";
+		//$t .= "<tr><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=id value=$id><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag$i.gif></td><td>Качество: $bquality[$i]</td><td><input type=submit value=Улучшить style=width:70></td></form></tr>";
 		$t .= "</table>";
 		$t .= "</td></tr></table>";
-		print "<script>top.domir('$text','$t');</script>";
+		print "<script>window.top.domir('$text','$t');</script>";
 	}
 ?>

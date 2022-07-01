@@ -52,7 +52,7 @@ if (isset($zzadmin)) {
     }
 }
 
-if ((isset($name)) && (isset($password)) && session_is_registered("zadmin")) {
+if ((isset($name)) && (isset($password)) && !empty($_SESSION["zadmin"])) {
     $name = SQL_escape($zzadmin);
 
     if (!password_verify($password, $admin_password)) {
@@ -82,9 +82,7 @@ if ((isset($name)) && (isset($password)) && session_is_registered("zadmin")) {
 $cur_state = 1;
 
 if (isset($admin['ids'])) {
-    if (!session_is_registered("admin")) {
-        exit();
-    }
+    if (empty($_SESSION['admin'])) {exit();}
     $admin_id = $admin['ids'];
     $admin_name = $admin['name'];
     $admin_password = $admin['psw'];
@@ -594,7 +592,7 @@ function inf()
     $loadavg = 1;
     if ($do == 'kick') {
         print "<div align=center><i>Игроки выгнаны с сервера</i></div>";
-        $text = "top.myalert(\"Сервер закрыл доступ\",\"Сервер закрыл доступ на некоторое время.\");top.wclose();";
+        $text = "window.top.myalert(\"Сервер закрыл доступ\",\"Сервер закрыл доступ на некоторое время.\");window.top.wclose();";
         $SQL="update sw_users set mytext=CONCAT(mytext,'$text') where online > $cur_time-60 and npc=0";
         SQL_do($SQL);
     }
@@ -3137,20 +3135,16 @@ function golos()
         <td></td></tr></table></form><br><br>";
     }
 
-    $last = "";
-    $i=0;
-
     if (isset($page)) {
         $page = 0;
     }
     $page = (integer)$page;
 
-    $SQL="SELECT id, text, active FROM sw_website_vote ORDER BY active DESC, id DESC LIMIT $page, 5";
-    $res=SQL_query2($SQL);
-    while ($row_num = mysql_fetch_assoc($res)) {
-        $id = $row_num['id'];
-        $text = $row_num['text'];
-        $active = $row_num['active'];
+    $sqlRes = $db->getAll('SELECT id, text, active FROM sw_website_vote ORDER BY active DESC, id DESC LIMIT ?i, 5', $page);
+    foreach ($sqlRes as $row) {
+        $id = $row['id'];
+        $text = $row['text'];
+        $active = $row['active'];
 
         if ($active == 1) {
             $s = "<b><font color=green>Активно</font></b>";
@@ -3167,23 +3161,21 @@ function golos()
             <input type=hidden name=idVote value=$id><input type=text  name=text value='$text'><input type=submit value=Изменить></form></td>
             <td><a href=bvgfvf7w83hr129jr1aw.php?load=$load&page=$page&action=delComplete&idVote=$id><b>[Удалить]</b></a></td>
             <td>- $s</td></tr>";
-            $SQL="SELECT id, answer, nb FROM sw_website_vote_answer WHERE  pollid=$id";
-            $res2=SQL_query2($SQL);
-            while ($row_num2 = mysql_fetch_assoc($res2)) {
-                $id2 = $row_num2['id'];
-                $answer = $row_num2['answer'];
-                $nb = $row_num2['nb'];
-
-
+            $sqlRes2 = $db->getAll('SELECT id, answer, nb FROM sw_website_vote_answer WHERE  pollid=?i', $id);
+            foreach ($sqlRes2 as $row2) {
+                $id2 = $row2['id'];
+                $answer = $row2['answer'];
+                $nb = $row2['nb'];
                 print "
-                <tr><td></td>
-                <td align=right><form action=bvgfvf7w83hr129jr1aw.php method=post>
-                <input type=hidden name=load value=$load>
-                <input type=hidden name=page value=$page>
-                <input type=hidden name=action value=saveAns>
-                <input type=hidden name=idVote value=$id>
-                <input type=hidden name=idAns value=$id2><input type=text name=ans value='$answer' size=15> <input type=text name=nbVote value='$nb' size=2> <input type=submit value=Изменить></form></td>
-                <td><a href=bvgfvf7w83hr129jr1aw.php?load=$load&page=$page&action=delAns&idAns=$id2>[Удалить]</a></td></tr>";
+                    <tr><td></td>
+                    <td align=right><form action=bvgfvf7w83hr129jr1aw.php method=post>
+                    <input type=hidden name=load value=$load>
+                    <input type=hidden name=page value=$page>
+                    <input type=hidden name=action value=saveAns>
+                    <input type=hidden name=idVote value=$id>
+                    <input type=hidden name=idAns value=$id2><input type=text name=ans value='$answer' size=15> <input type=text name=nbVote value='$nb' size=2> <input type=submit value=Изменить></form></td>
+                    <td><a href=bvgfvf7w83hr129jr1aw.php?load=$load&page=$page&action=delAns&idAns=$id2>[Удалить]</a></td></tr>";
+                }
             }
 
             print "
@@ -4038,7 +4030,7 @@ function chat()
         if ($notyImg == '') {
             $notyImg = 'stuff/scroll/scroll1.gif';
         }
-        $ntext = "top.notifyUser(\"$notyImg\",\"$notyTitle\", \"$notyText\");";
+        $ntext = "window.top.notifyUser(\"$notyImg\",\"$notyTitle\", \"$notyText\");";
         $SQL="update sw_users SET mytext=CONCAT(mytext,'$ntext') where online > $online_time and npc=0";
         SQL_do($SQL);
         print "&nbsp;&nbsp;&nbsp;<b>Уведомление отправлено:</b> $ntext";
@@ -4048,16 +4040,16 @@ function chat()
     if ($action == 'shake') {
         $online_time = time()-60;
         if ($c != 2) {
-            $SQL="update sw_users SET mytext=CONCAT(mytext,'top.shake(4);') where online > $online_time and npc=0";
+            $SQL="update sw_users SET mytext=CONCAT(mytext,'window.top.shake(4);') where online > $online_time and npc=0";
         } else {
-            $SQL="update sw_users SET mytext=CONCAT(mytext,'top.shake(4);') where online > $online_time and npc=0 and city=1";
+            $SQL="update sw_users SET mytext=CONCAT(mytext,'window.top.shake(4);') where online > $online_time and npc=0 and city=1";
         }
         SQL_do($SQL);
         print "<br><br><font color=red class=small>Тряска выполнена</font>";
     }
     if ($action == 'refresh') {
         $online_time = time()-60;
-        $SQL="update sw_users SET mytext=CONCAT(mytext,'top.document.location=\'index.php\';') where online > $online_time and npc=0";
+        $SQL="update sw_users SET mytext=CONCAT(mytext,'window.top.document.location=\'index.php\';') where online > $online_time and npc=0";
         SQL_do($SQL);
         print "<br><br><font color=red class=small>Рефреш окна</font>";
     }
@@ -4184,7 +4176,7 @@ function uploadpic()
     print "</form>";
     print "<table>";
     foreach ($dir_array as $n) {
-        //print "<tr bgcolor=EDF1F1><td align=center width=82><img src=/img/$dir/$n></td><td align=center><a href=# onclick=window.opener.top.document.getElementById('b$id').value='$n';window.close();>".$n."</td></tr>";
+        //print "<tr bgcolor=EDF1F1><td align=center width=82><img src=/img/$dir/$n></td><td align=center><a href=# onclick=window.opener.window.top.document.getElementById('b$id').value='$n';window.close();>".$n."</td></tr>";
         $pos = strpos($n, ".");
         if ($pos != false) {
             if ((strpos(strtoupper($n), ".GIF")) || (strpos(strtoupper($n), ".JPG"))) {
@@ -4364,9 +4356,7 @@ function news()
     print "<div align=center>$com_text</div>";
 }
 if ($cur_state == 2) {
-    if (!session_is_registered("admin")) {
-        exit();
-    } ?>
+    if (empty($_SESSION['admin'])) {exit();} ?>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -4638,7 +4628,7 @@ if ($cur_state == 2) {
     </tr>
 </table>
 <?php
-} elseif (session_is_registered("zadmin")) {
+} elseif (!empty($_SESSION['zadmin'])) {
     ?>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

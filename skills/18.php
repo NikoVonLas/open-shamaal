@@ -28,7 +28,7 @@ if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 2))
 {
 	$player['effect'] = "ref";
-	print "top.delaflict(11);";
+	print "window.top.delaflict(11);";
 }
 $game_skill_mana[18][2]= 15;
 $game_skill_afflict_percent[18][2]= 100;
@@ -53,7 +53,7 @@ if ($wepontype[$player_id] == 4)
 if ($npc_kick == 0)
 if (($target_id == $player_id) && ($num == 3)&& ($pl_cmana[$player_id] - 15 >= 0) )
 if (strpos(" $player_aff",",12);") == 0)
-	print "top.aflict(2,12);";
+	print "window.top.aflict(2,12);";
 $game_skill_afflict_percent[18][3]= 100;
 $game_skill_afflict[18][3]= ",aff_bless=$cur_time+5*12";
 $game_skill_afflict_text[18][3]= "[<b>$target_name</b>]&nbsp;<b>$player_name </b>наложил$sex_a заклинание <font class=atype>`Благословление`</font>.";
@@ -131,7 +131,7 @@ if ($num == 6)
 $game_skill_name[18][6]= "Телепортировать к себе";
 /*if (($target_id == $player_id) && ($num == 2))
 if (strpos(" $player_aff",",11);") == 0)
-	print "top.aflict(2,9);";*/
+	print "window.top.aflict(2,9);";*/
 
 $game_skill_mana[18][6]= 120;
 $game_skill_afflict_percent[18][6]= 100;

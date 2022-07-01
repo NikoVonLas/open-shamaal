@@ -111,5 +111,5 @@ $('#allItems').click();
     } else {
         $pic = "".$pic;
     }
-    print "<script>top.inv('{$pic}',{$cur_weight},{$max_weight},{$bag_q},'{$obj_img['1']}','{$obj_alt['1']}','{$iobj_id['1']}','{$obj_img['2']}','{$obj_alt['2']}','{$iobj_id['2']}','{$obj_img2['2']}','{$obj_alt2['2']}','{$iobj_id2['2']}','{$obj_img['3']}','{$obj_alt['3']}','{$iobj_id['3']}','{$obj_img['4']}','{$obj_alt['4']}','{$iobj_id['4']}','{$obj_img['5']}','{$obj_alt['5']}','{$iobj_id['5']}','{$obj_img['6']}','{$obj_alt['6']}','{$iobj_id['6']}','{$obj_img['7']}','{$obj_alt['7']}','{$iobj_id['7']}','{$obj_img['8']}','{$obj_alt['8']}','{$iobj_id['8']}','{$obj_img['9']}','{$obj_alt['9']}','{$iobj_id['9']}');</script>";
+    print "<script>window.top.inv('{$pic}',{$cur_weight},{$max_weight},{$bag_q},'{$obj_img['1']}','{$obj_alt['1']}','{$iobj_id['1']}','{$obj_img['2']}','{$obj_alt['2']}','{$iobj_id['2']}','{$obj_img2['2']}','{$obj_alt2['2']}','{$iobj_id2['2']}','{$obj_img['3']}','{$obj_alt['3']}','{$iobj_id['3']}','{$obj_img['4']}','{$obj_alt['4']}','{$iobj_id['4']}','{$obj_img['5']}','{$obj_alt['5']}','{$iobj_id['5']}','{$obj_img['6']}','{$obj_alt['6']}','{$iobj_id['6']}','{$obj_img['7']}','{$obj_alt['7']}','{$iobj_id['7']}','{$obj_img['8']}','{$obj_alt['8']}','{$iobj_id['8']}','{$obj_img['9']}','{$obj_alt['9']}','{$iobj_id['9']}');</script>";
 }

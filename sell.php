@@ -1,5 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}
 $owner_id = 0;
 $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id=$player_id  and what='sell'";
 $row_num=SQL_query_num($SQL);
@@ -118,7 +118,7 @@ if ($player_room > 0)
 					SQL_do($SQL);
 
 					$gold += $price;
-				//	print "<script>top.addshop(-1,$gold);</script>";
+				//	print "<script>window.top.addshop(-1,$gold);</script>";
 					
 				}
 			}
@@ -129,7 +129,7 @@ if ($player_room > 0)
 		{
 			$player['leg'] = 1;
 			print "<script>
-				if (confirm('Вы действительно хотите продать $name $count шт. ?') ) { document.location='menu.php?action=$action&load=$load&do=$do&act=$act&count=$count&obj_id=$obj_id&show=$show&player_legs=1'; } else {document.location='menu.php?load=unset';}
+				if (confirm('Вы действительно хотите продать $name $count шт. ?') ) { document.location='/menu.php?action=$action&load=$load&do=$do&act=$act&count=$count&obj_id=$obj_id&show=$show&player_legs=1'; } else {document.location='/menu.php?load=unset';}
 				</script>";
 			SQL_disconnect();
    			exit();
@@ -149,7 +149,7 @@ if ($player_room > 0)
 	}
 	$player['text'] = $mtext;
 	$text .= " (<font color=777700 id=ggold>$gold</font> злт.)";
-	print "<script>top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
+	print "<script>window.top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
 }
 else
 	print "<script>alert('Функция недоступна.')</script>";

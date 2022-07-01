@@ -1,5 +1,5 @@
 <?
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}
 $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city,fid,clan_rank,clan from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id=$player_id  and what='buy'";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
@@ -135,7 +135,7 @@ if ((($fid == $id) && ($owner_id == $player_id) && ($owner_city == 0))|| (($owne
 	}
 	$player['text'] = $mtext;
 	
-	print "<script>top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
+	print "<script>window.top.mysell('$cname','$cbuy','$text','$shp',1);</script>";
 
 }
 else

@@ -14,5 +14,6 @@
 			</head>
 EOT;
 	include('ref_map.php');
+    echo '</script>';
 	echo '</html>';
 	SQL_disconnect();

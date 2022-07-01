@@ -78,7 +78,7 @@ else
 }
 if ( 2160000 < $cur_time - $city_last )
 {
-    $dat .= "&nbsp;<a href=menu.php?load={$load}&action=12 target=menu class=menu><font color=red><b>[Выборы]</b></a>";
+    $dat .= "&nbsp;<a href=/menu.php?load={$load}&action=12 target=menu class=menu><font color=red><b>[Выборы]</b></a>";
 }
 $info .= "<table width=100% cellpadding=3>";
 $info .= "<tr><td width=180><font color=AAAAAA><b>- Правление</font></b></td><td></td></tr>";
@@ -93,7 +93,7 @@ $info .= "<tr><td width=180 height=10><b></b></td><td class=usergood></td></tr>"
 $info .= "<tr><td width=180><font color=AAAAAA><b>- Остальное</font></b></td><td></td></tr>";
 if ( $city_rank == 1 )
 {
-    $info .= "<form action=menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=do value=savehttp><tr><td width=180>&nbsp;&nbsp;&nbsp;<b>Адрес в интернете:</b></td><td><input type=text name=c_http value=\"{$city_http}\" size=15 maxlength=50><input type=submit value=Поменять style=width:70></td></tr></form>";
+    $info .= "<form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=do value=savehttp><tr><td width=180>&nbsp;&nbsp;&nbsp;<b>Адрес в интернете:</b></td><td><input type=text name=c_http value=\"{$city_http}\" size=15 maxlength=50><input type=submit value=Поменять style=width:70></td></tr></form>";
 }
 else if ( $city_http != "" )
 {

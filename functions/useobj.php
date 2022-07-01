@@ -214,11 +214,11 @@ function useobj($id)
 					
 					$page1 = str_replace("\r\n","<br>",$page1);
 					$page2 = str_replace("\r\n","<br>",$page2);
-					print "<script>top.settop('Книга');top.scrol('$page1','$page2',1);</script>";
+					print "<script>window.top.settop('Книга');window.top.scrol('$page1','$page2',1);</script>";
 				}
 				else if ($map <> "")
 				{
-					print "<script>top.settop('Книга');top.scrol('','',1);</script>";
+					print "<script>window.top.settop('Книга');window.top.scrol('','',1);</script>";
 				}
 				else 
 				{
@@ -231,7 +231,7 @@ function useobj($id)
 					if ($obj3_num <> 0) 
 						$page1 .= "<tr><td class=gotic><b>$ob_name[$obj3]:</b></td><td  class=gotic>$obj3_num шт.</td></tr>";
 					$page1 .= "</table></td></tr></table>";
-					print "<script>top.settop('Книга');top.scrol('$page1','',2);</script>";
+					print "<script>window.top.settop('Книга');window.top.scrol('$page1','',2);</script>";
 				}
 			}
 		}
@@ -311,8 +311,8 @@ function useobj($id)
 				else
 				{
 					$text = "Подарок";
-					$main = "<table width=100% height=200><tr><td align=center valign=middle><form action=menu.php target=menu><input type=hidden name=load value=useobj><input type=hidden name=obj_id value=$obj_id><input type=text name=textp size=30 maxlength=60><br><br><input type=submit value=\"Написать на подарке\"></font></td></tr></table>";
-					print "<script>top.domir('$text','$main');</script>";
+					$main = "<table width=100% height=200><tr><td align=center valign=middle><form action=/menu.php target=menu><input type=hidden name=load value=useobj><input type=hidden name=obj_id value=$obj_id><input type=text name=textp size=30 maxlength=60><br><br><input type=submit value=\"Написать на подарке\"></font></td></tr></table>";
+					print "<script>window.top.domir('$text','$main');</script>";
 				}
 				
 			}
@@ -367,11 +367,11 @@ function useobj($id)
 						
 						$page1 = str_replace("\r\n","<br>",$page1);
 						$page2 = str_replace("\r\n","<br>",$page2);
-						print "<script>top.settop('Книга');top.scrol('$page1','$page2',1);</script>";
+						print "<script>window.top.settop('Книга');window.top.scrol('$page1','$page2',1);</script>";
 					}
 					else if ($map <> "")
 					{
-						print "<script>top.settop('Книга');top.scrol('','',1);</script>";
+						print "<script>window.top.settop('Книга');window.top.scrol('','',1);</script>";
 					}
 					else 
 					{
@@ -383,7 +383,7 @@ function useobj($id)
 						if ($obj3_num <> 0) 
 							$page1 .= "<tr><td class=gotic><b>$ob_name[$obj3]:</b></td><td  class=gotic>$obj3_num шт.</td></tr>";
 						$page1 .= "</table></td></tr></table>";
-						print "<script>top.settop('Книга');top.scrol('$page1','',2);</script>";
+						print "<script>window.top.settop('Книга');window.top.scrol('$page1','',2);</script>";
 					}
 				}
 			}
@@ -541,8 +541,8 @@ function useobj($id)
 				if ($error == 0)
 				{
 					$tex = "<table><tr><td width=120><b>Название клана: </b></td><td><input type=text name=clan_name size=15 maxlength=20></td><td class=italic>20 символов. Только русские или только английские буквы алфавитов.</td></tr><tr><td width=120><b>Абривеатура: </b></td><td align=right><input type=text name=clan_litle size=4 maxlength=4></td><td class=italic>4 символа. Сокращенный текст рядом с именами игроков клана, например CL.</td></tr><tr><td width=120><b>Адрес: </b></td><td align=right><input type=text name=clan_http size=15 maxlength=40></td><td class=italic>15 символа. Пример http://www.clan.ru</td></tr><tr><td colspan=3 class=italic><br>- Учтите, что название клана и его абривиатуру вы не сможете изменить после его создания.<br><font color=red>$er_log</font><br></td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table>";
-					$text = "<form action=menu.php target=menu><table width=90% cellpadding=5 align=center><input type=hidden name=obj_id value=$id><input type=hidden name=do value=makeclan><input type=hidden name=load value=useobj><tr><td><table class=blue cellpadding=0 cellspacing=1 width=100% align=center><tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td>Все поля обязательны для заполнения.</td></tr></table></td></tr><tr><td class=mainb height=265 bgcolor=FFFFFF valign=top>$tex</td></tr></table></td></tr></table></form>";
-					print "<script>top.ttext('Основание клана','$text');</script>";
+					$text = "<form action=/menu.php target=menu><table width=90% cellpadding=5 align=center><input type=hidden name=obj_id value=$id><input type=hidden name=do value=makeclan><input type=hidden name=load value=useobj><tr><td><table class=blue cellpadding=0 cellspacing=1 width=100% align=center><tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td>Все поля обязательны для заполнения.</td></tr></table></td></tr><tr><td class=mainb height=265 bgcolor=FFFFFF valign=top>$tex</td></tr></table></td></tr></table></form>";
+					print "<script>window.top.ttext('Основание клана','$text');</script>";
 				}
 				
 			}

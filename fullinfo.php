@@ -3,9 +3,10 @@ require_once('./include.php');
 
 $player_id = $player['id'];
 $player_name = $player['name'];
-if ( !session_is_registered("player")) {
-$player_id = -1;
+if (empty($_SESSION['player'])) {
+    $player_id = -1;
 }
+
 $cur_time=time();
 Function checkletter($text)
 {

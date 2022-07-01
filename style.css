@@ -88,6 +88,13 @@ form {
     margin-top: 0;
     margin-block-end: 0;
 }
+.mainb img,
+.chat-row img,
+.chat-row tr,
+.chat-row td,
+.chat-row table {
+    float:left;
+}
 
 
 

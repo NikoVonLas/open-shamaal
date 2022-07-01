@@ -1,5 +1,5 @@
 <?php
-	require_once('../include.php');
+	require_once('./include.php');
 
 	$player_id = $player['id'];
 	$player_name = $player['name'];
@@ -13,7 +13,7 @@
 	$cbalance = $balance;
 	$oldeffect = $player['effect'];
 	$old_room = $player['room'];
-	$player_opt = $player['opt'];
+	$player_opt = $player['options'];
 	$sleep = $player['sleep'];
 	$regen = $player['regen'];
 	$afk = $player['afk'];
@@ -29,25 +29,18 @@
 	$and = "";
 	$passwd_hidden = "T13D@";
 	include("functions.php");
-	echo '<html>
-	<head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-	</head>
-	';
-	if ($afk+getenv('ONLINE_TIMEOUT') < $cur_time)
-	{
-		openscript();
-		$timeout = getenv('ONLINE_TIMEOUT')/60;
-		print "top.myalert('AFK: {$timeout} минут','AFK: {$timeout} больше минут');top.wclose();";
-	}
-	else if ($afk+getenv('ONLINE_TIMEOUT')-120 < $cur_time)
-	{
-		openscript();
-		$timeout = getenv('ONLINE_TIMEOUT')-120/60;
-		$text= "Вы не совершали активных действий в течение {$timeout} минут.";
-		$totext = "top.add(\"$time\",\"\",\"$text\",7,\"AFK\");";
-		print "$totext";
-	}
+
+
+    if ($afk + getenv('ONLINE_TIMEOUT') < $cur_time) {
+        openscript();
+        $timeout = getenv('ONLINE_TIMEOUT') / 60;
+        print "window.top.myalert('AFK: {$timeout} минут','AFK: {$timeout} больше минут');window.top.wclose();";
+    } else if ($afk + getenv('ONLINE_TIMEOUT') - getenv('ONLINE_ALERT') < $cur_time) {
+        openscript();
+        $timeout = getenv('ONLINE_TIMEOUT') - getenv('ONLINE_ALERT') / 60;
+        $text= "Вы не совершали активных действий в течение {$timeout} минут.";
+        echo "window.top.add('{$time}','','{$text}',7,'AFK');";
+    }
 
 	$lt = getmicrotime();
 	//print $lt-$pt;
@@ -141,7 +134,7 @@
 			$sn = "";
 		if ($ban_for == "Имя персонажа не соответствует правилам игры пункт 5.")
 			$sn = " Вы сможете поменять себе имя при следующем заходе в игру.";
-		print "top.myalert('Блокировка','Причина: $ban_for $sn');top.wclose();</script>";
+		print "window.top.myalert('Блокировка','Причина: $ban_for $sn');window.top.wclose();</script>";
 		$player=array();
 		unset($player);
 		SQL_disconnect();
@@ -156,13 +149,13 @@
 		$cbalance = $newbalance;
 		openscript();
 		$t = ($newbalance - $balance) * 10;
-		print "top.rbal($t,$t);";
+		print "window.top.rbal($t,$t);";
 		$player_do .= ",balance=0";
 	}
 	if (($level >= 10) && ($player_city == 1))
 	{
 		$text= "[<b>$player_name</b>]&nbsp;Вы достигли десятого уровня и были телепортированы на материк. Будьте внимательны, так как теперь вы не входите ни в один город, а значит, можете быть атакованы другими игроками.";
-		$totext .= "top.add(\"$time\",\"\",\"$text\",5,\"\");";
+		$totext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
 		$mytext .= $totext;
 		$player_do .= ",city=0,room=157,resp_room=135";
 	}
@@ -219,7 +212,7 @@
 		if (($player_max_hp <> $old_player_max_hp) || ($chp<>$player_max_hp) || ($old_chp <> $player_max_hp))
 		{
 			openscript();
-			print "top.sh($chp,$player_max_hp);";
+			print "window.top.sh($chp,$player_max_hp);";
 			$player['maxhp'] = $player_max_hp;
 			$player['chp'] = $chp;
 			$per = ($chp / $player_max_hp)*100;
@@ -229,7 +222,7 @@
 		if (($player_max_mana <> $old_player_max_mana)|| ($player_max_mana <> $cmana) || ($old_cmana <> $player_max_mana))
 		{
 			openscript();
-			print "top.sm($cmana,$player_max_mana);";
+			print "window.top.sm($cmana,$player_max_mana);";
 			$player['maxmana'] = $player_max_mana;
 			$player['cmana'] = $cmana;
 			$player_do = $player_do." ,cmana=$cmana ";
@@ -279,7 +272,7 @@
 		$player_do .= $level_up_db_update;
 
 		$text = "<b>* Увеличение уровня *</b>";
-		$mytext .= "top.add(\"$time\",\"\",\"$text\",8,\"\");";
+		$mytext .= "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
 		$SQL="INSERT INTO sw_levelups (owner, date, level, tonline) VALUES ($player_id, NOW(), $level, '$ingame')";
 		SQL_do($SQL);
 
@@ -287,11 +280,11 @@
 
 	if($ban_chat > time())
 	{
-		print "top.addMute('".time_left($ban_chat-time())."');";
+		print "window.top.addMute('".time_left($ban_chat-time())."');";
 	}
 	else
 	{
-		print "top.dMute();";
+		print "window.top.dMute();";
 	}
 
 	if ($mytext <> " ")
@@ -299,9 +292,9 @@
 		openscript();
 		//print "alert($player_opt);";
 		if ($player_opt & 16)
-			$st = "top.sy(1);";
+			$st = "window.top.sy(1);";
 		else
-			$st = "top.sy(0);";
+			$st = "window.top.sy(0);";
 
 		$mytext = str_replace('"',"\"",$mytext);
 		print "$st $mytext";
@@ -333,5 +326,5 @@
 			print "</script>";
 		}
 	print $lt-$pt;
-			print "</html>";
+
 	SQL_disconnect();

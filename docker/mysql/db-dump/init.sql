@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS sw_game; GRANT ALL PRIVILEGES ON sw_game.* TO 'user'@'%';

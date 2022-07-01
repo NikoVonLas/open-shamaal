@@ -1,16 +1,17 @@
 <?
-if ( !session_is_registered("player")) {exit("acces denied");}
-if ($passwd_hidden != "T13D@") {exit("acces denied");}
+if ($passwd_hidden != "T13D@") {
+    exit("acces denied");
+}
 
 $player_id = $player['id'];
-$id = (integer) $id;
+$id = (integer) $player_id;
 if ($id == 191392)
 	exit();
 $t_time = (integer) (time() - 60);
-$show_city = (integer) $show_city;
-$room = (integer) $room;
+$show_city = (integer) $player['city'];
+$room = (integer) $player['room'];
 
-$player_clan = (integer) $player_clan;
+$player_clan = (integer) $player['clan'];
 
 
 Function max_parametr($level,$race,$con,$wis, $isNpc = 0)
@@ -144,6 +145,7 @@ Function showusers($id,$room,$r_pvp=0)
 	else 
 		$SQL="select chp_percent,id,name,aff_invis,party,npc,bad,city,clan,madeby, ban_chat from sw_users where room=$room and id<>$id and online>$t_time order by id";//
 	$row_num=SQL_query_num($SQL);
+    $i = 0;
 	while ($row_num){
 		$i++;
 		$chp_percent = $row_num[0];
@@ -229,7 +231,8 @@ Function showusers($id,$room,$r_pvp=0)
 			$color = 3;
 
 		if (($aff_invis < $cur_time) || ($aff_see > $cur_time) || ($show <> 0))
-			$ref1 = $ref1."top.au($par,$mid,'$name',$p,$color,'$c_litle[$clan]',$clan,$heismute);\r\n";
+            $clan_little = empty($c_litle[$clan]) ? '' : $c_litle[$clan];
+			$ref1 = $ref1."window.top.au($par,$mid,'$name',$p,$color,'$clan_little',$clan,$heismute);\r\n";
 		$row_num=SQL_next_num();
 	}
 	if ($result)
@@ -243,7 +246,7 @@ Function showusers($id,$room,$r_pvp=0)
 	//	print "refreshing";
 		openscript();
 		
-		print "top.du('$c_litle[$player_clan]');$ref1 top.fu($show,$show_city);";
+		print "window.top.du('$c_litle[$player_clan]');$ref1 window.top.fu($show,$show_city);";
 		//$player['users'] = $ref1;
 		//$player['users'] = '';
 	}

@@ -1,4 +1,6 @@
 <?
+require_once('include.php');
+
 function checkvar($name)
 {
 	global $result,$var_count,$vr_name,$vr_value,$res2;
@@ -40,13 +42,14 @@ function checkvar_is_daily($name, $needed_value, $is_daily = false) {
 
     return false;
 }
-if ( !session_is_registered("player")) {exit();}
-$player_id = (integer) $player_id;
-$player_room = (integer)$player_room;
+if (empty($_SESSION['player'])) {exit();}
+
+$player_id = (integer) $player['id'];
+$player_room = (integer)$player['room'];
 //$step = (integer) $step;
 
 $what = "";
-$SQL="select sw_object.pic,sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city,level from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id=$player_id and what='kvest'";
+$SQL="select sw_object.pic,sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what,text,room,str,race,gold,bag_q,city,level from sw_object inner join sw_users on sw_object.id=sw_users.room where sw_users.id={$player['id']} and what='kvest'";
 $row_num=SQL_query_num($SQL);
 while ($row_num){
 	$obj_pic=$row_num[0];
@@ -67,7 +70,7 @@ while ($row_num){
 if ($result)
 	SQL_free_result($result);
 
-if ($what == "kvest")
+if ($what == 'kvest')
 {
 	if (!isset($step))
 	{
@@ -196,7 +199,7 @@ if ($what == "kvest")
 							$mtext = "<b>* Опыт +$give_exp *</b>";
 						else
 							$mtext = "<b>* Опыт $give_exp *</b>";
-						$jsptext = "top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
+						$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
 						$doby .=  ",exp=GREATEST(0, exp+$give_exp)";
 						print "<script>$jsptext</script>";
 					}
@@ -218,7 +221,7 @@ if ($what == "kvest")
 							$giv_money = abs($give_money);
 							$mtext = "* Вы передали $giv_money золотых.*";
 						}
-						$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+						$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 						$doby .=  ",gold=GREATEST(0, gold+$give_money)";
 						if ($give_money > 0)
 						{
@@ -238,9 +241,9 @@ if ($what == "kvest")
 						if ($need_pettype == 0 || count($pets[$need_pettype]) >= $need_petcount)
 							if (($var2 == '') || (checkvar($var2) == $var_value2) || checkvar_is_daily($var2, $var_value2, $is_daily_ans))
 								if	($need_obj != 0 || $need_pettype != 0)
-									$menu .= "<br><a href=# onclick=\"if (confirm(\'Вы действительно хотите совершить это действие ?\') ) { top.frames[\'menu\'].document.location = \'menu.php?load=$load&step=$kv_talk_ans_goto\';} \" class=menu2><b class=har>» $kv_talk_ans_text</b></a>";
+									$menu .= "<br><a href=# onclick=\"if (confirm(\'Вы действительно хотите совершить это действие ?\') ) { window.top.frames[\'menu\'].document.location = \'/menu.php?load=$load&step=$kv_talk_ans_goto\';} \" class=menu2><b class=har>» $kv_talk_ans_text</b></a>";
 								else
-									$menu .= "<br><a href=menu.php?load=$load&step=$kv_talk_ans_goto target=menu class=menu2><b class=har>» $kv_talk_ans_text</b></a>";
+									$menu .= "<br><a href=/menu.php?load=$load&step=$kv_talk_ans_goto target=menu class=menu2><b class=har>» $kv_talk_ans_text</b></a>";
 			}				
 			$row_num=SQL_next_num();
 		}
@@ -289,7 +292,7 @@ if ($what == "kvest")
 							$SQL="delete from sw_obj where id=$obj_oid[$get_obj]";
 						SQL_do($SQL);
 						$mtext = "* Вы передали предмет персонажу.*";
-						$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+						$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 						
 						print "<script>$jsptext</script>";
 					}
@@ -319,7 +322,7 @@ if ($what == "kvest")
 						{
 							$mtext = "* Вы передали животное персонажу.*";
 						}
-						$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+						$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 						
 						print "<script>$jsptext</script>";
 					}
@@ -338,7 +341,7 @@ if ($what == "kvest")
 	
 					$n = copyobj($give_obj,$player_id,$give_objnum);
 					$mtext = "* Вам был передан предмет - $ob_f_name.*";
-					$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+					$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 					
 					print "<script>$jsptext</script>";
 				}
@@ -387,7 +390,7 @@ if ($what == "kvest")
 						{
 							$mtext = "* Вам было передано животное '$h_name'.*";
 						}
-						$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+						$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 					
 						print "<script>$jsptext</script>";
 					}
@@ -399,7 +402,7 @@ if ($what == "kvest")
 				{
 					$time = date("H:i");
 					$mtext = "* Вас перенаправили в другую комнату. *";
-					$jsptext = "top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+					$jsptext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
 					
 					$SQL="UPDATE sw_users SET room=$give_room where id=$player_id";
 					SQL_do($SQL);
@@ -409,7 +412,7 @@ if ($what == "kvest")
 			}
 		}
 		
-		print "<script>top.settop('Разговор');top.city('$city_name','npc/$obj_pic','$menu','Разговор $text','$talk_text2');</script>";
+		print "<script>window.top.settop('Разговор');window.top.city('$city_name','npc/$obj_pic','$menu','Разговор $text','$talk_text2');</script>";
 	}
 	else
 	{
@@ -417,7 +420,6 @@ if ($what == "kvest")
 			include("functions/objinfo.php");
 			getinfo($player_id);
 	}
+} else {
+	print "<script>alert('Функция недоступна.')</script>";
 }
-else
-print "<script>alert('Функция недоступна.')</script>";
-?>

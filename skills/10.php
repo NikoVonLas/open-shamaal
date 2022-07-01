@@ -30,7 +30,7 @@ $game_skill_name[10][2] = "Зрение охотника";
 $game_skill_mana[10][2] = 20;
 if ( $npc_kick == 0 && $num == 2 && 0 <= $pl_cmana[$player_id] - 20 && strpos( " {$player_aff}", ",15);" ) == 0 )
 {
-    print "top.aflict(2,15);";
+    print "window.top.aflict(2,15);";
 }
 $game_skill_afflict_percent[10][2] = 100;
 $game_skill_afflict[10][2] = ",aff_see_all={$cur_time}+20*12";

@@ -55,13 +55,13 @@ if ( $what == "bag" )
     {
         $t .= "Цена улучшения: <font color=888800>{$price} злт.</font><br><br>";
     }
-    $t .= "<form action=menu.php method=post target=menu><table>";
+    $t .= "<form action=/menu.php method=post target=menu><table>";
     $i = 3;
     for ( ; 0 <= $i; --$i )
     {
         if ( $i == $bag_q + 1 && ( $i != 3 || $pack & 1 ) )
         {
-            $t .= "<tr><form action=menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=id value={$id}><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить style=width:70></td></tr>";
+            $t .= "<tr><form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=id value={$id}><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить style=width:70></td></tr>";
         }
         else
         {
@@ -70,6 +70,6 @@ if ( $what == "bag" )
     }
     $t .= "</table></form>";
     $t .= "</td></tr></table>";
-    print "<script>top.domir('{$text}','{$t}');</script>";
+    print "<script>window.top.domir('{$text}','{$t}');</script>";
 }
 ?>

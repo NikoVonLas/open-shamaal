@@ -1,7 +1,7 @@
 <?
 //$player_id = $player['id'];
 $player_id = (integer) $player_id;
-if ( !session_is_registered("player")) {exit();}
+if (empty($_SESSION['player'])) {exit();}
 $admin = -1;
 $decodepwd = md5("#".$player_pass);
 
@@ -111,9 +111,9 @@ if ($player_room > 0)
 	$opt = $opt."</select>";
 	$opt = str_replace("cel$locat","SELECTED",$opt);
 	$t = "";
-	$t .= "<form action=enter.php target=enter><table><input type=hidden name=ebar value=$ebar><input type=hidden name=do value=build><tr><td><table><tr><td width=75 align=center><img src=/img/stuff/else/gifsklad.gif></td><td><b>Название создаваемой комнаты:</b> <input type=text name=r_name><br><br>Выберите направление строительства комнаты относительно вашей текущей комнаты.</td></tr></table>";
+	$t .= "<form action=/enter.php target=enter><table><input type=hidden name=ebar value=$ebar><input type=hidden name=do value=build><tr><td><table><tr><td width=75 align=center><img src=/img/stuff/else/gifsklad.gif></td><td><b>Название создаваемой комнаты:</b> <input type=text name=r_name><br><br>Выберите направление строительства комнаты относительно вашей текущей комнаты.</td></tr></table>";
 	$t .= "<table><tr><td width=230 align=right><table cellspacing=1 bgcolor=BDCBDE><tr bgcolor=EFF3F6><td width=70 height=60 align=center>$map_t[1]</td><td width=70 align=center>$map_t[2]</td><td width=70 align=center>$map_t[3]</td></tr><tr bgcolor=EFF3F6><td width=70 height=60 align=center>$map_t[4]</td><td width=70 align=center>Вы</td><td width=70 align=center>$map_t[5]</td></tr><tr bgcolor=EFF3F6 ><td width=70 height=60 align=center>$map_t[6]</td><td width=70 align=center>$map_t[7]</td><td width=70 align=center>$map_t[8]</td></tr></table>";
 	$t .= "</td><td valign=top><i>Картинка:<br><input type=text name=r_pic><br>Локация<br>$opt<br><br><input type=submit value=Создать><br></i></td></tr></table></td></tr></table></form>";
-	print "<script>top.domir('$text','$t');</script>";
+	print "<script>window.top.domir('$text','$t');</script>";
 }
 ?>

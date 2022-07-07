@@ -102,7 +102,7 @@ $SQL="select sw_object.dat,sw_object.owner as owner_id,sw_object.owner_city,what
 		}
 		if ($result)
 			SQL_free_result($result);
-		//$t .= "<tr><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=id value=$id><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag$i.gif></td><td>Качество: $bquality[$i]</td><td><input type=submit value=Улучшить style=width:70></td></form></tr>";
+		//$t .= "<tr><form action=/menu.php target=menu><input type=hidden name=load value=$load><input type=hidden name=id value=$id><input type=hidden name=do value=up><td width=50 align=center><img src=/assets/img/stuff/else/bag$i.gif></td><td>Качество: $bquality[$i]</td><td><input type=submit value=Улучшить style=width:70></td></form></tr>";
 		$t .= "</table>";
 		$t .= "</td></tr></table>";
 		print "<script>window.top.domir('$text','$t');</script>";

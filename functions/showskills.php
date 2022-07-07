@@ -88,7 +88,7 @@ function showskills()
         }
     }
     $text = "<img height=1 width=0><table width=530 align=center cellpadding=0 cellspacing=0><tr><td valign=top width=50%><table class=blue cellpadding=1 cellspacing=1 width=100% align=center>";
-    $text .= "<tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Мирные умения</td></tr></table></td></tr>";
+    $text .= "<tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Мирные умения</td></tr></table></td></tr>";
     $i=0;
     $SQL="select sw_skills.id,sw_player_skills.percent from sw_skills inner join sw_player_skills on sw_skills.id=sw_player_skills.id_skill where sw_player_skills.id_player=$player_id order by sw_skills.typ";
     $row_num=SQL_query_num($SQL);
@@ -110,13 +110,13 @@ function showskills()
         $percent=$row_num[2];
         $typ=$row_num[3];
         if (($typ == 1) && ($last <> $typ)) {
-            $text .= "<tr><td class=bluetop height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Боевые умения</td></tr></table></td></tr>";
+            $text .= "<tr><td class=bluetop height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Боевые умения</td></tr></table></td></tr>";
         }
         if (($typ == 3) && ($last <> $typ)) {
-            $text .= "<tr><td class=bluetop  height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Вспомогательные умения</td></tr></table></td></tr>";
+            $text .= "<tr><td class=bluetop  height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Вспомогательные умения</td></tr></table></td></tr>";
         }
         if ($i == 17) {
-            $text .= "</table></td><td width=10> &nbsp; </td><td width=50% valign=top><table class=blue cellpadding=1 cellspacing=1 width=100% align=center><tr><td class=bluetop valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Магические умения</td></tr></table></td></tr>";
+            $text .= "</table></td><td width=10> &nbsp; </td><td width=50% valign=top><table class=blue cellpadding=1 cellspacing=1 width=100% align=center><tr><td class=bluetop valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Магические умения</td></tr></table></td></tr>";
         }
 
         if ($skill[$id] == "") {
@@ -140,11 +140,11 @@ function showskills()
         $n = '';
         $n2 = '';
         if ($skill_down > 0) {
-            $n = "<a href=/menu.php?load=skills&downskill=$id target=menu><img src=/img/game/down.gif height=8 width=8></a>";
+            $n = "<a href=/menu.php?load=skills&downskill=$id target=menu><img src=/assets/img/game/down.gif height=8 width=8></a>";
         }
 
         if ($s_up > 0) {
-            $n2 = "<a href=/menu.php?load=skills&upskill=$id target=menu><img src=/img/game/up.gif height=8 width=8></a>";
+            $n2 = "<a href=/menu.php?load=skills&upskill=$id target=menu><img src=/assets/img/game/up.gif height=8 width=8></a>";
         }
 
         $text .= "<tr><td class=mainb id=toptext valign=top height=10><table cellpadding=0 cellspacing=0 width=100%><tr><td width=140>$name</td><td width=60 align=center>$p</td><td width=8>$n</td><td width=40 align=right>$skill[$id]/$percent</td><td align=right width=8>$n2</td></tr></table></td></tr>";

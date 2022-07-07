@@ -53,7 +53,7 @@ if ( isset( $arena ) )
             $hp = $row_num[1];
             $mana = $row_num[2];
             $level = $row_num[3];
-            $info .= "<tr bgcolor=E7EBEF><td align=center><a href=../fullinfo.php?name={$name} target=_blank><img src=/img/game/info.gif width=13 height=13></a></td><td align=center>{$name}</td><td align=center><font color=008800>{$hp}</font> / <font color=000088>{$mana}</font></td><td align=center>{$level}</td></tr>";
+            $info .= "<tr bgcolor=E7EBEF><td align=center><a href=../fullinfo.php?name={$name} target=_blank><img src=/assets/img/game/info.gif width=13 height=13></a></td><td align=center>{$name}</td><td align=center><font color=008800>{$hp}</font> / <font color=000088>{$mana}</font></td><td align=center>{$level}</td></tr>";
             $row_num = sql_next_num( );
         }
         if ( $result )

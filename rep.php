@@ -115,7 +115,7 @@ if (($act == "buy") && ($count >0))
 			{
 				$nmax_cond = $max_cond - 1;
 				$ncur_cond = $nmax_cond ;
-				$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/img/stuff/$pic></td><td><table><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Состояние после: </td><td><font color=007700>$ncur_cond / $nmax_cond</font></td></tr><tr><td>Оценка починки: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr></table></td></tr></table>";
+				$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/assets/img/stuff/$pic></td><td><table><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Состояние после: </td><td><font color=007700>$ncur_cond / $nmax_cond</font></td></tr><tr><td>Оценка починки: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr></table></td></tr></table>";
 				
 				$SQL="Update sw_obj set max_cond=$nmax_cond,cur_cond=$ncur_cond where owner=$player_id and room=0 and id=$obj_id";
 				SQL_do($SQL);

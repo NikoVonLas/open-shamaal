@@ -522,7 +522,7 @@ if ( $what == "arena" )
                     $xname = $row_num[1];
                     $xlevel = $row_num[2];
                     $xtim = $row_num[3];
-                    $info .= "<tr bgcolor=D7DBDF><TD  align=center width=40>{$xtim}</td><TD><table cellpadding=0 cellspacing=0><Tr><td><a href=./fullinfo.php?name={$xname} target=_blank><img src=/img/game/info.gif></td><td>&nbsp;{$xname}</td></tr></table></td><TD width=60 align=center>{$xlevel}</td><TD align=center width=100><form action=/menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=acp value={$xid}><input type=hidden name=do value=acp><input type=submit value=Подтвердить></form></td></tr>";
+                    $info .= "<tr bgcolor=D7DBDF><TD  align=center width=40>{$xtim}</td><TD><table cellpadding=0 cellspacing=0><Tr><td><a href=./fullinfo.php?name={$xname} target=_blank><img src=/assets/img/game/info.gif></td><td>&nbsp;{$xname}</td></tr></table></td><TD width=60 align=center>{$xlevel}</td><TD align=center width=100><form action=/menu.php target=menu><input type=hidden name=load value={$load}><input type=hidden name=action value={$action}><input type=hidden name=id value={$id}><input type=hidden name=acp value={$xid}><input type=hidden name=do value=acp><input type=submit value=Подтвердить></form></td></tr>";
                     $row_num = sql_next_num( );
                 }
                 if ( $result )
@@ -827,7 +827,7 @@ if ( $what == "arena" )
             {
                 $random = rand( 1, 9999 );
                 $player['text'] = "<div id=regall></div><script>window.top.doreguest({$random});</script>";
-                $info = "<iframe src=/iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
+                $info = "<iframe src=/frames/iframe.php width=100% height=100% marginwidth=0 marginheight=0 frameborder=0 id=iframe{$random}></iframe>";
             }
             print "refresh = setTimeout(\"document.location = '/menu.php?load={$load}&action={$action}&id={$id}&onl=1&page={$page}&random={$random}';\",12000);";
             print "</script>";

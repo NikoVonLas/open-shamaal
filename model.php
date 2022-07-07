@@ -5,10 +5,10 @@ if (empty($_SESSION['player'])) {exit();}}
 
 $resize_with = 15;
 
-$img1_path = "/img/game/captcha/".$_SESSION['captcha_1'].".png";
-$img2_path = "/img/game/captcha/".$_SESSION['captcha_2'].".png";
-$img3_path = "/img/game/captcha/".$_SESSION['captcha_3'].".png";
-$img4_path = "/img/game/captcha/texto.png";
+$img1_path = "/assets/img/game/captcha/".$_SESSION['captcha_1'].".png";
+$img2_path = "/assets/img/game/captcha/".$_SESSION['captcha_2'].".png";
+$img3_path = "/assets/img/game/captcha/".$_SESSION['captcha_3'].".png";
+$img4_path = "/assets/img/game/captcha/texto.png";
 
 list($img1_width, $img1_height) = getimagesize($img1_path);
 list($img2_width, $img2_height) = getimagesize($img2_path);

@@ -1807,7 +1807,7 @@ if ($load == "unset") {
                     }
                     $menu .= "<font color=AA0000><b>» Загрузка лого</b></font><br>";
                     $text = "Загрузка лого";
-                    $userDir = "/img/clan/";
+                    $userDir = "/assets/img/clan/";
                     include("upload_form.php");
                     if ($go <> "") {
                         if (file_exists($go)) {
@@ -2143,15 +2143,15 @@ if ($load == "unset") {
 
                     $plus = 20 - $clan_plus;
                     $gg = 100 + ($clan_plus) * 25;
-                    $info .= "<table width=100%><tr><td align=center width=55% valign=top><table cellpadding=1><tr><td width=45 align=center rowspan=8><img src=/img/stuff/$ring_pic></td><td colspan=3><b>$ring_name</b></td></tr>";
+                    $info .= "<table width=100%><tr><td align=center width=55% valign=top><table cellpadding=1><tr><td width=45 align=center rowspan=8><img src=/assets/img/stuff/$ring_pic></td><td colspan=3><b>$ring_name</b></td></tr>";
                     if ($city_rank == 1) {
-                        $info .= "<tr><td>Атака: </td><td>$ring_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=1 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=2 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Маг защита: </td><td>$ring_magic_def(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=3 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Защита: </td><td>$ring_def_all(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=4 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Атака огнём: </td><td>$ring_fire_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=5 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Атака холодом: </td><td>$ring_cold_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=6 target=menu><img src=/img/game/up.gif></a></td></tr>";
-                        $info .= "<tr><td>Вампиризм: </td><td>$ring_drain_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=7 target=menu><img src=/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака: </td><td>$ring_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=1 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack(1)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=2 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Маг защита: </td><td>$ring_magic_def(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=3 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Защита: </td><td>$ring_def_all(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=4 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака огнём: </td><td>$ring_fire_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=5 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Атака холодом: </td><td>$ring_cold_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=6 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
+                        $info .= "<tr><td>Вампиризм: </td><td>$ring_drain_attack(2)</td><td><a href=/menu.php?load=$load&action=$action&city_id=$city_id&do=add&what=7 target=menu><img src=/assets/img/game/up.gif></a></td></tr>";
                     } else {
                         $info .= "<tr><td>Атака: </td><td>$ring_attack</td><td></td></tr>";
                         $info .= "<tr><td>Маг. атака: </td><td>$ring_magic_attack</td><td></td></tr>";
@@ -2320,7 +2320,7 @@ if ($load == "unset") {
     while ($row_num) {
         $id = $row_num[0];
         $name = $row_num[1];
-        $link .= "<tr><tD colspan=2 align=right><table cellpadding=0 cellspacing=0 width=95%><tr><td width=18><a href=./fullinfo.php?name=$name target=_blank><img src=/img/game/info.gif width=13 height=13></a></td><td width=150><b>$name</b></td><td align=right><a href=/menu.php?load=$load&action=del&who_id=$id class=menu2 target=menu>Удалить</a></td></tr></table></td></tr>";
+        $link .= "<tr><tD colspan=2 align=right><table cellpadding=0 cellspacing=0 width=95%><tr><td width=18><a href=./fullinfo.php?name=$name target=_blank><img src=/assets/img/game/info.gif width=13 height=13></a></td><td width=150><b>$name</b></td><td align=right><a href=/menu.php?load=$load&action=del&who_id=$id class=menu2 target=menu>Удалить</a></td></tr></table></td></tr>";
         $row_num=SQL_next_num();
     }
     if ($result) {

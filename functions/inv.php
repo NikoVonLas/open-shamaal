@@ -57,11 +57,11 @@ function inventory($id)
     prepareinfo($num);
     $text = "";
     $text = "<ul class='tabs'>
-	<li title=\"Все вещи\" ><a href='#.item.tab1, .item.tab2, .item.tab3, .item.tab4' id='allItems'><img src=\"/img/game/tabs/allbag.png\" ></a></li>
-	<li title=\"Расходники\"><a href='#.item.tab2'><img src=\"/img/game/tabs/pot.png\" ></a></li>
-	<li title=\"Экипировка\"><a href='#.item.tab3'><img src=\"/img/game/tabs/equip.png\" ></a></li>
-	<li title=\"Лут\"><a href='#.item.tab4'><img src=\"/img/game/tabs/loot.png\" ></a></li>
-	<li title=\"Подарки\"><a href='#.item.tab5'><img src=\"/img/game/tabs/gifts.png\" ></a></li></ul>
+	<li title=\"Все вещи\" ><a href='#.item.tab1, .item.tab2, .item.tab3, .item.tab4' id='allItems'><img src=\"/assets/img/game/tabs/allbag.png\" ></a></li>
+	<li title=\"Расходники\"><a href='#.item.tab2'><img src=\"/assets/img/game/tabs/pot.png\" ></a></li>
+	<li title=\"Экипировка\"><a href='#.item.tab3'><img src=\"/assets/img/game/tabs/equip.png\" ></a></li>
+	<li title=\"Лут\"><a href='#.item.tab4'><img src=\"/assets/img/game/tabs/loot.png\" ></a></li>
+	<li title=\"Подарки\"><a href='#.item.tab5'><img src=\"/assets/img/game/tabs/gifts.png\" ></a></li></ul>
 	<script type=\"text/javascript\" src=\"jquery.min.js\"></script>
 	<script>
     window.onload = function() {

@@ -326,22 +326,22 @@ if ($id > 0)
 		<input type="hidden" name="do" value="save">
 		<table class=blue cellpadding=5 cellspacing=1  height=280><tr><td bgcolor=F6FAFF>
 		<?
-		$samulet = "<img src=/img/stuff/$obj_img[1] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[1]');></a>";
-		$sring1 = "<img src=/img/stuff/$obj_img[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[2]');>";
-		$sring2 = "<img src=/img/stuff/$obj_img2[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt2[2]');>";
-		$sbody = "<img src=/img/stuff/$obj_img[3] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[3]');>";
-		$ssword = "<img src=/img/stuff/$obj_img[4] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[4]');>";
-		$sglove = "<img src=/img/stuff/$obj_img[5] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[5]');>";
-		$shelmet = "<img src=/img/stuff/$obj_img[6] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[6]');>";
-		$scloak = "<img src=/img/stuff/$obj_img[7] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[7]');>";
-		$sshield = "<img src=/img/stuff/$obj_img[8] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[8]');>";
-		$slegs = "<img src=/img/stuff/$obj_img[9] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[9]');>";
+		$samulet = "<img src=/assets/img/stuff/$obj_img[1] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[1]');></a>";
+		$sring1 = "<img src=/assets/img/stuff/$obj_img[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[2]');>";
+		$sring2 = "<img src=/assets/img/stuff/$obj_img2[2] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt2[2]');>";
+		$sbody = "<img src=/assets/img/stuff/$obj_img[3] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[3]');>";
+		$ssword = "<img src=/assets/img/stuff/$obj_img[4] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[4]');>";
+		$sglove = "<img src=/assets/img/stuff/$obj_img[5] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$obj_alt[5]');>";
+		$shelmet = "<img src=/assets/img/stuff/$obj_img[6] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[6]');>";
+		$scloak = "<img src=/assets/img/stuff/$obj_img[7] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[7]');>";
+		$sshield = "<img src=/assets/img/stuff/$obj_img[8] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[8]');>";
+		$slegs = "<img src=/assets/img/stuff/$obj_img[9] onmouseout=hide_info(this); onmouseover=tooltip(this,'$obj_alt[9]');>";
 
 	//	if ($server == 0)
-			$lnk = "/img/obraz/$pic";
+			$lnk = "/assets/img/obraz/$pic";
 	//	else
 	//		$lnk = "http://195.131.2.53//img/obraz/$pic";
-		print "<table cellpadding=0 cellspacing=0 width=280><tr><td background=/img/game/b2slot.gif width=64 height=32 align=center>$samulet</td><td rowspan=5 width=150 align=center><img src=$lnk></td><td rowspan=2 background=/img/game/bslot.gif  width=64  height=64 align=center>$shelmet</td></tr><tr><td  height=32><table width=100% height=100% cellpadding=0 cellspacing=0><tr><td background=/img/game/b3slot.gif align=center width=32>$sring1</td><td  background=/img/game/b3slot.gif align=center>$sring2</td></tr></table></td></tr><tr><td background=/img/game/b4slot.gif height=70 align=center>$sbody</td><td background=/img/game/b4slot.gif  height=70 align=center>$scloak</td></tr><tr><td background=/img/game/b4slot.gif  height=70 align=center>$ssword</td><td background=/img/game/b4slot.gif  height=70 align=center>$sshield</td></tr><tr><td background=/img/game/bslot.gif  height=64 align=center>$sglove</td><td background=/img/game/bslot.gif  height=64 align=center>$slegs</td></tr></table>";
+		print "<table cellpadding=0 cellspacing=0 width=280><tr><td background=/assets/img/game/b2slot.gif width=64 height=32 align=center>$samulet</td><td rowspan=5 width=150 align=center><img src=$lnk></td><td rowspan=2 background=/assets/img/game/bslot.gif  width=64  height=64 align=center>$shelmet</td></tr><tr><td  height=32><table width=100% height=100% cellpadding=0 cellspacing=0><tr><td background=/assets/img/game/b3slot.gif align=center width=32>$sring1</td><td  background=/assets/img/game/b3slot.gif align=center>$sring2</td></tr></table></td></tr><tr><td background=/assets/img/game/b4slot.gif height=70 align=center>$sbody</td><td background=/assets/img/game/b4slot.gif  height=70 align=center>$scloak</td></tr><tr><td background=/assets/img/game/b4slot.gif  height=70 align=center>$ssword</td><td background=/assets/img/game/b4slot.gif  height=70 align=center>$sshield</td></tr><tr><td background=/assets/img/game/bslot.gif  height=64 align=center>$sglove</td><td background=/assets/img/game/bslot.gif  height=64 align=center>$slegs</td></tr></table>";
 
 
 		?>
@@ -402,7 +402,7 @@ if ($id > 0)
 
 			for ($p = 1;$p<$acnum;$p++)
 			{
-				print "<td width=64 align=center><img src=/img/achievement/$acPicture[$p] onmouseout=hide_info(this);  onmouseover=\"tooltip(this,'<b>$acName[$p]</b><br> $acDesc[$p]');\"></a></td>";
+				print "<td width=64 align=center><img src=/assets/img/achievement/$acPicture[$p] onmouseout=hide_info(this);  onmouseover=\"tooltip(this,'<b>$acName[$p]</b><br> $acDesc[$p]');\"></a></td>";
 				if ($p % 10 == 0)
 					print "</tr><tr bgcolor=F6FAFF>";
 			}
@@ -416,7 +416,7 @@ if ($id > 0)
 			print "<table class=blue cellpadding=5 cellspacing=1 width=99%><tr bgcolor=F6FAFF>";
 			for ($p = 1;$p<=$num;$p++)
 			{
-				print "<td width=64 align=center><img src=/img/stuff/$info_obj_pic[$p] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$info_obj[$p]');></a></td>";
+				print "<td width=64 align=center><img src=/assets/img/stuff/$info_obj_pic[$p] onmouseout=hide_info(this);  onmouseover=tooltip(this,'$info_obj[$p]');></a></td>";
 				if ($p % 10 == 0)
 					print "</tr><tr bgcolor=F6FAFF>";
 			}
@@ -486,7 +486,7 @@ if ($id > 0)
 				$str = "<table width=150 cellpadding=0 cellspacing=1 height=8 bgcolor=8C9AAD><tr><td bgcolor=BDC7DE width=".($h_str/$h_max_str*150).">&nbsp;</td><td bgcolor=EBF1F7>&nbsp;</td></tr></table>";
 			else
 				$str = "<table width=150 cellpadding=0 cellspacing=1 height=8 bgcolor=8C9AAD><tr><td bgcolor=BDC7DE>&nbsp;</td></tr></table>";
-			print "<tr><td bgcolor=EBF1F7 colspan=2><table width=98%><tr><td width=200 align=center><img src=/img/pet/$h_pic></td><td valign=top align=right><table cellpadding=4><tr><td width=150><b>Тип животного: </b></td><td>$h_name</td></tr><tr><td><b>Сытость: </b></td><td>$food</td></tr><tr><td><b>Усталость: </b></td><td>$str</td></tr></table></td></tr></table></td></tr>";
+			print "<tr><td bgcolor=EBF1F7 colspan=2><table width=98%><tr><td width=200 align=center><img src=/assets/img/pet/$h_pic></td><td valign=top align=right><table cellpadding=4><tr><td width=150><b>Тип животного: </b></td><td>$h_name</td></tr><tr><td><b>Сытость: </b></td><td>$food</td></tr><tr><td><b>Усталость: </b></td><td>$str</td></tr></table></td></tr></table></td></tr>";
 			$row_num=SQL_next_num();
 		}
 		if ($result)
@@ -543,9 +543,9 @@ if ($id > 0)
 														<td bgcolor=F6FAFF align=center>
 														<?
 														if ($pic <> '')
-															print "<img src=/img/npc/$pic>";
+															print "<img src=/assets/img/npc/$pic>";
 														else
-															print "<img src=/img/npc/no.gif>";
+															print "<img src=/assets/img/npc/no.gif>";
 														?>
 														</td>
 													</tr>

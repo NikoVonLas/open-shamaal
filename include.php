@@ -68,19 +68,25 @@
         exit();
     }
 
+    $skill_id = empty($_GET['skill_id']) ? '' : $_GET['skill_id'];
     $put_gold = empty($_GET['put_gold']) ? '' : $_GET['put_gold'];
     $player_legs = empty($_GET['player_legs']) ? '' : $_GET['player_legs'];
     $action = empty($_GET['action']) ? '' : $_GET['action'];
+    $kickto = empty($_GET['kickto']) ? '' : $_GET['kickto'];
+    $t_name = empty($_GET['t_name']) ? '' : $_GET['t_name'];
     $effect = empty($_GET['effect']) ? '' : $_GET['effect'];
     $obj_id = empty($_GET['obj_id']) ? '' : $_GET['obj_id'];
-    $load = empty($_GET['load']) ? '' : $_GET['load'];
     $count = empty($_GET['count']) ? '' : $_GET['count'];
+    $kwho = empty($_GET['kwho']) ? '' : $_GET['kwho'];
+    $t_id = empty($_GET['t_id']) ? '' : $_GET['t_id'];
+    $load = empty($_GET['load']) ? '' : $_GET['load'];
     $show = empty($_GET['show']) ? '' : $_GET['show'];
     $act = empty($_GET['act']) ? '' : $_GET['act'];
     $dir = empty($_GET['dir']) ? 0 : $_GET['dir'];
     $ran = empty($_GET['ran']) ? '' : $_GET['ran'];
     $bln = empty($_GET['bln']) ? '' : $_GET['bln'];
     $leg = empty($_GET['leg']) ? '' : $_GET['leg'];
+    $num = empty($_GET['num']) ? '' : $_GET['num'];
     $no = empty($_GET['no']) ? '' : $_GET['no'];
     $do = empty($_GET['do']) ? '' : $_GET['do'];
     $id = empty($_GET['id']) ? '' : $_GET['id'];

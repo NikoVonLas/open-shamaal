@@ -23,8 +23,8 @@
     <html>
         <head>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-            <link rel="stylesheet" type="text/css" href="/style.css">
-            <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
+            <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+            <link rel="stylesheet" type="text/css" href="/assets/css/csshake.min.css">
         </head>
         <title>Shamaal World</title>
 
@@ -42,7 +42,7 @@
                                                     <td></td>
                                                 </tr>
                                             </table>
-                                            <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать персонажей находяшиеся в вашей локации.">
+                                            <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать персонажей находяшиеся в вашей локации.">
                                         </td>
                                         <td id="usr0">
                                             {$location}
@@ -59,7 +59,7 @@
                                                     <td></td>
                                                 </tr>
                                             </table>
-                                            <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать персонажей находяшиеся в вашем городе.">
+                                            <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать персонажей находяшиеся в вашем городе.">
                                         </td>
                                         <td id="usr1">
                                             {$city}
@@ -76,7 +76,7 @@
                                                     <td></td>
                                                 </tr>
                                             </table>
-                                            <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать всех персонажей, находящихся в игре.">
+                                            <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="Отображать всех персонажей, находящихся в игре.">
                                         </td>
                                         <td id="usr2">
                                             {$world}

@@ -19,8 +19,8 @@
         <head>
             <title>Shamaal World</title>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-            <link rel="stylesheet" type="text/css" href="/style.css" title="style">
-            <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
+            <link rel="stylesheet" type="text/css" href="/assets/css/style.css" title="style">
+            <link rel="stylesheet" type="text/css" href="/assets/css/csshake.min.css">
         </head>
         <body>
             <div id="stooltipmsg" class="stooltip" style="left:160px; max-width: 160px;">
@@ -51,7 +51,7 @@
                                             </td>
                                             <td>
                                                 &nbsp;<a href="/map.php?dir=-1" target="emap">
-                                                    <img src="/img/game/ref.gif">
+                                                    <img src="/assets/img/game/ref.gif">
                                                 </a>&nbsp;
                                             </td>
                                             <td>:</td>
@@ -67,12 +67,12 @@
                                 <td width="40"> 
                                     <div id="mute" width="18" style="float:left;"></div>
                                     <a href="/fullinfo.php?name={$player['name']}" target="_blank">
-                                        <img src="/img/game/info.gif" width="13" height="13">
+                                        <img src="/assets/img/game/info.gif" width="13" height="13">
                                     </a>
                                 </td>
                                 <td width="18"></td>
                                 <td width="18">
-                                    <img src="/img/game/attack.gif" width="15" height="15">
+                                    <img src="/assets/img/game/attack.gif" width="15" height="15">
                                 </td>
                                 <td width="20">
                                     [<a onclick="window.top.textenter('/приват {$player['name']}';);" style="cursor:hand"><span color="00237B"><b>П</b></span></a>]
@@ -93,8 +93,8 @@
                     </td>
                 </tr>
             </table>
-            <script type="text/javascript" src="/stooltip.js"></script>
-            <script type="text/javascript" src="/jquery.min.js"></script>
+            <script type="text/javascript" src="/assets/js/stooltip.js"></script>
+            <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
             {$oldUsersScript}
         </body>
     </html>

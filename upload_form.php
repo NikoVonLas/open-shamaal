@@ -1,10 +1,10 @@
 <?php
-	//$userDir = "/img/obraz/";
+	//$userDir = "/assets/img/obraz/";
     $go = "";
 	$userDir = str_replace(".","",$userDir);
     if ( $proc == 1 ) {
        //$userDir = getDir();
-     //  $userDir = "/img/obraz/";
+     //  $userDir = "/assets/img/obraz/";
 
        if ( !$userDir ) {
           echo "Failed to create directory $userDir<br>";

@@ -49,7 +49,7 @@ if ( $what == "bag" )
     $bquality[2] = "хорошее";
     $bquality[3] = "отличное";
     $t = "<table cellpadding=4><tr><td>";
-    $t .= "<table cellpadding=0 cellspacing=0><tr><td>Качество вашего рюкзака: {$bquality[$bag_q]}</td><td width=50 align=center><img src=/img/stuff/else/bag{$bag_q}.gif></td></tr></table>";
+    $t .= "<table cellpadding=0 cellspacing=0><tr><td>Качество вашего рюкзака: {$bquality[$bag_q]}</td><td width=50 align=center><img src=/assets/img/stuff/else/bag{$bag_q}.gif></td></tr></table>";
     $t .= "Количество золота: <font color=888800>{$gold} злт.</font><br><br>";
     if ( $bag_q != 3 )
     {
@@ -61,11 +61,11 @@ if ( $what == "bag" )
     {
         if ( $i == $bag_q + 1 && ( $i != 3 || $pack & 1 ) )
         {
-            $t .= "<tr><form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=id value={$id}><input type=hidden name=do value=up><td width=50 align=center><img src=/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить style=width:70></td></tr>";
+            $t .= "<tr><form action=/menu.php method=post target=menu><input type=hidden name=load value={$load}><input type=hidden name=id value={$id}><input type=hidden name=do value=up><td width=50 align=center><img src=/assets/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить style=width:70></td></tr>";
         }
         else
         {
-            $t .= "<tr><td width=50 align=center><img src=/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить disabled style=width:70></td></tr>";
+            $t .= "<tr><td width=50 align=center><img src=/assets/img/stuff/else/bag{$i}.gif></td><td>Качество: {$bquality[$i]}</td><td><input type=submit value=Улучшить disabled style=width:70></td></tr>";
         }
     }
     $t .= "</table></form>";

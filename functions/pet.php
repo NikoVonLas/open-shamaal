@@ -316,7 +316,7 @@ if ( $count != 0 )
         {
             $else .= "<tr><td colspan=2><a href=/menu.php?load={$load}&action=give&id={$h_id}&page={$page} target=menu class=menu2><b>» Передать выбранной цели</b></a></td></tr>";
         }
-        $all .= "<tr><td colspan=2><table width=98%><tr><td width=150 align=center><img src=/img/pet/{$h_pic}></td><td valign=top align=right><table cellpadding=2><tr><td width=150><b>Тип животного: </b></td><td>{$h_name}</td></tr><tr><td><b>Сытость: </b></td><td>{$food}</td></tr><tr><td><b>Усталость: </b></td><td>{$str}</td></tr>{$else}</table></td></tr></table></td></tr>";
+        $all .= "<tr><td colspan=2><table width=98%><tr><td width=150 align=center><img src=/assets/img/pet/{$h_pic}></td><td valign=top align=right><table cellpadding=2><tr><td width=150><b>Тип животного: </b></td><td>{$h_name}</td></tr><tr><td><b>Сытость: </b></td><td>{$food}</td></tr><tr><td><b>Усталость: </b></td><td>{$str}</td></tr>{$else}</table></td></tr></table></td></tr>";
         $row_num = sql_next_num( );
     }
     if ( $result )

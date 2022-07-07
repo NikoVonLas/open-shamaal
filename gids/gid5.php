@@ -102,7 +102,7 @@ if ( 0 < $player_room )
             }
             $text = "Создание резиденции клана";
             $t = "";
-            $t .= "<table><tr><td><table><tr><td width=75 align=center><img src=/img/stuff/else/gid.gif></td><td><b>Название создаваемой постройки:</b> `Резиденция [{$litle}]`<br><br>Выберите направление строительства резиденции относительно вашей текущей комнаты.</td></tr></table>";
+            $t .= "<table><tr><td><table><tr><td width=75 align=center><img src=/assets/img/stuff/else/gid.gif></td><td><b>Название создаваемой постройки:</b> `Резиденция [{$litle}]`<br><br>Выберите направление строительства резиденции относительно вашей текущей комнаты.</td></tr></table>";
             $t .= "<table><tr><td width=230 align=right><table cellspacing=1 bgcolor=BDCBDE><tr bgcolor=EFF3F6><td width=70 height=60 align=center>Нельзя</td><td width=70 align=center>{$map_t['2']}</td><td width=70 align=center>Нельзя</td></tr><tr bgcolor=EFF3F6><td width=70 height=60 align=center>{$map_t['4']}</td><td width=70 align=center>Вы</td><td width=70 align=center>{$map_t['5']}</td></tr><tr bgcolor=EFF3F6 ><td width=70 height=60 align=center>Нельзя</td><td width=70 align=center>{$map_t['7']}</td><td width=70 align=center>Нельзя</td></tr></table>";
             $t .= "</td><td valign=top><i>Постарайтесь выбрать наиболее подходящее место для резиденция, так как у вас не будет возможности его перенести в другое место.<br><br> В эту комнату смогут входить только члены Вашего клана.</i></td></tr></table></td></tr></table>";
             print "<script>window.top.domir('{$text}','{$t}');</script>";

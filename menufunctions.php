@@ -97,7 +97,7 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 			if (($showlike == 1) )
 			{
 				$info = "<table cellpadding=1 cellspacing=1><tr><td class=inv width=80>Количество:</td><td class=info2small id=objnum$info_obj_id[$i]>$info_obj_num[$i]</td></tr></tr></table>";
-				$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><form action=/menu.php target=menu name=objfull$info_obj_id[$i] id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><input type=hidden name=obj_id value=$info_obj_id[$i]><input type=hidden name=show value=$show><input type=hidden name=show_specif value=$show_specif><input type=hidden name=do value=$do><input type=hidden $buy><input type=hidden name=load value=$load><input type=hidden name=trade_id value=$trade_id><input type=hidden name=stg value=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/img/game/b4slot.gif ><tr><td align=center><img src=/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></form></td></tr></table>";
+				$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><form action=/menu.php target=menu name=objfull$info_obj_id[$i] id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><input type=hidden name=obj_id value=$info_obj_id[$i]><input type=hidden name=show value=$show><input type=hidden name=show_specif value=$show_specif><input type=hidden name=do value=$do><input type=hidden $buy><input type=hidden name=load value=$load><input type=hidden name=trade_id value=$trade_id><input type=hidden name=stg value=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/assets/img/game/b4slot.gif ><tr><td align=center><img src=/assets/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></form></td></tr></table>";
 			}
 			else
 			{
@@ -365,12 +365,12 @@ Function getobjinfo($search,$link,$buy='',$ob=1,$pr=1,$showlike=1,$gld=0,$sprice
 				}
 				//$b = "<input type=text name=count value=1 maxlenght=5 style=width:35><img width=4><input type=submit value=» style=width:20>";
 				if ((($info_obj_specif[$i] == 5)||($info_obj_specif[$i] == 6)||($info_obj_specif[$i] == 8)||($info_obj_specif[$i] >= 10)||($info_obj_specif[$i] == 9) ||($info_obj_specif[$i] == 7)|| ($info_obj_specif[$i] == 0)) && ($link <> ""))
-					$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/img/game/b4slot.gif ><tr><td align=center><a href=/menu.php?load=$link&obj_id=$info_obj_id[$i] target=menu><img src=/img/stuff/$info_obj_pic[$i] border=0></a></td></tr></table></td><td valign=top>$info</td></tr></table></td></tr></table>";
+					$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/assets/img/game/b4slot.gif ><tr><td align=center><a href=/menu.php?load=$link&obj_id=$info_obj_id[$i] target=menu><img src=/assets/img/stuff/$info_obj_pic[$i] border=0></a></td></tr></table></td><td valign=top>$info</td></tr></table></td></tr></table>";
 				else
 					if ($buy <> "")
-						$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><form action=/menu.php target=menu name=objfull$info_obj_id[$i] id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><input type=hidden name=obj_id value=$info_obj_id[$i]><input type=hidden name=id value=$id><input type=hidden name=show value=$show><input type=hidden name=show_specif value=$show_specif><input type=hidden name=do value=$do><input type=hidden $buy><input type=hidden name=load value=$load><input type=hidden name=trade_id value=$trade_id><input type=hidden name=stg value=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/img/game/b4slot.gif ><tr><td align=center><img src=/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></form></td></tr></table>";
+						$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><form action=/menu.php target=menu name=objfull$info_obj_id[$i] id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><input type=hidden name=obj_id value=$info_obj_id[$i]><input type=hidden name=id value=$id><input type=hidden name=show value=$show><input type=hidden name=show_specif value=$show_specif><input type=hidden name=do value=$do><input type=hidden $buy><input type=hidden name=load value=$load><input type=hidden name=trade_id value=$trade_id><input type=hidden name=stg value=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/assets/img/game/b4slot.gif ><tr><td align=center><img src=/assets/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></form></td></tr></table>";
 					else
-						$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/img/game/b4slot.gif ><tr><td align=center><img src=/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></td></tr></table>";
+						$info_obj[$i] = "<table cellpadding=0 cellspacing=0><tr><td id=objfull$info_obj_id[$i]><table width=218 cellspacing=1><tr><td colspan=2 align=center><b>$info_obj_name[$i]</b></td></tr><tr bgcolor=F7FBFF><td align=center width=70><table cellpadding=0 cellspacing=0 width=64 height=70 background=/assets/img/game/b4slot.gif ><tr><td align=center><img src=/assets/img/stuff/$info_obj_pic[$i] border=0><br></td></tr></table>$b</td><td valign=top>$info</td></tr></table></td></tr></table>";
 			}
 			else
 			{
@@ -844,7 +844,7 @@ Function getobj()
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp*</b>";
 							
-							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы смогли выкопать немного руды`$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы смогли выкопать немного руды`$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $ruda_id["$o_name[$r]"];
 							
@@ -879,11 +879,11 @@ Function getobj()
 							
 						}
 						else
-							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы <font color=red>не</font> смогли выкопать руду `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы <font color=red>не</font> смогли выкопать руду `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',$p,'Вы смогли найти какую-то руду.',90,'Вы принялись выкапывать руду.',150,'Вы не смогли выкопать неизвестную руду.',' <table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',$p,'Вы смогли найти какую-то руду.',90,'Вы принялись выкапывать руду.',150,'Вы не смогли выкопать неизвестную руду.',' <table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 					}
 					
 				}
@@ -893,7 +893,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',100,'Руда не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',100,'Руда не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 			}
 		}
 		else if (($o_specif[$r] == 4) || ($specif == 4))
@@ -922,7 +922,7 @@ Function getobj()
 							$SQL="update sw_users SET exp=exp+$texp where id=$player_id";
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp *</b>";
-							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы собрали немного травы `$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы собрали немного травы `$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $rast_id["$o_name[$r]"];
 							
@@ -954,11 +954,11 @@ Function getobj()
 							SQL_do($SQL);
 						}
 						else
-							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы <font color=red>не</font> смогли собрать траву `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы <font color=red>не</font> смогли собрать траву `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',$p,'Вы смогли найти какую-то траву.',90,'Вы принялись собирать траву.',150,'Вы не смогли собрать неизвестную траву.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',$p,'Вы смогли найти какую-то траву.',90,'Вы принялись собирать траву.',150,'Вы не смогли собрать неизвестную траву.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 					}
 					
 				}
@@ -968,7 +968,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',100,'Ценная трава не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',100,'Ценная трава не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.</b></td></tr></table>',1);</script>";
 			}
 		}
 		else if (($o_specif[$r] == 11) || ($specif == 11))
@@ -997,7 +997,7 @@ Function getobj()
 							$SQL="update sw_users SET exp=exp+$texp where id=$player_id";
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp *</b>";
-							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись вырубать дерево.',150,'Вы смогли вырубить дерево `$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись вырубать дерево.',150,'Вы смогли вырубить дерево `$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $tree_id["$o_name[$r]"];
 							
@@ -1029,11 +1029,11 @@ Function getobj()
 							SQL_do($SQL);
 						}
 						else
-							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись  рубить дерево.',150,'Вы <font color=red>не</font> смогли вырубить дерево `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись  рубить дерево.',150,'Вы <font color=red>не</font> смогли вырубить дерево `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',$p,'Вы смогли найти какое-то дерево.',90,'Вы принялись рубить дерево.',150,'Вы не смогли вырубить неизвестное дерево.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',$p,'Вы смогли найти какое-то дерево.',90,'Вы принялись рубить дерево.',150,'Вы не смогли вырубить неизвестное дерево.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
 					}
 					
 				}
@@ -1043,7 +1043,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',100,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',100,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.</b></td></tr></table>',1);</script>";
 			}
 		}
 	}
@@ -1582,7 +1582,7 @@ function useobj($id)
 			if ($error == 0)
 			{
 				$tex = "<table><tr><td width=120><b>Название клана: </b></td><td><input type=text name=clan_name size=15 maxlength=20></td><td class=italic>20 символов. Только русские или только английские буквы алфавитов.</td></tr><tr><td width=120><b>Абривеатура: </b></td><td align=right><input type=text name=clan_litle size=4 maxlength=4></td><td class=italic>4 символа. Сокращенный текст рядом с именами игроков клана, например CL.</td></tr><tr><td width=120><b>Адрес: </b></td><td align=right><input type=text name=clan_http size=15 maxlength=40></td><td class=italic>15 символа. Пример http://www.clan.ru</td></tr><tr><td colspan=3 class=italic><br>- Учтите, что название клана и его абривиатуру вы не сможете изменить после его создания.<br><font color=red>$er_log</font><br></td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table>";
-				$text = "<form action=/menu.php target=menu><table width=90% cellpadding=5 align=center><input type=hidden name=obj_id value=$id><input type=hidden name=do value=makeclan><input type=hidden name=load value=useobj><tr><td><table class=blue cellpadding=0 cellspacing=1 width=100% align=center><tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td>Все поля обязательны для заполнения.</td></tr></table></td></tr><tr><td class=mainb height=265 bgcolor=FFFFFF valign=top>$tex</td></tr></table></td></tr></table></form>";
+				$text = "<form action=/menu.php target=menu><table width=90% cellpadding=5 align=center><input type=hidden name=obj_id value=$id><input type=hidden name=do value=makeclan><input type=hidden name=load value=useobj><tr><td><table class=blue cellpadding=0 cellspacing=1 width=100% align=center><tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td>Все поля обязательны для заполнения.</td></tr></table></td></tr><tr><td class=mainb height=265 bgcolor=FFFFFF valign=top>$tex</td></tr></table></td></tr></table></form>";
 				print "<script>window.top.ttext('Основание клана','$text');</script>";
 			}
 			
@@ -1781,7 +1781,7 @@ function showskills()
 		}
 	}
 	$text = "<img height=1 width=0><table width=530 align=center cellpadding=0 cellspacing=0><tr><td valign=top width=50%><table class=blue cellpadding=1 cellspacing=1 width=100% align=center>";
-	$text .= "<tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Мирные умения</td></tr></table></td></tr>";
+	$text .= "<tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Мирные умения</td></tr></table></td></tr>";
 	$i=0;
 	$SQL="select sw_skills.id,sw_player_skills.percent from sw_skills inner join sw_player_skills on sw_skills.id=sw_player_skills.id_skill where sw_player_skills.id_player=$player_id order by sw_skills.typ";
 	$row_num=SQL_query_num($SQL);
@@ -1802,11 +1802,11 @@ function showskills()
 		$percent=$row_num[2];
 		$typ=$row_num[3];
 		if  ( ($typ == 1) && ($last <> $typ ) )
-			$text .= "<tr><td class=bluetop height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Боевые умения</td></tr></table></td></tr>";
+			$text .= "<tr><td class=bluetop height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Боевые умения</td></tr></table></td></tr>";
 		if  ( ($typ == 3) && ($last <> $typ ) )
-			$text .= "<tr><td class=bluetop  height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Вспомогательные умения</td></tr></table></td></tr>";
+			$text .= "<tr><td class=bluetop  height=10 valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Вспомогательные умения</td></tr></table></td></tr>";
 		if ($i == 17)
-			$text .= "</table></td><td width=10> &nbsp; </td><td width=50% valign=top><table class=blue cellpadding=1 cellspacing=1 width=100% align=center><tr><td class=bluetop valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Магические умения</td></tr></table></td></tr>";
+			$text .= "</table></td><td width=10> &nbsp; </td><td width=50% valign=top><table class=blue cellpadding=1 cellspacing=1 width=100% align=center><tr><td class=bluetop valign=top><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td id=topname>Магические умения</td></tr></table></td></tr>";
 			
 		if ($skill[$id] == "")
 		$skill[$id] = 0;
@@ -1821,7 +1821,7 @@ function showskills()
 		}
 		else
 			$p = '';
-		$text .= "<tr><td class=mainb id=toptext valign=top height=10><table cellpadding=0 cellspacing=0 width=100%><tr><td width=140>$name</td><td width=60 align=center>$p</td><td>$skill[$id]/$percent</td><td align=right width=1><a href=/menu.php?load=skills&upskill=$id target=menu><img src=/img/game/up.gif height=8 width=8></td></tr></table></td></tr>";
+		$text .= "<tr><td class=mainb id=toptext valign=top height=10><table cellpadding=0 cellspacing=0 width=100%><tr><td width=140>$name</td><td width=60 align=center>$p</td><td>$skill[$id]/$percent</td><td align=right width=1><a href=/menu.php?load=skills&upskill=$id target=menu><img src=/assets/img/game/up.gif height=8 width=8></td></tr></table></td></tr>";
 		$last = $typ;
 		$row_num=SQL_next_num();
 	}
@@ -2129,7 +2129,7 @@ function domir($type)
 				SQL_free_result($result);
 			//print "$SQL";
 			$myobj .= "</select>";
-			$text = "<form action=/menu.php method=post target=menu><table cellpadding=5 align=center><input type=hidden name=load value=$load><input type=hidden name=stg value=1><input type=hidden name=trade_id value=$trade_id><input type=hidden name=typ value=$typ><input type=hidden name=action value=do><tr><Td><table cellpadding=0 cellspacing=0><tr><td><b><font color=888888>- Изготовить предмет по свитку: </font></b></td><td>$myobj</td></tr></table></td></tr><tr><TD><table><tr><Td><img src=/img/game/$mpic[$type] width=100 height=84></td><td><table><Tr><TD><b>Первый материал:</td><td>$mat1</td><td><input type=text name=mobj1_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Второй материал:</td><td>$mat2</td><td><input type=text name=mobj2_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Третий материал:</td><td>$mat3</td><td><input type=text name=mobj3_num size=2 maxlength=2 value=0></td><td>шт.</td></tr></table></b></td></tr></table></td></tr><tr><td align=center id=makebutton><input type=submit value=Изготовить></td></tr><tr><td><table width=100%><Tr><Td id=perbar><table width=99% cellspacing=1 bgcolor=8C9AAD align=center height=15><tr><td bgcolor=BDC7DE align=center width=1></td><td bgcolor=E6EAEF> </td></tr></table></td><td width=10 id=pernum>0%</td></tr></table><table><Tr><TD id=maketext></td></tr></table></td></tr></table></form>";
+			$text = "<form action=/menu.php method=post target=menu><table cellpadding=5 align=center><input type=hidden name=load value=$load><input type=hidden name=stg value=1><input type=hidden name=trade_id value=$trade_id><input type=hidden name=typ value=$typ><input type=hidden name=action value=do><tr><Td><table cellpadding=0 cellspacing=0><tr><td><b><font color=888888>- Изготовить предмет по свитку: </font></b></td><td>$myobj</td></tr></table></td></tr><tr><TD><table><tr><Td><img src=/assets/img/game/$mpic[$type] width=100 height=84></td><td><table><Tr><TD><b>Первый материал:</td><td>$mat1</td><td><input type=text name=mobj1_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Второй материал:</td><td>$mat2</td><td><input type=text name=mobj2_num size=2 maxlength=2 value=0></td><td>шт.</td></tr><Tr><TD><b>Третий материал:</td><td>$mat3</td><td><input type=text name=mobj3_num size=2 maxlength=2 value=0></td><td>шт.</td></tr></table></b></td></tr></table></td></tr><tr><td align=center id=makebutton><input type=submit value=Изготовить></td></tr><tr><td><table width=100%><Tr><Td id=perbar><table width=99% cellspacing=1 bgcolor=8C9AAD align=center height=15><tr><td bgcolor=BDC7DE align=center width=1></td><td bgcolor=E6EAEF> </td></tr></table></td><td width=10 id=pernum>0%</td></tr></table><table><Tr><TD id=maketext></td></tr></table></td></tr></table></form>";
 			//print "$SQL";
 			print "<script>window.top.domir('$msk[$type]','$text');</script>";
 		}

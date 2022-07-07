@@ -97,7 +97,7 @@ if ($player_room > 0)
 				{
 					$nalog = round($price*$cbuy/100);
 					$price -= $nalog;
-					$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/img/stuff/$pic></td><td><table><tr><td>Количество: </td><td><font color=007700>$count</font></td></tr><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Оценка предмета: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr></table></td></tr></table>";
+					$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/assets/img/stuff/$pic></td><td><table><tr><td>Количество: </td><td><font color=007700>$count</font></td></tr><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Оценка предмета: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr></table></td></tr></table>";
 					$price = $price * $count;
 					$nalog = $nalog * $count;
 					if ($num > $count)
@@ -123,7 +123,7 @@ if ($player_room > 0)
 				}
 			}
 			else
-				$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/img/stuff/$pic></td><td><table><tr><td>Количество: </td><td><font color=007700>$count</font></td></tr><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Оценка предмета: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr><tr><td colspan=2 align=center>У вас нет такого количества предметов.</td></tr></table></td></tr></table>";
+				$shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>$name</b></td></tr><tr><td width=64 align=center><img src=/assets/img/stuff/$pic></td><td><table><tr><td>Количество: </td><td><font color=007700>$count</font></td></tr><tr><td>Состояние: </td><td><font color=007700>$cur_cond / $max_cond</font></td></tr><tr><td>Оценка предмета: </td><td><font color=888800><b>$price злт.</b></font></td></tr></table></td></tr><tr><td colspan=2 align=center>У вас нет такого количества предметов.</td></tr></table></td></tr></table>";
 		}
 		else
 		{

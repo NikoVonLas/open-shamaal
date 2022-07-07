@@ -992,7 +992,7 @@ function map()
                     <table align=center width=100%>
                         <tr>";
         if ($m_pic <> "") {
-            print "<td width=150 align=center><div id=image$m_id><a href=# onclick=\"document.getElementById('image$m_id').innerHTML='<img src=/img/map/$m_pic>';\">Показать картинку</a></div><input type=text name=map_pic value='$m_pic' size=15 id=b$m_id><br><input type=button value='Список' onclick=\"javascript:NewWnd=window.open('picture.php?dir=map&id=$m_id', 'picture', 'width='+400+',height='+400+', toolbar=0,location=no,status=1,scrollbars=1,resizable=1,left=200,top=50');\"></td>";
+            print "<td width=150 align=center><div id=image$m_id><a href=# onclick=\"document.getElementById('image$m_id').innerHTML='<img src=/assets/img/map/$m_pic>';\">Показать картинку</a></div><input type=text name=map_pic value='$m_pic' size=15 id=b$m_id><br><input type=button value='Список' onclick=\"javascript:NewWnd=window.open('picture.php?dir=map&id=$m_id', 'picture', 'width='+400+',height='+400+', toolbar=0,location=no,status=1,scrollbars=1,resizable=1,left=200,top=50');\"></td>";
         } else {
             print "<td width=150 align=center><div id=image$m_id><input type=text name=map_pic value='$m_pic' size=15 id=b$m_id><br><input type=button value='Список' onclick=\"javascript:NewWnd=window.open('picture.php?dir=map&id=$m_id', 'picture', 'width='+400+',height='+400+', toolbar=0,location=no,status=1,scrollbars=1,resizable=1,left=200,top=50');\"></td>";
         }
@@ -1365,7 +1365,7 @@ function stuff()
         <tr><td>Треб. умение</td><td>$skillCombo <input type=text name=skillLessons value='$checkSkillLessons' size=3 maxlength=3></td></tr>
         </table></td></tr><tr><td colspan=2 align=center><input type=submit value=Сохранить></td></tr></table>";
 
-        print "<tr><form action=bvgfvf7w83hr129jr1aw.php method=post><input type=hidden name=search_place value=$search_place><input type=hidden name=action value=save><input type=hidden name=id value=$id><input type=hidden name=page value=$page><input type=hidden name=search_specif value=$search_specif><input type=hidden name=search_typ value=$search_typ><input type=hidden name=load value=$load><td colspan=2 bgcolor=CFD3D7><table><tr><td>Название: </td><td><input type=text name=name value='$name'></td><td style='padding-left: 5px;'>ID: </td><td>$id</td></tr></table></td></tr><tr><td bgcolor=EFF3F7 width=100 align=center height=100><img src=/img/stuff/$pic><br><input type=text name=pic value='$pic' size=12><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=$action&search_place=$search_place&search_typ=$search_typ&search_specif=$search_specif&page=$page&action=del&id=$id class=menu>Удалить</a></td><td bgcolor=DFE3E7 valign=top>$info</td></form></tr>";
+        print "<tr><form action=bvgfvf7w83hr129jr1aw.php method=post><input type=hidden name=search_place value=$search_place><input type=hidden name=action value=save><input type=hidden name=id value=$id><input type=hidden name=page value=$page><input type=hidden name=search_specif value=$search_specif><input type=hidden name=search_typ value=$search_typ><input type=hidden name=load value=$load><td colspan=2 bgcolor=CFD3D7><table><tr><td>Название: </td><td><input type=text name=name value='$name'></td><td style='padding-left: 5px;'>ID: </td><td>$id</td></tr></table></td></tr><tr><td bgcolor=EFF3F7 width=100 align=center height=100><img src=/assets/img/stuff/$pic><br><input type=text name=pic value='$pic' size=12><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=$action&search_place=$search_place&search_typ=$search_typ&search_specif=$search_specif&page=$page&action=del&id=$id class=menu>Удалить</a></td><td bgcolor=DFE3E7 valign=top>$info</td></form></tr>";
         $st[$stock] = "";
         $cl[$client] = "";
         $row_num=SQL_next_num();
@@ -1871,7 +1871,7 @@ function editobj($owner, $room)
             <tr><td colspan=2 align=center><br><input type=submit value=Сохранить></td></tr>
             </table>
         </td></tr></table>";
-        print "<form action=bvgfvf7w83hr129jr1aw.php method=post><input type=hidden name=action value=$action><input type=hidden name=show_obj value=1><input type=hidden name=sid value=$sid><input type=hidden name=do value=save><input type=hidden name=id value=$id><input type=hidden name=load value=$load><input type=hidden name=name value=$pl_name><input type=hidden name=load value=$load><tr><td width=120 align=center bgcolor=EFF3F7 height=100>$pname (id: $id)<br><img src=/img/stuff/$pic><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&id=$id&do=del&name=$pl_name&action=$action&sid=$sid&show_obj=1>Удалить</a></td><td bgcolor=DFE3E7 valign=top>$info</td></tr></form>";
+        print "<form action=bvgfvf7w83hr129jr1aw.php method=post><input type=hidden name=action value=$action><input type=hidden name=show_obj value=1><input type=hidden name=sid value=$sid><input type=hidden name=do value=save><input type=hidden name=id value=$id><input type=hidden name=load value=$load><input type=hidden name=name value=$pl_name><input type=hidden name=load value=$load><tr><td width=120 align=center bgcolor=EFF3F7 height=100>$pname (id: $id)<br><img src=/assets/img/stuff/$pic><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&id=$id&do=del&name=$pl_name&action=$action&sid=$sid&show_obj=1>Удалить</a></td><td bgcolor=DFE3E7 valign=top>$info</td></tr></form>";
         $row_num=SQL_next_num();
     }
     if ($result) {
@@ -2422,7 +2422,7 @@ function player()
                             </td>
                         </tr>
                         <tr>
-                            <td bgcolor=DEE2E width=160 align=center valign=top><img src=/img/obraz/$pl_pic></td>
+                            <td bgcolor=DEE2E width=160 align=center valign=top><img src=/assets/img/obraz/$pl_pic></td>
                             <td bgcolor=EFF3F width=400 valign=top>
                                 <table bgcolor=768E92 cellspacing=1 cellpadding=3 width=100%>";
             if ($admin_lvl == 1 || $admin_lvl == 5) {
@@ -2593,7 +2593,7 @@ function player()
                             $acId=$row_num[0];
                             $acName=$row_num[1];
                             $acPicture=$row_num[2];
-                            print "<tr><td class=small width=250><img src=/img/achievement/$acPicture></td><td class=small>$acName</td><td class=small  align=right><a href=bvgfvf7w83hr129jr1aw.php?load=$load&name=$pl_name&achievementId=$acId&do=delac>Убрать</a></td></tr>";
+                            print "<tr><td class=small width=250><img src=/assets/img/achievement/$acPicture></td><td class=small>$acName</td><td class=small  align=right><a href=bvgfvf7w83hr129jr1aw.php?load=$load&name=$pl_name&achievementId=$acId&do=delac>Убрать</a></td></tr>";
                             $row_num=SQL_next_num();
                         }
                         if ($result)
@@ -2630,7 +2630,7 @@ function player()
                         $acId=$row_num[0];
                         $acName=$row_num[1];
                         $acPicture=$row_num[2];
-                        print "<tr><td class=small width=250><img src=/img/achievement/$acPicture></td><td class=small>$acName</td><td class=small  align=right><a href=bvgfvf7w83hr129jr1aw.php?load=$load&name=$pl_name&achievementId=$acId&do=delac>Убрать</a></td></tr>";
+                        print "<tr><td class=small width=250><img src=/assets/img/achievement/$acPicture></td><td class=small>$acName</td><td class=small  align=right><a href=bvgfvf7w83hr129jr1aw.php?load=$load&name=$pl_name&achievementId=$acId&do=delac>Убрать</a></td></tr>";
                         $row_num=SQL_next_num();
                     }
                     if ($result) {
@@ -3022,7 +3022,7 @@ function obraz()
         $imagehw = GetImageSize($lnk."img/obraz/$pic");
         $i_x = round($imagehw[0] / 2);
         $i_y = round($imagehw[1] / 2);
-        print "<tr bgcolor=EFF3F2><td width=100><img src=$lnk"."/img/obraz/$pic width=$i_x height=$i_y></td><td>Имя персонажа: $name<br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=accept&id=$id>Подтвердить образ</a><br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=del&id=$id>Удалить образ</a></td></tr>";
+        print "<tr bgcolor=EFF3F2><td width=100><img src=$lnk"."/assets/img/obraz/$pic width=$i_x height=$i_y></td><td>Имя персонажа: $name<br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=accept&id=$id>Подтвердить образ</a><br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=del&id=$id>Удалить образ</a></td></tr>";
         $row_num=SQL_next_num();
     }
     if ($result) {
@@ -3039,7 +3039,7 @@ function obraz()
         $imagehw = GetImageSize("../img/clan/$pic");
         $i_x = round($imagehw[0]);
         $i_y = round($imagehw[1]);
-        print "<tr bgcolor=EFF3F2><td width=100><img src=/img/clan/$pic width=$i_x height=$i_y></td><td>Имя Клана: $name<br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=accept2&id=$id>Подтвердить лого</a><br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=del2&id=$id>Удалить лого</a></td></tr>";
+        print "<tr bgcolor=EFF3F2><td width=100><img src=/assets/img/clan/$pic width=$i_x height=$i_y></td><td>Имя Клана: $name<br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=accept2&id=$id>Подтвердить лого</a><br><br><a href=bvgfvf7w83hr129jr1aw.php?load=$load&action=del2&id=$id>Удалить лого</a></td></tr>";
         $row_num=SQL_next_num();
     }
     if ($result) {
@@ -3900,7 +3900,7 @@ function npc()
 function achievement()
 {
     global $load,$action,$pacId, $pacName, $pacDesc, $pacPicture, $pacDisplayPicture ;
-    //<img src=/img/stuff/$pic>
+    //<img src=/assets/img/stuff/$pic>
     $SQL="select acId,acName,acDesc,acPicture,acDisplayPicture from achievement";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
@@ -3967,8 +3967,8 @@ function achievement()
         <input type=hidden name=action value=save>
         <tr>
         <tr bgcolor=E7ECEB>
-        <td bgcolor=E8EDEC width=150>Pic: <img src=/img/achievement/$acPicture></td><td><input type=text name=pacPicture value='$acPicture' size=10></td>
-        <td bgcolor=E8EDEC width=150>Site:<img src=/img/achievement/$acDisplayPicture></td><td><input type=text name=pacDisplayPicture value='$acDisplayPicture' size=10></td>
+        <td bgcolor=E8EDEC width=150>Pic: <img src=/assets/img/achievement/$acPicture></td><td><input type=text name=pacPicture value='$acPicture' size=10></td>
+        <td bgcolor=E8EDEC width=150>Site:<img src=/assets/img/achievement/$acDisplayPicture></td><td><input type=text name=pacDisplayPicture value='$acDisplayPicture' size=10></td>
         </tr>
         <tr>
                     <td  bgcolor=E8EDEC  width=150 colspan=3>Название:</td><td><input type=text name=pacName value='$acName' size=20></td>
@@ -4176,11 +4176,11 @@ function uploadpic()
     print "</form>";
     print "<table>";
     foreach ($dir_array as $n) {
-        //print "<tr bgcolor=EDF1F1><td align=center width=82><img src=/img/$dir/$n></td><td align=center><a href=# onclick=window.opener.window.top.document.getElementById('b$id').value='$n';window.close();>".$n."</td></tr>";
+        //print "<tr bgcolor=EDF1F1><td align=center width=82><img src=/assets/img/$dir/$n></td><td align=center><a href=# onclick=window.opener.window.top.document.getElementById('b$id').value='$n';window.close();>".$n."</td></tr>";
         $pos = strpos($n, ".");
         if ($pos != false) {
             if ((strpos(strtoupper($n), ".GIF")) || (strpos(strtoupper($n), ".JPG"))) {
-                print "<tr><td width=300><img src=/img/$dir/$n></td><td>$n</td></tr>";
+                print "<tr><td width=300><img src=/assets/img/$dir/$n></td><td>$n</td></tr>";
             }
         }
     }
@@ -4375,7 +4375,7 @@ if ($cur_state == 2) {
                             <td>
                                 <table cellspacing=0 cellpadding=0 height=13 width=100%>
                                     <tr>
-                                        <td background="/img/sitemain2.gif"></td>
+                                        <td background="/assets/img/sitemain2.gif"></td>
                                     </tr>
                                 </table>
 
@@ -4493,7 +4493,7 @@ if ($cur_state == 2) {
                                 </table>
                                 <table cellspacing=0 cellpadding=0 height=13 width=100%>
                                     <tr>
-                                        <td background="/img/sitemain3.gif">
+                                        <td background="/assets/img/sitemain3.gif">
                                         </td>
                                     </tr>
                                 </table>
@@ -4507,7 +4507,7 @@ if ($cur_state == 2) {
                         <td bgcolor=EDF1F1 valign=top>
                             <table align=center width=100%>
                             <tr>
-                                <td background=/img/sitedown.gif height=18 class=t><?print $link[$load];?></td>
+                                <td background=/assets/img/sitedown.gif height=18 class=t><?print $link[$load];?></td>
                             </tr>
                             <tr>
                                 <td>
@@ -4633,7 +4633,7 @@ if ($cur_state == 2) {
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="style.css" TITLE="STYLE">
+<LINK REL=STYLESHEET TYPE="TEXT/CSS" HREF="/assets/css/style.css" TITLE="STYLE">
 <form action='bvgfvf7w83hr129jr1aw.php?zzadmin=<?php echo $zzadmin; ?>' method='post'>
 <table height="100%" width=100%><tr><td>
 <table class=blue cellpadding=0 cellspacing=1 width=350 height=20 align=center>
@@ -4648,7 +4648,7 @@ if ($cur_state == 2) {
                         </tr>
                         </table>
 
-                        <img src=/img/mbarf.gif width=11 height=10 border=0>
+                        <img src=/assets/img/mbarf.gif width=11 height=10 border=0>
                     </td>
                     <td>
                         Вход в Admin Mod
@@ -4700,7 +4700,7 @@ if ($cur_state == 2) {
                         </tr>
                         </table>
 
-                        <img src=/img/mbarf.gif width=11 height=10 border=0>
+                        <img src=/assets/img/mbarf.gif width=11 height=10 border=0>
                     </td>
                     <td>
                         <table><tr><td></td></tr></table>

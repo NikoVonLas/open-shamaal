@@ -164,7 +164,7 @@ while ( $row_num )
     $ctext = htmlspecialchars( "{$ctext}", ENT_QUOTES );
     if ( $city_rank == 1 )
     {
-        $info .= "<form action=clanpositions.php method=post><input type=hidden name=id value={$cid}><input type=hidden name=do value=save><tr bgcolor=F7FBFF><td width=30 height=20 align=center><a href=clanpositions.php?do=del&id={$cid}><img src=/img/game/del.gif></a></td><td align=center width=160>{$cname}</td><td align=center width=200>{$cps}</td><td align=center width=120><input type=text name=c_text size=15 value=\"{$ctext}\"></td><td align=center><input type=submit value=Изменить></td></tr></form>";
+        $info .= "<form action=clanpositions.php method=post><input type=hidden name=id value={$cid}><input type=hidden name=do value=save><tr bgcolor=F7FBFF><td width=30 height=20 align=center><a href=clanpositions.php?do=del&id={$cid}><img src=/assets/img/game/del.gif></a></td><td align=center width=160>{$cname}</td><td align=center width=200>{$cps}</td><td align=center width=120><input type=text name=c_text size=15 value=\"{$ctext}\"></td><td align=center><input type=submit value=Изменить></td></tr></form>";
     }
     else
     {

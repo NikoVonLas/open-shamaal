@@ -17,8 +17,8 @@ echo <<<EOT
         <html>
             <head>
                 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-                <link rel="stylesheet" type="text/css" href="/style.css">
-                <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
+                <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+                <link rel="stylesheet" type="text/css" href="/assets/css/csshake.min.css">
             </head>
             <title>Shamaal World</title>
             
@@ -51,7 +51,7 @@ echo <<<EOT
                                             <td></td>
                                         </tr>
                                     </table>
-                                    <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="Одно из главных окон игры, отображает все настройки и параметры вашего персонажа.">
+                                    <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="Одно из главных окон игры, отображает все настройки и параметры вашего персонажа.">
                                 </td>
                                 <td id="topname">
                                     Загрузка информации... 
@@ -65,8 +65,8 @@ echo <<<EOT
                 </tr>  
             </table>
             
-            <script type="text/javascript" src="/jquery.min.js"></script>
-            <script type="text/javascript" src="/stooltip.js"></script>
+            <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+            <script type="text/javascript" src="/assets/js/stooltip.js"></script>
             <script>
                 plname = '{$player['name']}';
                 server = {$player['server']};
@@ -74,6 +74,6 @@ echo <<<EOT
                 ignor[0] = '1';
                 window.top.ignor = JSON.parse('{$pl_ignor}');
             </script>
-            <script src="/navigation.js"></script>         
+            <script src="/assets/js/navigation.js"></script>         
         </html> 
 EOT;

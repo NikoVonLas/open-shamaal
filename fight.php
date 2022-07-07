@@ -84,7 +84,7 @@ if ($id > 0)
 			//$ratplus = "<b>".$ratplus."</b>";
 			if ($ratplus < 0)
 				$ratplus = "<font color=888800>".$ratplus."</font>";
-			$info .= "<tr bgcolor=E7EBEF><td width=70 align=center>$dat</td><td width=15><a href=./fullinfo.php?name=$whom target=_blank><img src=/img/game/info.gif width=13 height=13></a></td><td align=center width=160>$whom</td><td align=center width=70>$wn[$win]</td><td align=center width=90>$ratplus</td><td width=70 align=center><b>$rating</b></td></tr>";
+			$info .= "<tr bgcolor=E7EBEF><td width=70 align=center>$dat</td><td width=15><a href=./fullinfo.php?name=$whom target=_blank><img src=/assets/img/game/info.gif width=13 height=13></a></td><td align=center width=160>$whom</td><td align=center width=70>$wn[$win]</td><td align=center width=90>$ratplus</td><td width=70 align=center><b>$rating</b></td></tr>";
 			$row_num=SQL_next_num();
 		}
 		if ($result)

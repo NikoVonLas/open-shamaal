@@ -215,7 +215,7 @@ Function getobj()
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp *</b>";
 
-							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы смогли выкопать немного руды`$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Добыча руды','/assets/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы смогли выкопать немного руды`$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $ruda_id["$o_name[$r]"];
 
@@ -250,11 +250,11 @@ Function getobj()
 
 						}
 						else
-							print "<script>window.top.kopka('Добыча руды','/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы <font color=red>не</font> смогли выкопать руду `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Добыча руды','/assets/img/stuff/$o_pic[$r]',10,'Поиск руды.',$p,'Руда `$o_name[$r]` в залежах найдена.',90,'Вы принялись выкапывать руду.',150,'Вы <font color=red>не</font> смогли выкопать руду `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',$p,'Вы смогли найти какую-то руду.',90,'Вы принялись выкапывать руду.',150,'Вы не смогли выкопать неизвестную руду.',' <table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',$p,'Вы смогли найти какую-то руду.',90,'Вы принялись выкапывать руду.',150,'Вы не смогли выкопать неизвестную руду.',' <table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 
 				}
@@ -264,7 +264,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',100,'Руда не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Добыча руды','',10,'Поиск руды.',100,'Руда не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/kirk.gif></td><td><b> - Горное дело : $percent  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 			}
 		}
 		else if (($o_specif[$r] == 4) || ($specif == 4) || ($specif == 22) || ($o_specif[$r] == 22) || ($specif == 2) || ($o_specif[$r] == 2))
@@ -307,7 +307,7 @@ Function getobj()
 							$SQL="update sw_users SET exp=exp+$texp where id=$player_id";
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp *</b>";
-							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы собрали немного травы `$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Сбор трав','/assets/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы собрали немного травы `$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $rast_id["$o_name[$r]"];
 
@@ -339,11 +339,11 @@ Function getobj()
 							SQL_do($SQL);
 						}
 						else
-							print "<script>window.top.kopka('Сбор трав','/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы <font color=red>не</font> смогли собрать траву `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Сбор трав','/assets/img/stuff/$o_pic[$r]',10,'Поиск травы.',$p,'Вы нашли траву `$o_name[$r]` в местных кустах.',90,'Вы принялись собирать траву.',150,'Вы <font color=red>не</font> смогли собрать траву `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',$p,'Вы смогли найти какую-то траву.',90,'Вы принялись собирать траву.',150,'Вы не смогли собрать неизвестную траву.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',$p,'Вы смогли найти какую-то траву.',90,'Вы принялись собирать траву.',150,'Вы не смогли собрать неизвестную траву.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 
 				}
@@ -353,7 +353,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',100,'Ценная трава не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Сбор трав','',10,'Поиск травы.',100,'Ценная трава не найдена.',0,'Вы принялись выкапывать руду.',0,'Вы <font color=red>не</font> смогли выкопать немного руды`$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/else/serp.gif></td><td><b> - Наука о травах : $percent2  уроков.</b><br><br><b> - Уровень месторождения: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 			}
 		}
 		else if (($o_specif[$r] == 11) || ($specif == 11))
@@ -396,7 +396,7 @@ Function getobj()
 							$SQL="update sw_users SET exp=exp+$texp where id=$player_id";
 							SQL_do($SQL);
 							$mtext = "<br><b>* Опыт +$texp *</b>";
-							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись вырубать дерево.',150,'Вы смогли вырубить дерево `$o_name[$r]`.$mtext','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Вырубка деревьев','/assets/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись вырубать дерево.',150,'Вы смогли вырубить дерево `$o_name[$r]`.$mtext','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 							$is = "";
 							$objt = $tree_id["$o_name[$r]"];
 
@@ -428,11 +428,11 @@ Function getobj()
 							SQL_do($SQL);
 						}
 						else
-							print "<script>window.top.kopka('Вырубка деревьев','/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись  рубить дерево.',150,'Вы <font color=red>не</font> смогли вырубить дерево `$o_name[$r]`.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+							print "<script>window.top.kopka('Вырубка деревьев','/assets/img/stuff/$o_pic[$r]',10,'Поиск дерева.',$p,'Вы нашли дерево `$o_name[$r]` в местном лесу.',90,'Вы принялись  рубить дерево.',150,'Вы <font color=red>не</font> смогли вырубить дерево `$o_name[$r]`.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 					else
 					{
-						print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',$p,'Вы смогли найти какое-то дерево.',90,'Вы принялись рубить дерево.',150,'Вы не смогли вырубить неизвестное дерево.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+						print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',$p,'Вы смогли найти какое-то дерево.',90,'Вы принялись рубить дерево.',150,'Вы не смогли вырубить неизвестное дерево.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 					}
 
 				}
@@ -442,7 +442,7 @@ Function getobj()
 			}
 			else
 			{
-				print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',100,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.','<table><tr><td><img src=/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
+				print "<script>window.top.kopka('Вырубка деревьев','',10,'Поиск дерева.',100,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.',0,'Вы не смогли найти подходящее дерево.','<table><tr><td><img src=/assets/img/stuff/axe/axe11.gif></td><td><b> - Лесничество : $percent3  уроков.</b><br><br><b> - Качество древесины: $ur.<br><br>- Состояние $out</b></td></tr></table>',1);</script>";
 			}
 		}
 	}

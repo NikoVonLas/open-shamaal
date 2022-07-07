@@ -17,8 +17,8 @@
         <html>
             <head>
                 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-                <link rel="stylesheet" type="text/css" href="/style.css">
-                <link rel="stylesheet" type="text/css" href="/maingame/shake/csshake.min.css">
+                <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+                <link rel="stylesheet" type="text/css" href="/assets/css/csshake.min.css">
             </head>
             <title>Shamaal World</title>
             
@@ -56,7 +56,7 @@
                                 </td>
                                 <td width="35" align="left">
                                     <a href="/menu.php?load=exit" target=menu>
-                                        <img src="/img/exit.gif" width="32" height="18"  alt="Выход из игры">
+                                        <img src="/assets/img/exit.gif" width="32" height="18"  alt="Выход из игры">
                                     </a>
                                 </td>
                             </tr>
@@ -75,7 +75,7 @@
                                             <td></td>
                                         </tr>
                                     </table>
-                                    <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="В этом разделе для передвижения по карте необходимо нажать на нужную вам локацию.">
+                                    <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="В этом разделе для передвижения по карте необходимо нажать на нужную вам локацию.">
                                 </td>
                                 <td>
                                     <table cellpadding="1" cellspacing="0">
@@ -109,7 +109,7 @@
                                             <td></td>
                                         </tr>
                                     </table>                   
-                                    <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="Здесь отображается вся информация о состоянии вашего персонажа.">
+                                    <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="Здесь отображается вся информация о состоянии вашего персонажа.">
                                 </td>
                                 <td>Состояние персонажа</td>
                             </tr>
@@ -118,14 +118,14 @@
                 </tr>
                 <tr>
                     <td class="mainb" height="60">
-                        <table cellpadding="0" cellspacing="0" align="center" width="98%">
+                        <table cellpadding="0" cellspacing="0" align="center" width="98%" class="bars">
                             <tr>
                                 <td class="har" width="25">Жизни</td>
                                 <td align="center" width="120">
-                                    <img src="/img/game/HPl.gif" width="7" height="12">
-                                    <img src="/img/game/HP1.gif" width="{$per_hp}" height="12" id="hp1">
-                                    <img src="/img/game/HP.gif" width="{$per_ahp}" height="12" id="hp2">
-                                    <img src="/img/game/HPr.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HPl.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HP1.gif" width="{$per_hp}" height="12" id="hp1">
+                                    <img src="/assets/img/game/HP.gif" width="{$per_ahp}" height="12" id="hp2">
+                                    <img src="/assets/img/game/HPr.gif" width="7" height="12">
                                 </td>
                                 <td class="har" id="hpscore">
                                     {$player['chp']}/{$player['maxhp']}
@@ -137,10 +137,10 @@
                             <tr>
                                 <td class="har">Энергия</td>
                                 <td align="center" width="120">
-                                    <img src="/img/game/HPl.gif" width="7" height="12">
-                                    <img src="/img/game/HP3.gif" width={$per_mana} height="12" id="mana1">
-                                    <img src="/img/game/HP.gif" width={$per_amana} height="12" id="mana2">
-                                    <img src="/img/game/HPr.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HPl.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HP3.gif" width={$per_mana} height="12" id="mana1">
+                                    <img src="/assets/img/game/HP.gif" width={$per_amana} height="12" id="mana2">
+                                    <img src="/assets/img/game/HPr.gif" width="7" height="12">
                                 </td>
                                 <td class="har" id="manascore">
                                     {$player['cmana']}/{$player['maxmana']}
@@ -152,10 +152,10 @@
                             <tr>
                                 <td class="har">Баланс</td>
                                 <td align="center" width="120">
-                                    <img src="/img/game/HPl.gif" width="7" height="12">
-                                    <img src="/img/game/HP2.gif" width="1" height="12" id="bal1">
-                                    <img src="/img/game/HP.gif" width="99" height="12" id="bal2">
-                                    <img src="/img/game/HPr.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HPl.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HP2.gif" width="1" height="12" id="bal1">
+                                    <img src="/assets/img/game/HP.gif" width="99" height="12" id="bal2">
+                                    <img src="/assets/img/game/HPr.gif" width="7" height="12">
                                 </td
                                 ><td class="har" id="bal">Есть</td>
                             </tr>
@@ -165,10 +165,10 @@
                             <tr>
                                 <td class="har">Эликсиры</td>
                                 <td align="center" width="120">
-                                    <img src="/img/game/HPl.gif" width="7" height="12">
-                                    <img src="/img/game/HP2.gif" width="1" height="12" id="dbal1">
-                                    <img src="/img/game/HP.gif" width="99" height="12" id="dbal2">
-                                    <img src="/img/game/HPr.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HPl.gif" width="7" height="12">
+                                    <img src="/assets/img/game/HP2.gif" width="1" height="12" id="dbal1">
+                                    <img src="/assets/img/game/HP.gif" width="99" height="12" id="dbal2">
+                                    <img src="/assets/img/game/HPr.gif" width="7" height="12">
                                 </td>
                                 <td class="har" id="dbal">Есть</td>
                             </tr>
@@ -185,7 +185,7 @@
                                             <td></td>
                                         </tr>
                                     </table>
-                                    <img src="/img/mbarf.gif" width="11" height="10" border="0" alt="В этом окне отображаются все эффекты, действующие на вас в настоящее время.">
+                                    <img src="/assets/img/mbarf.gif" width="11" height="10" border="0" alt="В этом окне отображаются все эффекты, действующие на вас в настоящее время.">
                                 </td>
                                 <td>Эффекты</td>
                             </tr>
@@ -202,6 +202,6 @@
                     </td>
                 </tr>
             </table>
-            <script type="text/javascript" src="/stooltip.js"></script>
+            <script type="text/javascript" src="/assets/js/stooltip.js"></script>
         </html> 
 EOT;

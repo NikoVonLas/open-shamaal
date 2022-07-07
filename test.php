@@ -109,19 +109,19 @@ if (!isset($player['style'])) {
                         </span>
                         <div class="dropdown-menu" aria-labelledby="dropdownInfo">
                             <button class="dropdown-item" type="button">
-                                <img src="/img/i.gif">
+                                <img src="/assets/img/i.gif">
                                 <a id="tab-home-tab" href="#tab-info" data-toggle="tab" role="tab" aria-controls="tab-info" aria-selected="true">Информация</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/bag.gif">
+                                <img src="/assets/img/bag.gif">
                                 <a id="tab-inventory-tab" href="#tab-inventory" data-toggle="tab" role="tab" aria-controls="tab-inventory" aria-selected="false">Инвентарь</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/zak.gif">
+                                <img src="/assets/img/zak.gif">
                                 <a id="tab-spells-tab" href="#tab-spells" data-toggle="tab" role="tab" aria-controls="tab-spells" aria-selected="false">Заклинания</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/at.gif">
+                                <img src="/assets/img/at.gif">
                                 <a id="tab-actions-tab" href="#tab-actions" data-toggle="tab" role="tab" aria-controls="tab-actions" aria-selected="false">Действия</a>
                             </button>
                         </div>
@@ -132,15 +132,15 @@ if (!isset($player['style'])) {
                         </span>
                         <div class="dropdown-menu" aria-labelledby="dropdownSoc">
                             <button class="dropdown-item" type="button">
-                                <img src="/img/city.gif">
+                                <img src="/assets/img/city.gif">
                                 <a href="/menu.php?load=city" class="menu2" target="menu">Город</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/city.gif">
+                                <img src="/assets/img/city.gif">
                                 <a href="/menu.php?load=clan" class="menu2" target="menu">Клан</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/party.gif">
+                                <img src="/assets/img/party.gif">
                                 <a href="/menu.php?load=party" class="menu2" target="menu">Группа</a>
                             </button>
                         </div>
@@ -151,15 +151,15 @@ if (!isset($player['style'])) {
                         </span>
                         <div class="dropdown-menu" aria-labelledby="dropdownOpt">
                             <button class="dropdown-item" type="button">
-                                <img src="/img/opt.gif">
+                                <img src="/assets/img/opt.gif">
                                 <a href="/menu.php?load=opt" class="menu2" target="menu">Настройки</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/opt.gif">
+                                <img src="/assets/img/opt.gif">
                                 <a href="/menu.php?load=ignor" class="menu2" target="menu">Игнорирование</a>
                             </button>
                             <button class="dropdown-item" type="button">
-                                <img src="/img/opt.gif">
+                                <img src="/assets/img/opt.gif">
                                 <a href="/menu.php?load=obraz" class="menu2" target="menu">Выбор образа</a>
                             </button>
                         </div>
@@ -409,43 +409,43 @@ if (!isset($player['style'])) {
                                         <div class="col-3">
                                             <div class="row">
                                                 <div class="col-12 slot mini">
-                                                    <img src="/img/stuff/noamulet.gif">
+                                                    <img src="/assets/img/stuff/noamulet.gif">
                                                 </div>
                                                 <div class="col-6 slot mini double">
-                                                    <img src="/img/stuff/noring.gif">
+                                                    <img src="/assets/img/stuff/noring.gif">
                                                 </div>
                                                 <div class="col-6 slot mini double">
-                                                    <img src="/img/stuff/noring.gif">
+                                                    <img src="/assets/img/stuff/noring.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/nobody.gif">
+                                                    <img src="/assets/img/stuff/nobody.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/nosword.gif">
+                                                    <img src="/assets/img/stuff/nosword.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/noglove.gif">
+                                                    <img src="/assets/img/stuff/noglove.gif">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6 ava-slot-wrapper">
                                             <div>
-                                                <img src="/img/obraz/no_obraz.gif">
+                                                <img src="/assets/img/obraz/no_obraz.gif">
                                             </div>
                                         </div>
                                         <div class="col-3">
                                             <div class="row">
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/nohelmet.gif">
+                                                    <img src="/assets/img/stuff/nohelmet.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/nocloak.gif">
+                                                    <img src="/assets/img/stuff/nocloak.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/noshield.gif">
+                                                    <img src="/assets/img/stuff/noshield.gif">
                                                 </div>
                                                 <div class="col-12 slot">
-                                                    <img src="/img/stuff/nolegs.gif">
+                                                    <img src="/assets/img/stuff/nolegs.gif">
                                                 </div>
                                             </div>
                                         </div>

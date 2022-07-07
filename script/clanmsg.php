@@ -179,7 +179,7 @@ if ( $allow == 1 )
             {
                 $img = "read.gif";
             }
-            print "<tr bgcolor=E6EAEF><td width=17><a href=clanmsg.php?ran={$ran}&page={$page}&action=del&read_id={$id} class=menu><img src=/img/game/delete.gif width=15 height=15></a></td><td width=17><img src=/img/game/{$img} width=15 height=15></td><td><a href=clanmsg.php?action=read&read_id={$id}&ran={$ran}&page={$page} title='Читать сообщение' class=menu>{$title}</a></td><td width=90 align=center><b>{$from_name}</b></td><td  width=60 align=center><font class=italic>{$date}</font></td></tr>";
+            print "<tr bgcolor=E6EAEF><td width=17><a href=clanmsg.php?ran={$ran}&page={$page}&action=del&read_id={$id} class=menu><img src=/assets/img/game/delete.gif width=15 height=15></a></td><td width=17><img src=/assets/img/game/{$img} width=15 height=15></td><td><a href=clanmsg.php?action=read&read_id={$id}&ran={$ran}&page={$page} title='Читать сообщение' class=menu>{$title}</a></td><td width=90 align=center><b>{$from_name}</b></td><td  width=60 align=center><font class=italic>{$date}</font></td></tr>";
             $row_num = sql_next_num( );
         }
         if ( $result )

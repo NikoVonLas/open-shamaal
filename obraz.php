@@ -2,7 +2,7 @@
 require_once('./include.php');
 $pack = 0;
 $info = "";
-$userDir = "/img/obraz/";
+$userDir = "/assets/img/obraz/";
 $SQL = "select pack,pic,sex,topic from sw_users where id={$player_id}";
 $row_num = sql_query_num( $SQL );
 while ( $row_num )
@@ -110,7 +110,7 @@ if ( $show == 1 )
         if ($pack & 1) {
             $mc = "<a href=/menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict=obraz{$i}{$sx}.gif class=menu target=menu>Выбрать</a>";
         }
-        $info .= "<td align=center><img src=/img/obraz/obraz{$i}{$sx}.gif width={$i_x} height={$i_y}><br><br>{$mc}</td>";
+        $info .= "<td align=center><img src=/assets/img/obraz/obraz{$i}{$sx}.gif width={$i_x} height={$i_y}><br><br>{$mc}</td>";
     }
 
     $info .= '</table>';
@@ -176,7 +176,7 @@ else if ( $show == 2 )
             if ($pack & 1) {
                 $mc = "<a href=/menu.php?load={$load}&action=setplus&show={$show}&page={$page}&pict={$avatars[$i - 1]['user_id']}%2F{$avatars[$i - 1]['filename']} class=menu target=menu>Выбрать</a>";
             }
-            $info .= "<td align=center><img src=/img/obraz/{$avatars[$i - 1]['user_id']}/{$avatars[$i - 1]['filename']} width={$i_x} height={$i_y}><br><br>{$mc}</td>";
+            $info .= "<td align=center><img src=/assets/img/obraz/{$avatars[$i - 1]['user_id']}/{$avatars[$i - 1]['filename']} width={$i_x} height={$i_y}><br><br>{$mc}</td>";
         }
 
         $info .= '</table>';
@@ -237,7 +237,7 @@ else
             $imagehw = getimagesize( "../img/obraz/obraz".$n.$sx."fr.gif" );
             $i_x = round( $imagehw[0] / 2 );
             $i_y = round( $imagehw[1] / 2 );
-            $info .= "<td align=center><img src=/img/obraz/obraz".$n.$sx."fr.gif width={$i_x} height={$i_y}><br><br><a href=/menu.php?load={$load}&action=setnormal&page={$page}&pict=obraz".$n.$sx."fr.gif class=menu target=menu>Выбрать</a></td>";
+            $info .= "<td align=center><img src=/assets/img/obraz/obraz".$n.$sx."fr.gif width={$i_x} height={$i_y}><br><br><a href=/menu.php?load={$load}&action=setnormal&page={$page}&pict=obraz".$n.$sx."fr.gif class=menu target=menu>Выбрать</a></td>";
             continue;
             break;
         }

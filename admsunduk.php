@@ -96,7 +96,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             {
                 if ( $name != "" )
                 {
-                    $shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>{$name}</b></td></tr><tr><td width=64 align=center><img src=/img/stuff/{$pic}></td><td><table><tr><td>Количество: </td><td><font color=007700>{$count}</font></td></tr><tr><td>Состояние: </td><td><font color=007700>{$cur_cond} / {$max_cond}</font></td></tr></table></td></tr><tr><td colspan=3>Вы положили предмет в сундук</td></tr></table></td></tr></table>";
+                    $shp = "<table width=100% height=100%><tr><Td align=center><table><tr><td colspan=2 align=center><b>{$name}</b></td></tr><tr><td width=64 align=center><img src=/assets/img/stuff/{$pic}></td><td><table><tr><td>Количество: </td><td><font color=007700>{$count}</font></td></tr><tr><td>Состояние: </td><td><font color=007700>{$cur_cond} / {$max_cond}</font></td></tr></table></td></tr><tr><td colspan=3>Вы положили предмет в сундук</td></tr></table></td></tr></table>";
                     copyfromobj( $obj_id, $player_room, $count, 1 );
                     if ( $count < $num )
                     {

@@ -289,7 +289,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
             {
                 $adm = "(<a href=/menu.php?load=admsunduk&id={$fid} class=menu2 target=menu>Добавить</a>)";
             }
-            $player['text'] = "<table height=100% width=100% ><tr><td align=center><table width=100% height=120><tr><td height=70><table align=center><tr><td width=62 height=30><img src=/img/game/sunduk.gif></td><td valign=top><table><tr><td>Владелец: </td><td><b>{$owner_name}</b></td></tr><tr><td>Дата создания:</td><td> <b>{$obj_dat}</b></td></tr><tr><td>Вместимость: </td><td><b>{$raznov} / {$m_weight}</b></td></tr></table></td></tr></table></td></tr><tr><td align=center colspan=2>Вещи в рюкзаке разложены по категориям. {$adm}</td></tr></table></td></tr></table>";
+            $player['text'] = "<table height=100% width=100% ><tr><td align=center><table width=100% height=120><tr><td height=70><table align=center><tr><td width=62 height=30><img src=/assets/img/game/sunduk.gif></td><td valign=top><table><tr><td>Владелец: </td><td><b>{$owner_name}</b></td></tr><tr><td>Дата создания:</td><td> <b>{$obj_dat}</b></td></tr><tr><td>Вместимость: </td><td><b>{$raznov} / {$m_weight}</b></td></tr></table></td></tr></table></td></tr><tr><td align=center colspan=2>Вещи в рюкзаке разложены по категориям. {$adm}</td></tr></table></td></tr></table>";
 
             $pl = "";
 

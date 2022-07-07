@@ -51,8 +51,8 @@ if ((isset($tlogin)) && (isset($tpassword)))
 		SQL_do($SQL);
 		$SQL="UPDATE sw_users SET pic='$nPic' where id=$player_id";
 		SQL_do($SQL);
-		$file = "/img/obraz_bak/".$nPic;
-		$newfile = "/img/obraz/".$nPic;
+		$file = "/assets/img/obraz_bak/".$nPic;
+		$newfile = "/assets/img/obraz/".$nPic;
 		copy($file, $newfile);
 		$error = 6;
 	}

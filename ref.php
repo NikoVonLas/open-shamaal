@@ -159,7 +159,6 @@
 		$mytext .= $totext;
 		$player_do .= ",city=0,room=157,resp_room=135";
 	}
-	include("racecfg.php");
 
 	if ($room <> $old_room)
 	{

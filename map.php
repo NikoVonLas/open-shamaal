@@ -3,10 +3,8 @@
 
 	$passwd_hidden = "T13D@";
 	include('functions.php');
-	include("racecfg.php");
 
 	$script = 0;
-	$player_room = getroom($player['id']);
 	echo <<<EOT
 		<html>
 			<head>

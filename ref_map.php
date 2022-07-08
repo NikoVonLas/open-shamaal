@@ -1,4 +1,5 @@
 <?php
+require_once('./include.php');
 
 $tmi=0;
 $player_id = (integer) $player['id'];
@@ -15,7 +16,7 @@ $online_time = $cur_time-40;
 $time = date("H:i");
 /*if (!isset($n_pvp))
 $n_pvp = 0;*/
-$player['room'] = $player_room;
+$player_room = $player['room'];
 $d[1]='sz_';
 $d[2]='s_';
 $d[3]='sv_';
@@ -239,6 +240,8 @@ if (($dir >= 1) && ($dir <=8) && ($d[$dir] <> "")) {
 $build = 0;
 $SQL="select name,location,pic,sz_id,sz_name,s_id,s_name,sv_id,sv_name,z_id,z_name,v_id,v_name,jz_id,jz_name,j_id,j_name,jv_id,jv_name,trap,no_pvp,regen,build from sw_map where id=$player_room";
 $row_num=SQL_query_num($SQL);
+
+
 while ($row_num) {
     $locations = array(
         array(

@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f43191a4ab6454c64bcbfb9684590f7",
+    "content-hash": "bf440c5f984e48c523ac6d97e7037a25",
     "packages": [
+        {
+            "name": "colshrapnel/safemysql",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colshrapnel/safemysql.git",
+                "reference": "e1cbace64e6a6db02b5962a39990d26107d1d437"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colshrapnel/safemysql/zipball/e1cbace64e6a6db02b5962a39990d26107d1d437",
+                "reference": "e1cbace64e6a6db02b5962a39990d26107d1d437",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "safemysql.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Colonel Shrapnel",
+                    "email": "col.shrapnel@gmail.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "A real safe and convenient way to handle MySQL queries.",
+            "homepage": "https://github.com/colshrapnel/safemysql",
+            "keywords": [
+                "db",
+                "mysql"
+            ],
+            "time": "2018-05-16T10:40:18+00:00"
+        },
         {
             "name": "guzzle/guzzle",
             "version": "v3.9.3",
@@ -291,17 +333,51 @@
                 "issues": "https://github.com/vlucas/phpdotenv/issues",
                 "source": "https://github.com/vlucas/phpdotenv/tree/v2.6.6"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-07-14T17:54:18+00:00"
+        },
+        {
+            "name": "wapmorgan/morphos",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wapmorgan/Morphos.git",
+                "reference": "7ab7e8c6d85ab7a5f3cd4ed29f0fe305c87b71fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wapmorgan/Morphos/zipball/7ab7e8c6d85ab7a5f3cd4ed29f0fe305c87b71fa",
+                "reference": "7ab7e8c6d85ab7a5f3cd4ed29f0fe305c87b71fa",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "morphos\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Morphological solution",
+            "keywords": [
+                "declension",
+                "english",
+                "language",
+                "morphology",
+                "pluralization",
+                "russian"
+            ],
+            "time": "2017-01-28T18:08:20+00:00"
         }
     ],
     "packages-dev": [],
@@ -311,6 +387,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "platform-dev": []
 }

@@ -72,6 +72,117 @@ $race_bonus[5][3] = 8;
 $race_bonus[5][4] = 8;
 $race_bonus[5][5] = 8;
 
+$races = array(
+	array(
+		'name'  => 'Призрак'
+	),
+	array(
+		'name'  => 'Человек',
+		'str'   => 10,
+		'dex'   => 10,
+		'int'   => 10,
+		'wis'   => 10,
+		'con'   => 10,
+		'hp'    => 1,
+		'mana'  => 1,
+		'bonuses' => array(
+			'exp'   => -0.05,
+			'bal'   => 15,
+			'dex'   => 0,
+			'bleed' => 0,
+			'phys'  => 0,
+			'fire'  => 0,
+			'water' => 0,
+			'earth' => 0,
+			'air'   => 0,
+		)
+	),
+	array(
+		'name'  => 'Эльф',
+		'str'   => 8,
+		'dex'   => 12,
+		'int'   => 11,
+		'wis'   => 11,
+		'con'   => 8,
+		'hp'    => 1,
+		'mana'  => 1,
+		'bonuses' => array(
+			'exp'   => 0,
+			'bal'   => 15,
+			'dex'   => 2,
+			'bleed' => 0,
+			'phys'  => -10,
+			'fire'  => -10,
+			'water' => 0,
+			'earth' => 0,
+			'air'   => 0
+		)
+	),
+	array(
+		'name'  => 'Гном',
+		'str'   => 10,
+		'dex'   => 8,
+		'int'   => 10,
+		'wis'   => 11,
+		'con'   => 11,
+		'hp'    => 2,
+		'mana'  => 1,
+		'bonuses' => array(
+			'exp'   => 0.05,
+			'bal'   => 0,
+			'dex'   => 0,
+			'bleed' => 0,
+			'phys'  => 0,
+			'fire'  => 10,
+			'water' => 10,
+			'earth' => 10,
+			'air'   => 10,
+		)
+	),
+	array(
+		'name'  => 'Орк',
+		'str'   => 12,
+		'dex'   => 11,
+		'int'   => 8,
+		'wis'   => 7,
+		'con'   => 12,
+		'hp'    => 1,
+		'mana'  => 1,
+		'bonuses' => array(
+			'exp'   => 0.05,
+			'bal'   => 0,
+			'dex'   => 0,
+			'bleed' => 1,
+			'phys'  => 0,
+			'fire'  => -10,
+			'water' => -10,
+			'earth' => -10,
+			'air'   => -10,
+		)
+	),
+	array(
+		'name'  => 'Тролль',
+		'str'   => 13,
+		'dex'   => 8,
+		'int'   => 8,
+		'wis'   => 8,
+		'con'   => 13,
+		'hp'    => 2,
+		'mana'  => 1,
+		'bonuses' => array(
+			'exp'   => 0,
+			'bal'   => 0,
+			'dex'   => 0,
+			'bleed' => 1,
+			'phys'  => 0,
+			'fire'  => 8,
+			'water' => 8,
+			'earth' => 8,
+			'air'   => 8,
+		)
+	),
+);
+
 function exptolevel($level,$race)
 {
 	global $race_exp;
@@ -79,5 +190,3 @@ function exptolevel($level,$race)
 
 	return round(($level*$level*5+$level*40)*(1+$race_exp[$race]));
 }
-
-?>

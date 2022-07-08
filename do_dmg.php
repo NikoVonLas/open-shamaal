@@ -3,20 +3,24 @@ $text = '';
 $jsptext = '';
 $jsptex = '';
 $myptext = '';
+
 if (empty($loop)) {
     $loop = 0;
 }
+
 if ($loop == 0 || $npc_kick == 0) {
     $loop++;
-    $wtype[0] = "Любое";
-    $wtype[1] = "Меч";
-    $wtype[2] = "Молот";
-    $wtype[3] = "Топор";
-    $wtype[4] = "Посох";
-    $wtype[5] = "Кинжал";
-    $wtype[6] = "Кулаки";
-    $wtype[7] = "Куклу Voodoo";
-    $sql_text = "";
+    $wtype = array(
+        'Любое',
+        'Меч',
+        'Молот',
+        'Топор',
+        'Посох',
+        'Кинжал',
+        'Кулаки',
+        'Куклу Voodoo'
+    );
+    $sql_text = '';
     function checkarena()
     {
         global $result,$cur_time,$target_id,$time,$mysql_text;
@@ -210,12 +214,12 @@ if ($loop == 0 || $npc_kick == 0) {
     }
     function dead()
     {
-        global $pl_rating,$MRank,$HRank,$MD,$HD,$time,$pl_map_name,$target_name,$pl_name,$pl_room,$skill_id,$num,$player_id,$player_name,$target_id,$pl_no_pvp,$pl_sex,$las2,$sex2_a,$jsptext,$mytext,$npc_kick,$mysql_text,$sql_text,$exp,$texp,$cur_time,$pl_npc,$pl_party,$pl_level,$pl_room,$plnum,$pl_madeby,$pl_madecity,$result, $pl_city;
+        global $pl_rating,$MRank,$HRank,$MD,$HD,$time,$pl_map_name,$target_name,$pl_name,$pl_room,$skill_id,$num,$player_id,$target_id,$pl_no_pvp,$pl_sex,$las2,$sex2_a,$jsptext,$mytext,$npc_kick,$mysql_text,$sql_text,$exp,$texp,$cur_time,$pl_npc,$pl_party,$pl_level,$pl_room,$plnum,$pl_madeby,$pl_madecity,$result, $pl_city;
 
         $texp = 0;
         $time = date("H:i");
-        $t[0] = "[<b>$player_name</b>] $player_name, после вашего удара <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
-        $t[1] = "[<b>$player_name</b>] <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
+        $t[0] = "[<b>{$player['name']}</b>] {$player['name']}, после вашего удара <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
+        $t[1] = "[<b>{$player['name']}</b>] <b>$target_name</b> покачнул$las2 и упал$sex2_a <font color=red>замертво</font>.";
         $r = rand(0, 1);
         $text = $t[$r];
         $jsptext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
@@ -313,7 +317,7 @@ if ($loop == 0 || $npc_kick == 0) {
             {
             $SQL="update sw_pet set owner=$player_id where owner=$target_id and active<>2 limit ".(3-$player_count);
             SQL_do($SQL);
-            $text = "[<b>$player_name</b>] Вы приручили  найденное после смерти животное.";
+            $text = "[<b>{$player['name']}</b>] Вы приручили  найденное после смерти животное.";
             $ptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
             $SQL="update sw_users SET mytext=CONCAT(mytext,'$ptext') where id=$player_id";
             SQL_do($SQL);
@@ -464,7 +468,7 @@ if ($loop == 0 || $npc_kick == 0) {
     }
     function checkerror()
     {
-        global $anti_id, $anti_start, $anti_end,$sex2_a,$game_skill_need_name,$game_skill_need_obj,$game_skill_need_count,$game_skill_no_npc,$pl_arrow_id,$game_skill_count,$pl_arrow,$dmg_from,$do_teleport,$target_name,$pl_name,$pl_room,$game_skill_bad,$skill_id,$num,$player_id,$target_id,$game_skill_same_room,$game_skill_wepon,$wepontype,$wtype,$game_skill_mana,$pl_cmana,$pl_no_pvp,$npc_kick,$pact_count,$pact_who,$pact_city,$pact_war,$pl_npc,$pl_bad,$pact_own,$pl_city,$pl_clan,$pl_map_sz,$pl_map_s,$pl_map_sv,$pl_map_z,$pl_map_v,$pl_map_jz,$pl_map_j,$pl_map_jv,$game_skill_bow,$result,$pl_level,$game_skill_badOnly,$pl_map_name, $npc_kick, $pl_madeby;
+        global $anti_id, $anti_start, $anti_end,$sex2_a,$player,$game_skill_need_name,$game_skill_need_obj,$game_skill_need_count,$game_skill_no_npc,$pl_arrow_id,$game_skill_count,$pl_arrow,$dmg_from,$do_teleport,$target_name,$pl_name,$pl_room,$game_skill_bad,$skill_id,$num,$player_id,$target_id,$game_skill_same_room,$game_skill_wepon,$wepontype,$wtype,$game_skill_mana,$pl_cmana,$pl_no_pvp,$npc_kick,$pact_count,$pact_who,$pact_city,$pact_war,$pl_npc,$pl_bad,$pact_own,$pl_city,$pl_clan,$pl_map_sz,$pl_map_s,$pl_map_sv,$pl_map_z,$pl_map_v,$pl_map_jz,$pl_map_j,$pl_map_jv,$game_skill_bow,$result,$pl_level,$game_skill_badOnly,$pl_map_name, $npc_kick, $pl_madeby;
         $error = 1;
         $a = $game_skill_same_room[$skill_id][$num];
 
@@ -475,7 +479,7 @@ if ($loop == 0 || $npc_kick == 0) {
                     $error = 0;
                     $text = "<b>Глобальный мир.</b>";
                     $time = date("h:i");
-                    $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
+                    $text = "parent.add(\"$time\",\"{$player['name']}\",\"** $text ** \",6,\"\");";
                     if ($npc_kick == 0) {
                         print "$text";
                     }
@@ -488,7 +492,7 @@ if ($loop == 0 || $npc_kick == 0) {
                 $error = 0;
                 $text = "<b>$target_name в комнате не обнаружен(а).</b>";
                 $time = date("H:i");
-                $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
+                $text = "parent.add(\"$time\",\"{$player['name']}\",\"** $text ** \",6,\"\");";
                 if ($npc_kick == 0) {
                     print "$text";
                 }
@@ -549,7 +553,7 @@ if ($loop == 0 || $npc_kick == 0) {
                     if ($target_name <> "") {
                         $text = "<b>$target_name в комнате не обнаружен(а).</b>";
                         $time = date("H:i");
-                        $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
+                        $text = "parent.add('{$time}','{$player['name']}','** {$text} ** ',6,'');";
                         if ($npc_kick == 0) {
                             print "$text";
                         }
@@ -649,7 +653,7 @@ if ($loop == 0 || $npc_kick == 0) {
                         $a = $game_skill_wepon[$skill_id][$num];
                         $text = "<b>У Вас нехватает энергии для этого умения.</b>";
                         $time = date("H:i");
-                        $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
+                        $text = "parent.add(\"$time\",\"{$player['name']}\",\"** $text ** \",6,\"\");";
                         print "$text";
                     }
                 }
@@ -1116,20 +1120,21 @@ if ($loop == 0 || $npc_kick == 0) {
                 $heal=$row_num[16];
                 $health=$row_num[17];
                 $mana=$row_num[18];
-                $pl_heal[$id] += $heal;
-                $pl_health[$id] += $health;
-                $pl_mana[$id] += $mana;
 
-                $pl_min_attack[$id] += $obj_min_attack;
-                $pl_max_attack[$id] += $obj_max_attack;
-                $pl_magic_attack[$id] += $obj_magic_attack;
-                $pl_magic_def[$id] += $obj_magic_def;
-                $pl_speed[$id] += $obj_speed;
-                if ($place[$obj_place] == $kickto) {
+                $pl_heal[$id] = (empty($pl_heal[$id]) ? 0 : $pl_heal[$id]) + $heal;
+                $pl_health[$id] = (empty($pl_health[$id]) ? 0 : $pl_health[$id]) + $health;
+                $pl_mana[$id] = (empty($pl_mana[$id]) ? 0 : $pl_mana[$id]) + $mana;
+
+                $pl_min_attack[$id] = (empty($pl_min_attack[$id]) ? 0 : $pl_min_attack[$id]) + $obj_min_attack;
+                $pl_max_attack[$id] = (empty($pl_max_attack[$id]) ? 0 : $pl_max_attack[$id]) + $obj_max_attack;
+                $pl_magic_attack[$id] = (empty($pl_magic_attack[$id]) ? 0 : $pl_magic_attack[$id]) + $obj_magic_attack;
+                $pl_magic_def[$id] = (empty($pl_magic_def[$id]) ? 0 : $pl_magic_def[$id]) + $obj_magic_def;
+                $pl_speed[$id] = (empty($pl_speed[$id]) ? 0 : $pl_speed[$id]) + $obj_speed;
+                if (!empty($place[$obj_place]) && $place[$obj_place] == $kickto) {
                     if ($pl_npc[$_id] == 0) {
-                        $pl_def_all[$id] += $obj_def;
+                        $pl_def_all[$id] = (empty($pl_def_all[$id]) ? 0 : $pl_def_all[$id]) + $obj_def;
                     } else {
-                        $pl_def_all[$id] += round($obj_def/2);
+                        $pl_def_all[$id] = (empty($pl_def_all[$id]) ? 0 : $pl_def_all[$id]) + round($obj_def/2);
                     }
 
                     //print "alert('$id');";
@@ -1137,11 +1142,11 @@ if ($loop == 0 || $npc_kick == 0) {
                 //print "alert('$id');";
                 if ($obj_place == 4) {
                     $wepontype[$id] = $obj_type;
-                    $pl_toch[$id] += $acc;
+                    $pl_toch[$id] = (empty($pl_toch[$id]) ? 0 : $pl_toch[$id]) + $acc;
                     $pl_foundToch[$id] = 1;
                 } else {
                     if ($acc > 0 && $acc != 100) {
-                        $pl_toch[$id] += $acc;
+                        $pl_toch[$id] = (empty($pl_toch[$id]) ? 0 : $pl_toch[$id]) + $acc;
                     }
                 }
 
@@ -1151,13 +1156,13 @@ if ($loop == 0 || $npc_kick == 0) {
                 }
                 //$pl_def_all[$id] += $obj_def_all;
                 if ($pl_npc[$_id] == 0) {
-                    $pl_def_all[$id] += $obj_def_all;
+                    $pl_def_all[$id] = (empty($pl_def_all[$id]) ? 0 : $pl_def_all[$id]) + $obj_def_all;
                 } else {
-                    $pl_def_all[$id] += round($obj_def_all/2);
+                    $pl_def_all[$id] = (empty($pl_def_all[$id]) ? 0 : $pl_def_all[$id]) + round($obj_def_all/2);
                 }
-                $pl_fire_attack[$id] += $obj_fire_attack[$oid];
-                $pl_cold_attack[$id] += $obj_cold_attack[$oid];
-                $pl_drain_attack[$id] += $obj_drain_attack[$oid];
+                $pl_fire_attack[$id] = (empty($pl_fire_attack[$id]) ? 0 : $pl_fire_attack[$id]) + $obj_fire_attack[$oid];
+                $pl_cold_attack[$id] = (empty($pl_cold_attack[$id]) ? 0 : $pl_cold_attack[$id]) + $obj_cold_attack[$oid];
+                $pl_drain_attack[$id] = (empty($pl_drain_attack[$id]) ? 0 : $pl_drain_attack[$id]) + $obj_drain_attack[$oid];
 
                 $row_num=SQL_next_num();
             }
@@ -1166,23 +1171,23 @@ if ($loop == 0 || $npc_kick == 0) {
             }
             //print "alert('>>> $id <<< $pl_def_all[$id]');";
             $ar = $pl_arrow_id[$_id];
-            if (($skill_id <> 27)) {
-                $pl_fire_attack[$_id] -= $obj_fire_attack[$ar];
-                $pl_cold_attack[$_id] -= $obj_cold_attack[$ar];
-                $pl_drain_attack[$_id] -= $obj_drain_attack[$ar];
+            if (!empty($ar) && ($skill_id <> 27)) {
+                $pl_fire_attack[$_id] = (empty($pl_fire_attack[$_id]) ? 0 : $pl_fire_attack[$_id]) - $obj_fire_attack[$ar];
+                $pl_cold_attack[$_id] = (empty($pl_cold_attack[$_id]) ? 0 : $pl_cold_attack[$_id]) - $obj_cold_attack[$ar];
+                $pl_drain_attack[$_id] = (empty($pl_drain_attack[$_id]) ? 0 : $pl_drain_attack[$_id]) - $obj_drain_attack[$ar];
             }
         }
 
-        $pl_maxhp[$_id] +=  $pl_health[$_id];
-        $pl_maxmana[$_id] += $pl_mana[$_id];
-        $pl_maxhp[$_id2] += $pl_health[$_id2];
-        $pl_maxmana[$_id2] += $pl_mana[$_id2];
+        $pl_maxhp[$_id] = (empty($pl_maxhp[$_id]) ? 0 : $pl_maxhp[$_id]) + $pl_health[$_id];
+        $pl_maxmana[$_id] = (empty($pl_maxmana[$_id]) ? 0 : $pl_maxmana[$_id]) + $pl_mana[$_id];
+        $pl_maxhp[$_id2] = (empty($pl_maxhp[$_id2]) ? 0 : $pl_maxhp[$_id2]) + $pl_health[$_id2];
+        $pl_maxmana[$_id2] = (empty($pl_maxmana[$_id2]) ? 0 : $pl_maxmana[$_id2]) + $pl_mana[$_id2];
 
         if ($pl_foundToch[$_id] == 0) {
-            $pl_toch[$_id] += 100;
+            $pl_toch[$_id] = (empty($pl_toch[$_id]) ? 0 : $pl_toch[$_id]) + 100;
         }
         if ($pl_foundToch[$_id2] == 0) {
-            $pl_toch[$_id2] += 100;
+            $pl_toch[$_id2] = (empty($pl_toch[$_id2]) ? 0 : $pl_toch[$_id2]) + 100;
         }
     }
 }
@@ -1411,7 +1416,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         $text = $aff_text[1][$ran];
                     } elseif ($pl_aff_afraid[$player_id] > $cur_time) {
                         $dmg = round($dmg / 1.5);
-                        $text = str_replace("<b>$player_name </b>", "<b>$player_name </b>дрожал$sex_a от страха, но собрал$las с духом, а затем ", $text);
+                        $text = str_replace("<b>{$player['name']} </b>", "<b>{$player['name']} </b>дрожал$sex_a от страха, но собрал$las с духом, а затем ", $text);
                     }
                     if (($pl_aff_dream[$player_id] > $cur_time) && ($r <= 50)) {
                         $ran = rand(1, $aff_text_num[4]);
@@ -1419,7 +1424,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
 
                         $do_not_shoot = 1;
                         $text = $aff_text[4][$ran];
-                        $target_name=$player_name;
+                        $target_name=$player['name'];
                         $target_id=$player_id;
                     }
                     if (($pl_aff_ground[$player_id] > $cur_time)) {
@@ -1508,7 +1513,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                         }
                     }
                     if ($pl_aff_feel[$target_id] > $cur_time) {
-                        $text = "[<b>$target_name</b>]&nbsp;<b>$player_name </b> нанес$sex_la урон, но $target_name совершенно  не почувствовал боли.";
+                        $text = "[<b>$target_name</b>]&nbsp;<b>{$player['name']} </b> нанес$sex_la урон, но $target_name совершенно  не почувствовал боли.";
                         $sql_text .= ",aff_feel_dmg=$feel_dmg";
                     }
 
@@ -1631,9 +1636,9 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
 
                                         $r = rand(0, 1);
                                         if ($r == 0) {
-                                            $text = "* <b>$player_name</b> осмотрел$sex_a упавший труп и на$ushol там $m злт. *";
+                                            $text = "* <b>{$player['name']}</b> осмотрел$sex_a упавший труп и на$ushol там $m злт. *";
                                         } else {
-                                            $text = "* <b>$player_name</b> обнаружил$sex_a $m злт в обездвиженном трупе. *";
+                                            $text = "* <b>{$player['name']}</b> обнаружил$sex_a $m злт в обездвиженном трупе. *";
                                         }
                                         $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
@@ -1662,7 +1667,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                         $mtext = "<b>* При смерти вы потеряли <font color=red><b>".$flagname[$i]."</b></font>. *</b>";
                                         $htext .= "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
 
-                                        $text = "* <b>$player_name</b> обнаружил(а) <font color=red><b>".$flagname[$i]."</b></font> в обездвиженном трупе. *";
+                                        $text = "* <b>{$player['name']}</b> обнаружил(а) <font color=red><b>".$flagname[$i]."</b></font> в обездвиженном трупе. *";
                                         $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                     }
@@ -1705,9 +1710,9 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                     }
                                     $r = rand(0, 1);
                                     if ($r == 0) {
-                                        $text = "* <b>$player_name</b> осмотрел$sex_a упавший труп и на$ushol там $rnd. *";
+                                        $text = "* <b>{$player['name']}</b> осмотрел$sex_a упавший труп и на$ushol там $rnd. *";
                                     } else {
-                                        $text = "* <b>$player_name</b> обнаружил$sex_a $rnd в обездвиженном трупе. *";
+                                        $text = "* <b>{$player['name']}</b> обнаружил$sex_a $rnd в обездвиженном трупе. *";
                                     }
                                     $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                     print "$jsptex";
@@ -1744,24 +1749,24 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                         $oame = copyobj($pl_give[$target_id], $player_id, 1);
                                         if ($obname == 'Тело крысы') {
                                             if ($r == 0) {
-                                                $text = "* <b>$player_name</b> положил$sex_a тело крысы себе в рюкзак. *";
+                                                $text = "* <b>{$player['name']}</b> положил$sex_a тело крысы себе в рюкзак. *";
                                             } else {
-                                                $text = "* <b>$player_name</b> поднял$sex_a труп крысы. *";
+                                                $text = "* <b>{$player['name']}</b> поднял$sex_a труп крысы. *";
                                             }
                                         } elseif ($obname == 'Голова чёрной вдовы') {
-                                            $text = "* <b>$player_name</b> обезглавил$sex_a труп и положил$sex_a в рюкзак голову чёрной вдовы. *";
+                                            $text = "* <b>{$player['name']}</b> обезглавил$sex_a труп и положил$sex_a в рюкзак голову чёрной вдовы. *";
                                         } else {
                                             if ($r == 0) {
-                                                $text = "* <b>$player_name</b> осмотрел$sex_a упавший труп и на$ushol там предмет `$obname`. *";
+                                                $text = "* <b>{$player['name']}</b> осмотрел$sex_a упавший труп и на$ushol там предмет `$obname`. *";
                                             } else {
-                                                $text = "* <b>$player_name</b> обнаружил$sex_a предмет `$obname` в обездвиженном трупе. *";
+                                                $text = "* <b>{$player['name']}</b> обнаружил$sex_a предмет `$obname` в обездвиженном трупе. *";
                                             }
                                         }
                                         $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                         print "$jsptex";
                                     } else {
-                                        $text = "* <b>$player_name </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
+                                        $text = "* <b>{$player['name']} </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
                                         $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                         $jsptext .= $jsptex;
                                         print "$jsptex";
@@ -1797,16 +1802,16 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
                                                 $bname = copyobj($oid, $player_id, 1);
                                                 $r = rand(0, 1);
                                                 if ($r == 0) {
-                                                    $text = "* <b>$player_name </b> осмотрел$sex_a упавший труп и на$ushol там предмет `$oname`. *";
+                                                    $text = "* <b>{$player['name']} </b> осмотрел$sex_a упавший труп и на$ushol там предмет `$oname`. *";
                                                 } else {
-                                                    $text = "* <b>$player_name </b> обнаружил$sex_a предмет `$oname` в обездвиженном трупе. *";
+                                                    $text = "* <b>{$player['name']} </b> обнаружил$sex_a предмет `$oname` в обездвиженном трупе. *";
                                                 }
                                                 $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                                 $jsptext .= $jsptex;
                                                 print "$jsptex";
                                             }
                                         } else {
-                                            $text = "* <b>$player_name </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
+                                            $text = "* <b>{$player['name']} </b> не смог$sex_la поднять предмет обнаруженный в трупе. *";
                                             $jsptex = "window.top.add(\"$time\",\"\",\"$text\",8,\"\");";
                                             $jsptext .= $jsptex;
                                             print "$jsptex";
@@ -1938,7 +1943,7 @@ if (($cur_balance <= $cur_time - $balance+1) || ($npc_kick == 1)) {   //+1 на�
         if (!($player_opt & 2)) {
             $text = "<b>Баланс не восстановлен.</b>";
             $time = date("H:i");
-            $text = "parent.add(\"$time\",\"$player_name\",\"** $text ** \",6,\"\");";
+            $text = "parent.add(\"$time\",\"{$player['name']}\",\"** $text ** \",6,\"\");";
             print "$text";
         }
         $a = ($cur_time + $balance - $cur_balance) * 10;

@@ -4,7 +4,9 @@
     "type": "project",
     "require": {
         "vlucas/phpdotenv": "^2.6",
-        "guzzle/guzzle": "^3.9"
+        "guzzle/guzzle": "^3.9",
+        "colshrapnel/safemysql": "^1.1",
+        "wapmorgan/morphos": "^2.1"
     },
     "license": "MIT",
     "authors": [

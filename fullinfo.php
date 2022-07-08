@@ -65,7 +65,6 @@ if (strpos($plip, "206.53.155.87") > 0 || strpos($plip, "46.0.207.176") > 0)
 
 include("./functions/plinfo.php");
 include("./functions/objinfo.php");
-include("./racecfg.php");
 
 if (($do == "save") && ($player_name = $name))
 {

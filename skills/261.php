@@ -5,7 +5,7 @@ $game_skill_name[26][1] = "Прокалывание";
 $game_skill_dmg[26][1] = $wis_dmg * 0.92;
 $game_skill_mana[26][1] = 35;
 $game_skill_textnum[26][1] = 1;
-$game_skill_text[26][1][1] = "[<b>{$target_name}</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>{$player_name} </b> проколол{$sex_a} куклу Voodoo острой иголкой.";
+$game_skill_text[26][1][1] = "[<b>{$target_name}</b>, жизни <font class=dmg><DMG></font>]&nbsp;<b>{$player['name']} </b> проколол{$sex_a} куклу Voodoo острой иголкой.";
 $game_skill_dmgtype[26][1] = 7;
 $game_skill_canblock[26][1] = 0;
 $game_skill_wepon[26][1] = 7;
@@ -25,7 +25,7 @@ $game_skill_name[26][2] = "Проклятие";
 $game_skill_mana[26][2] = 40;
 $game_skill_afflict_percent[26][2] = 100;
 $game_skill_afflict[26][2] = ",aff_curses={$cur_time}+5*12";
-$game_skill_afflict_text[26][2] = "[<b>{$target_name}</b>]&nbsp;<b>{$player_name} </b> колдует над куклой Voodoo.";
+$game_skill_afflict_text[26][2] = "[<b>{$target_name}</b>]&nbsp;<b>{$player['name']} </b> колдует над куклой Voodoo.";
 if ( $pl_emune[$target_id] & 4 && $num == 2 )
 {
     $game_skill_afflict_percent[$skill_id][$num] = 100;

@@ -23,12 +23,6 @@ if ($onl < $cur_time - 60)
 	print "<script>alert('Связь с сервером потеряна.');</script>";
 $tellto = 1;
 
-
-include("./vendor/autoload.php");
-
-$dotenv = new Dotenv\Dotenv(realpath(__DIR__));
-$dotenv->load();
-
 function sendTgApi($method, $post, $die = false) {
 	$token 	= getenv('TG_BOT_TOKEN');
 

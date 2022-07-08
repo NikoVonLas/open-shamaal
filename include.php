@@ -7,13 +7,12 @@
     $dotenv = new Dotenv\Dotenv(realpath(__DIR__));
     $dotenv->load();
 
-    require_once(realpath(__DIR__) . '/mysqlconfig.php');
-
     session_start();
 
     header( "Content-type: text/html; charset=utf-8" );
 
     error_reporting(E_ALL);
+
     if ((bool) getenv('GAME_DEBUG') === true) {
         ini_set('display_errors', true);
         ini_set('log_errors', true);
@@ -22,8 +21,18 @@
         ini_set('log_errors', false);
     }
 
+    require_once(realpath(__DIR__) . '/mysqlconfig.php');
+    require_once(realpath(__DIR__) . '/racecfg.php');
+
+    /**
+     * После перехода на более новую версию PHP (минимум 5.4)
+     * TODO: Поставить библиотеку и редактировать пол и падежи
+     */
+    // $langHelper = new morphos\Russian\RussianLanguage;
+
+
     if  (empty($_SESSION['player'])) {
-        $player_sql = SQL_query('SELECT * FROM `sw_users` WHERE `id` = 420572');
+        $player_sql = $db->getRow('select * from `sw_users` where `id` = ?i', 420572);
         $object = new stdClass();
         foreach ($player_sql as $name => $value) {
             $name = strtolower(trim($name));
@@ -32,12 +41,11 @@
             }
         }
         $player = $object;
-        $race_con = array(0, 10, 8, 11, 12, 13);
-        $race_wis = array(0, 10, 11, 11, 7, 8);
-        $player_max_hp 		=  round((6 + ($player->con + $race_con[$player->race]) / 2) * 7) + round((($player->con + $race_con[$player->race]) / 2 - 1) * $player->level * 2.5) + $player->level * 8;
-        $player_max_mana 	=  ($player->wis + $race_wis[$player->race]) * 8 + round(($player->wis + $player->wis + $race_wis[$player->race]) * $player->level / 2);
 
-        $player_room = SQL_query("select * from sw_map where id={$player->room}");
+        $player_max_hp =  round((6 + ($player->con + $races[$player->race]['con']) / 2) * 7) + round((($player->con + $races[$player->race]['con']) / 2 - 1) * $player->level * 2.5) + $player->level * 8;
+        $player_max_mana = ($player->wis + $races[$player->race]['wis']) * 8 + round(($player->wis + $player->wis + $races[$player->race]['wis']) * $player->level / 2);
+
+        $player_room = $db->getRow('select * from sw_map where `id` = ?i', $player->room);
 
         $player_arr = array(
             'maxhp' 		=> $player_max_hp,
@@ -58,7 +66,9 @@
             'online' 		=> time(),
             'afk' 			=> time(),
             'lastUpdateTime'=> time(),
-            'regen'         => $player_room['regen']
+            'leg'           => 0,
+            'regen'         => $player_room['regen'],
+            'room_obj'      => $player_room
         );
         $_SESSION['player'] = array_merge($player_sql, $player_arr);
     }
@@ -85,8 +95,11 @@
     $dir = empty($_GET['dir']) ? 0 : $_GET['dir'];
     $ran = empty($_GET['ran']) ? '' : $_GET['ran'];
     $bln = empty($_GET['bln']) ? '' : $_GET['bln'];
-    $leg = empty($_GET['leg']) ? '' : $_GET['leg'];
     $num = empty($_GET['num']) ? '' : $_GET['num'];
     $no = empty($_GET['no']) ? '' : $_GET['no'];
     $do = empty($_GET['do']) ? '' : $_GET['do'];
     $id = empty($_GET['id']) ? '' : $_GET['id'];
+
+    $chatTime = date('H:i');
+    $curTime = time();
+    $onlineTime = $curTime - 30;

@@ -1,37 +1,10 @@
 <?php
 require_once('./include.php');
 
-function fpOpen(
-    $key,
-    $file,
-    $content=true,
-    $fopen_mode='w',
-    $chmod=0600,
-    $sem_mode=0600
-           ) {
-    $semaphor=sem_get($key, 1, $sem_mode);
-    sem_acquire($semaphor);
-
-
-    if ($dat=fopen($file, $fopen_mode)) {
-        chmod($file, $chmod);
-        fclose($dat);
-    } else {
-        return($semaphor);
-    }
-    return($semaphor);
-}
-
-function fpClose($semaphor)
-{
-    sem_release($semaphor);
-}
-
 $player_id = $player['id'];
 $player_name = $player['name'];
 $player_skill = empty($player['skill']) ? '' : $player['skill'];
 $target_id = $player['target_id'];
-
 $target_name = $player['target_name'];
 $cur_balance = $player['balance'];
 $drink_balance = $player['drinkbalance'];
@@ -59,575 +32,125 @@ echo '<html>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 </head>
 ';
+
 if ($lastUpdateTime < $online_time) {
     print "<script >alert('Соеденение прервано! Попробуйте перезайти в игру.')</script>";
     exit();
 }
-$time = date("H:i");
 $lt = getmicrotime();
 $passwd_hidden = "T13D@";
-include("functions.php");
-include("racecfg.php");
+include('functions.php');
 $cur_time = time();
 
-//print "$player_id+$load";
-$SQL="Select rnd from sw_users where id=$player_id";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $rnd=$row_num[0];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-//print "$rnd - $player_random";
-//print $rnd." ".$player_random;
+$rnd = $db->getRow('select `rnd` from `sw_users` where `id` = ?i', $player['id']);
+$rnd = $rnd['rnd'];
+
 if ($rnd != $player_random) {
-    print "error";
-    SQL_disconnect();
+    echo 'Error!';
     exit();
 }
-//print "$player_id+$load";
-if ($load != "exit2") {
+
+if ($load != 'exit') {
     $player['player_exit_time'] = 0;
 }
-if ($load == "unset") {
+
+if ($load == 'unset') {
     $player['leg'] = 0;
 } elseif ($load == 'do') {
-    if (!isset($action)) {
-        $action = 0;
-    }
-    if ($action == 0) {
-        print "<script charset=utf-8>";
-        include("war_skills.php");
-
-        //region Elixirs
-        $links= "<table align=center cellpadding=1 cellspacing=0>";
-        $SQL="Select sw_stuff.name,sw_obj.id,sw_obj.num from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where owner=$player_id and room=0 and sw_stuff.specif = 5";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $obj_name=$row_num[0];
-            $obj_id=$row_num[1];
-            $obj_num=$row_num[2];
-            $links .= "<tr><td id=objfull$obj_id><a href=/menu.php?load=useobj&obj_id=$obj_id target=menu class=menu><font class=skillname><b>$obj_name</b></font> </a></td><td id=objfull2$obj_id class=skillname><b> - <font id=objnum$obj_id class=class=skillname>$obj_num</font></b></td></tr>";
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        $links .= "</table>";
-        //endregion
-
-        print "window.top.dowarskills($block,'$links');</script>";
-    }
+    require('menu/do.php');
 } elseif ($load == 'bank') {
-    include('bank.php');
-} elseif ($load == "inf") {
-    include('functions/plinfo.php');
-    include('functions/objinfo.php');
-    getinfo($player_id);
-} elseif ($load == "pet") {
-    include('functions/pet.php');
-} elseif ($load == "jump") {
-    $SQL="select room from sw_users where id=$player_id";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $player_room=$row_num[0];
-        $row_num=SQL_next_num();
-    }
-
-    if ($result) {
-        SQL_free_result($result);
-    }
-    $textq[1] = "<b>$player_name</b> прыгает вокруг Ёлки.";
-    $textq[2] = "<b>$player_name</b> приплясывает.";
-    $textq[3] = "<b>$player_name</b> бросается танцевать возле Ёлки.";
-    $textq[4] = "<b>$player_name</b> целует окружающих и заводит хоровод.";
-    $textq[5] = "<b>$player_name</b> радостно улыбаеться поглядывая на Ёлку.";
-    $textq[6] = "<b>$player_name</b> натянул(а) маску зайчика.";
-    $textq[7] = "<b>$player_name</b> пьет за здоровье окружающих.";
-    $textq[8] = "<b>$player_name</b> раздает окружающим подарки.";
-    $textq[9] = "<b>$player_name</b> нетрезвой походкой обходит Ёлку по кругу.";
-    $textq[10] = "<b>$player_name</b> напевает себе под нос песенку про зайцев.";
-    $textq[11] = "<b>$player_name</b> напевает себе под нос песенку про Ёлочку.";
-    $textq[12] = "<b>$player_name</b> напевает себе под нос песенку про Деда Мороза.";
-    $textq[13] = "<b>$player_name</b> пытается найти главное украшение стола.. телевизор.";
-    $textq[14] = "<b>$player_name</b> пытается оторвать бороду у Деда Мороза.";
-    $textq[15] = "<b>$player_name</b> катается с горки.";
-
-    $r = rand(1, 15);
-    $text = $textq[$r];
-
-    $time = date("H:i");
-    $jsptext = "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
-    print "<script>".$jsptext."</script>";
-    $SQL="update sw_users SET mytext=CONCAT(mytext,'$jsptext') where online > $online_time and room=$player_room and id <> $player_id and npc=0";
-    //print "$SQL";
-    SQL_do($SQL);
-} elseif ($load == "delobj") {
-    $obj_name = '';
-    $id = (integer) $id;
-    $SQL="Select sw_stuff.name from sw_stuff inner join sw_obj on sw_stuff.id=sw_obj.obj where sw_obj.owner=$player_id and sw_obj.id=$id and room=0";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $obj_name=$row_num[0];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    if ($obj_name <> '') {
-        print "<script>
-		if (confirm('Вы действительно хотите выбросить $obj_name (1 шт.)') ) { document.location='/menu.php?load=delobj2&id=$id'; }
-		</script>
-		";
-    }
-} elseif ($load == "delobj2") {
-    $obj_name = '';
-    $id = (integer) $id;
-    $id = round($id+1-1);
-    $obj_name = "";
-    $SQL="Select sw_stuff.name,sw_stuff.stock,sw_obj.num from sw_stuff inner join sw_obj on sw_stuff.id=sw_obj.obj where sw_obj.owner=$player_id and sw_obj.id=$id and room=0";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $obj_name=$row_num[0];
-        $obj_stock=$row_num[1];
-        $obj_num=$row_num[2];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    if ($obj_name <> '') {
-        if (($obj_stock == 1) && ($obj_num > 1)) {
-            $id = (integer) $id;
-            $SQL="update sw_obj set num=num-1 where id=$id";
-            SQL_do($SQL);
-            $SQL="delete from sw_obj where id=$id and num=0";
-            SQL_do($SQL);
-        } else {
-            $SQL="delete from sw_obj where id=$id";
-            SQL_do($SQL);
-        }
-        include("functions/plinfo.php");
-        include("functions/objinfo.php");
-        include("functions/inv.php");
-        inventory($player_id);
-    }
-} elseif ($load == "horse") {
-    include('functions/horse.php');
+    require('bank.php');
+} elseif ($load == 'inf') {
+    require('functions/plinfo.php');
+    require('functions/objinfo.php');
+    getinfo($player['id']);
+} elseif ($load == 'pet') {
+    require('functions/pet.php');
+} elseif ($load == 'jump') {
+    require('menu/jump.php');
+} elseif ($load == 'delobj') {
+    require('menu/delobj.php');
+} elseif ($load == 'horse') {
+    require('functions/horse.php');
 } elseif ($load == 'prey') {
-    $SQL="select room,clan,city,resp_room from sw_users where id=$player_id";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $player_room=$row_num[0];
-        $clan=$row_num[1];
-        $city=$row_num[2];
-        $resp_room=$row_num[3];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    $SQL="select name,owner_id,owner_typ from sw_map where id=$player_room";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $name=$row_num[0];
-        $owner_id=$row_num[1];
-        $owner_typ=$row_num[2];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-
-    $ff = 0;
-    $SQL="select count(*) as num from sw_object where what='prey' and id=$player_room";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $ff=$row_num[0];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-
-    if ($ff > 0) {
-        if ((($owner_id == $player_id) && ($owner_typ == 0)) || (($owner_id == $clan) && ($owner_typ == 1))) {
-            if ($resp_room <> $player_room) {
-                $mtext = "* Ваша точка появления после смерти изменена. *";
-                $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
-                print "<script>$htext</script>";
-                $SQL="UPDATE sw_users SET resp_room=$player_room where id=$player_id";
-                SQL_do($SQL);
-                print "$player_room";
-            } else {
-                print "<script>alert('Данная комната уже является вашей точкой появления после смерти.');</script>";
-            }
-        } else {
-            print "<script>alert('Вы не можете здесь прописаться.');</script>";
-        }
-    }
+    require('functions/prey.php');
 } elseif ($load == 'notprey') {
-    $SQL="select room,clan,city,resp_room from sw_users where id=$player_id";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $player_room=$row_num[0];
-        $clan=$row_num[1];
-        $city=$row_num[2];
-        $resp_room=$row_num[3];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    $SQL="select dead_room from sw_city where id=$city";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $dead_room=$row_num[0];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    if ($city == 0) {
-        $dead_room = 135;
-    }
-    $SQL="select name,owner_id,owner_typ from sw_map where id=$player_room";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $name=$row_num[0];
-        $owner_id=$row_num[1];
-        $owner_typ=$row_num[2];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    //if ($name == 'Усыпальница')
-    //{
-    if ((($owner_id == $player_id) && ($owner_typ == 0)) || (($owner_id == $clan) && ($owner_typ == 1))) {
-        if ($resp_room == $player_room) {
-            $mtext = "* Ваша точка появления после смерти изменена. *";
-            $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
-            print "<script>$htext</script>";
-            $SQL="UPDATE sw_users SET resp_room=$dead_room where id=$player_id";
-            SQL_do($SQL);
-        } else {
-            print "<script>alert('Вы не можете выписаться из этой комнаты, так как она не является вашей точкой появления после смерти.');</script>";
-        }
-    } else {
-        print "<script>alert('Вы не можете отсюда выписаться.');</script>";
-    }
-    //}
+    require('functions/notprey.php');
 } elseif ($load == 'exit') {
-    $rg = '';
-    $SQL="select count(*) from sw_pet where owner=$player_id and active<>2";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $count = $row_num[0];
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    if ($count > 0) {
-        $rg = "<br><br>Убедитесь, что ваше животное находиться в конюшне в противном случае оно может умереть от голода.";
-    }
-    $er = 0;
-
-    $SQL="select id,start_room,end_room from sw_arena where typ=1";
-    $row_num=SQL_query_num($SQL);
-    while ($row_num) {
-        $aid[$i]=$row_num[0];
-        $astart_room[$i]=$row_num[1];
-        $aend_room[$i]=$row_num[2];
-        if (($old_room >= $astart_room[$i]) && ($old_room <= $aend_room[$i])) {
-            $er = 1;
-        }
-        $row_num=SQL_next_num();
-    }
-    if ($result) {
-        SQL_free_result($result);
-    }
-    if ($er == 0) {
-        print "<script>window.top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Выход из игры произойдёт автоматически через <span id=\"countdown\" >30</span> секунд.$rg</b></td></tr></table>');window.top.startExTimer(30); ExitTimer = setTimeout('document.location=\'/menu.php?load=exit2\'',30000);</script>";
-    } else {
-        print "<script>window.top.ttext('Выход из игры','<table width=100% height=280><tr><Td align=center><b>Вы не можете выйти из игры.</b></td></tr></table>');</script>";
-    }
-    $player['player_exit_time'] = $cur_time;
-} elseif ($load == 'exit2') {
-    $tm = 0;
-    $tm = $player['player_exit_time'];
-
-    if ($tm > 0 && $cur_time - $tm > 28) {
-        $SQL="UPDATE sw_users SET online=$cur_time-61 where id=$player_id";
-        SQL_do($SQL);
-        session_destroy();
-        print "<script>window.top.wclose();</script>";
-    }
+    require('menu/exit.php');
 } elseif ($load == 'univer') {
-    include("functions/univer.php");
+    require('functions/univer.php');
 } elseif ($load == 'bag') {
-    include("functions/bag.php");
+    require('functions/bag.php');
 } elseif ($load == 'arena') {
-    include('arena.php');
+    require('arena.php');
 } elseif ($load == 'sleep') {
-    if ($sleep == 1) {
-        print "<script>window.top.sleep('sleep.gif');</script>";
-        $player['sleep'] = 0;
-    } else {
-        $id = 0;
-        $SQL="select sw_stuff.name,sw_obj.num,sw_obj.id from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where sw_obj.owner=$player_id and sw_obj.room=0 and sw_stuff.specif=2 limit 0,1";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $name=$row_num[0];
-            $num=$row_num[1];
-            $id=$row_num[2];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        if ($id > 0) {
-            print "<script>window.top.sleep('sleep2.gif');</script>";
-            $player['sleep'] = 1;
-            $time = date("H:i");
-            if ($player_sex == 1) {
-                $exam[0] = "<b>$player_name</b> развел костёр и приготовил себе покушать.";
-            } else {
-                $exam[0] = "<b>$player_name</b> развела костёр и приготовила себе покушать.";
-            }
-            if ($player_sex == 1) {
-                $exam[1] = "<b>$player_name</b> приготовил себе покушать.";
-            } else {
-                $exam[1] = "<b>$player_name</b> приготовила себе покушать..";
-            }
-            $r=rand(0, 1);
-            $text = "parent.add(\"$time\",\"$player_name\",\"$exam[$r] \",5,\"\");";
-            $id = (integer) $id;
-            if ($num > 1) {
-                $SQL="update sw_obj SET num=num-1 where id=$id";
-            } else {
-                $SQL="delete from sw_obj where id=$id";
-            }
-            SQL_do($SQL);
-            print "<script>$text</script>";
-            $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and room=$old_room and npc=0";
-            SQL_do($SQL);
-        } else {
-            print "<script>alert('Пища в рюкзаке не найдена.');</script>";
-        }
-    }
+    require('menu/sleep.php');
 } elseif ($load == 'inv') {
-    include("functions/plinfo.php");
-    include("functions/objinfo.php");
-    include("functions/inv.php");
-    inventory($player_id);
+    require('functions/plinfo.php');
+    require('functions/objinfo.php');
+    require('functions/inv.php');
+    inventory($player['id']);
 } elseif ($load == 'get') {
-    include("functions/getobj.php");
-    include("functions/copyobj.php");
-    getobj($player_id);
+    require('functions/getobj.php');
+    require('functions/copyobj.php');
+    getobj($player['id']);
 } elseif ($load == 'magicbook') {
-    include("functions/magicbook.php");
+    require('functions/magicbook.php');
     magicbook();
 } elseif ($load == 'blacksmith') {
-    include("functions/blacksmith.php");
+    require('functions/blacksmith.php');
     blacksmith();
 } elseif ($load == 'trade') {
-    include('functions/objinfo.php');
-    include("functions/copyobj.php");
-    include('trade.php');
+    require('functions/objinfo.php');
+    require('functions/copyobj.php');
+    require('trade.php');
 } elseif ($load == 'obraz') {
-    include('obraz.php');
+    require('obraz.php');
 } elseif ($load == 'book') {
-    if (($do == 'del') && ($id <> "")) {
-        $SQL="delete from sw_magic where owner=$player_id and id=$id";
-        SQL_do($SQL);
-        print "<script>window.top.delbook($id,'left');</script>";
-    }
-    if (($do == 'add') && ($id <> "")) {
-        $SQL="select sw_stuff.name from sw_obj inner join sw_stuff on sw_obj.obj=sw_stuff.id where sw_obj.owner=$player_id and sw_obj.room=0 and sw_stuff.specif=1 and sw_obj.id=$id";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $name=$row_num[0];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        $SQL="select count(*) as num from sw_magic where owner=$player_id and name='$name'";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $count=$row_num[0];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        $SQL="select count(*) as num from sw_magic where owner=$player_id";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $count2=$row_num[0];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-
-        $SQL="select race,wis from sw_users where id=$player_id";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $race=$row_num[0];
-            $wis=$row_num[1];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-
-        if ($name <> "") {
-            if ($count2 < round(($wis+$race_wis[$race])/2)) {
-                if ($count == 0) {
-                    $SQL="insert into sw_magic (owner,name) values ($player_id,'$name')";
-                    SQL_do($SQL);
-                    $SQL="select id from sw_magic where owner=$player_id and name='$name'";
-
-                    $row_num=SQL_query_num($SQL);
-                    while ($row_num) {
-                        $newid=$row_num[0];
-                        $row_num=SQL_next_num();
-                    }
-                    if ($result) {
-                        SQL_free_result($result);
-                    }
-                    $SQL="delete from sw_obj where id=$id";
-                    SQL_do($SQL);
-
-                    print "<script>window.top.delbook($id,'right');";
-                    print "window.top.addbook($newid,'$name','left');</script>";
-                } else {
-                    print "<script>alert('Такое заклинание уже есть в книге.');</script>";
-                }
-            } else {
-                print "<script>alert('У вас не хватает мудрости для обучения этому заклинанию.');</script>";
-            }
-        }
-    }
+    require('menu/book.php');
 } elseif ($load == 'skills') {
-    include("functions/showskills.php");
-    showskills($player_id);
+    require('functions/showskills.php');
+    showskills($player['id']);
 } elseif ($load == 'useobj') {
-    include("functions/useobj.php");
-    useobj($obj_id);
+    require('functions/useobj.php');
+    useobj($_GET['obj_id']);
 } elseif ($load == 'settarget') {
-    if ($tager_id <> $t_id) {
-        $player['target_id'] = $t_id;
-        $SQL="select level,name from sw_users where id=$t_id";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $level = $row_num[0];
-            $name = $row_num[1];
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        $player['target_level'] = $level;
-        $player['target_name'] = $name;
-        print "<script>window.top.settarget('$name','$level');</script>";
-    }
+    require('menu/settarget.php');
 } elseif ($load == 'attack') {
-    include("functions/copyobj.php");
-    if (($sleep == 0)) {
-        if (isset($kwho)) {
-            if ($kwho == 1) {
-                $target_id = $player_id;
-                $target_name = $player_name;
-            }
-        }
-        $npc_kick = 0;
-        $SQL="select id_skill,sw_player_skills.percent as per,sw_skills.percent as per2 from sw_player_skills inner join sw_skills on sw_player_skills.id_skill=sw_skills.id where (id_skill=$skill_id or id_skill=9 or id_skill=22 or id_skill=14) and id_player = $player_id";
-        $row_num=SQL_query_num($SQL);
-        while ($row_num) {
-            $s_id=$row_num[0];
-            $s_skill=$row_num[1];
-            $s_skillall=$row_num[2];
-            //$s_skill = round($s_skill/$s_skillall*100);
-            if ($s_id == $skill_id) {
-                $skill = $s_skill;
-            }
-            $s_skill = round($s_skill/$s_skillall*100);
-            if ($s_id == 22) {
-                $anatomy = $s_skill;
-            }
-            if ($s_id == 9) {
-                $bodydeff = $s_skill;
-            }
-            if ($s_id == 14) {
-                $posoh_skill = $s_skill;
-            }
-            $row_num=SQL_next_num();
-        }
-        if ($result) {
-            SQL_free_result($result);
-        }
-        include('skill.php');
-        if ($skill_id == 0) {
-            $skill = 1;
-        }
-
-        if (($skill <> "") && ($game_skill_percent[$skill_id][$num] <= $skill)) {
-            print "<script>";
-            include('do_dmg.php');
-            print "</script>";
-        }
-    } else {
-        print "<script>alert('Вы сейчас отдыхаете и поэтому не можете ничего делать.');</script>";
-    }
+    require('menu/attack.php');
 } elseif ($load == 'block') {
-    $kick_place[1] = 'Голова';
-    $kick_place[2] = 'Тело';
-    $kick_place[3] = 'Руки';
-    $kick_place[4] = 'Ноги';
-    if (($kick_place[$id] <> "") && ($block <> $id)) {
-        $player['block'] = $id;
-        $SQL="update sw_users SET block=$id where id=$player_id";
-        SQL_do($SQL);
-        $time = date("H:i");
-        print "<script>window.top.setblock($block,$id);window.top.add('$time','','* Новое место блока: <b>$kick_place[$id] </b> *',6,'');</script>";
-    }
+    require('menu/block.php');
 } elseif ($load == 'addparam') {
-    include("functions/plinfo.php");
-    include("functions/objinfo.php");
-    include("functions/addparam.php");
+    require('functions/plinfo.php');
+    require('functions/objinfo.php');
+    require('functions/addparam.php');
     addparametr();
 } elseif ($load == 'removeparam') {
-    include("functions/plinfo.php");
-    include("functions/objinfo.php");
-    include("functions/addparam.php");
+    require('functions/plinfo.php');
+    require('functions/objinfo.php');
+    require('functions/addparam.php');
     removeparametr();
 } elseif ($load == 'buy') {
-    include("functions/objinfo.php");
-    include("functions/copyobj.php");
-    include('buy.php');
+    require('functions/objinfo.php');
+    require('functions/copyobj.php');
+    require('buy.php');
 } elseif ($load == 'sunduk') {
-    //	print "ok";
-    include("functions/objinfo.php");
-    include("functions/copyobj.php");
+    include('functions/objinfo.php');
+    include('functions/copyobj.php');
     include('sunduk.php');
 } elseif ($load == 'sell') {
-    include("functions/objinfo.php");
+    include('functions/objinfo.php');
     include('sell.php');
 } elseif ($load == 'rep') {
-    include("functions/objinfo.php");
+    include('functions/objinfo.php');
     include('rep.php');
 } elseif ($load == 'c_user') {
     round($to+1-1);
     if (($to >=0) && ($to <=2)) {
         $player['show'] = $to;
         print "<script>window.top.setchan($to);</script>";
-        $SQL="select chp,city,clan,party,room,aff_see,aff_invis,sex,aff_see_all,aff_paralize from sw_users where id=$player_id";
+        $SQL="select chp,city,clan,party,room,aff_see,aff_invis,sex,aff_see_all,aff_paralize from sw_users where id={$player['id']}";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $chp = $row_num[0];
@@ -651,15 +174,15 @@ if ($load == "unset") {
         if (isset($city)) {
             $player['city'] = $city;
         }
-        showusers($player_id, $player_room);
+        showusers($player['id'], $player_room);
 
         print "</script>";
     }
 } elseif ($load == 'kvest') {
-    include("functions/copyobj.php");
+    include('functions/copyobj.php');
     include('kvest.php');
 } elseif ($load == 'addparty') {
-    $SQL="select sw_party.id,sw_party.opt from sw_party inner join sw_users on sw_party.id=sw_users.party where sw_users.id=$player_id";
+    $SQL="select sw_party.id,sw_party.opt from sw_party inner join sw_users on sw_party.id=sw_users.party where sw_users.id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $party_id=$row_num[0];
@@ -697,19 +220,19 @@ if ($load == "unset") {
         if ($t_name <> "") {
             if ($hparty_id == 0) {
                 $t = $hparty_time + 45 - $cur_time;
-                $text = "$player_name пригласил(а) пользователя <b>$t_name </b> в группу.";
-                $text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\");";
+                $text = "{$player['name']} пригласил(а) пользователя <b>$t_name </b> в группу.";
+                $text = "parent.add(\"$chatTime\",\"{$player['name']}\",\"$text \",3,\"Группа\");";
                 if ($hparty_time + 45 < $cur_time) {
-                    if (($party_id == $player_id) || ($party_opt == 1) || ($party_id == 0)) {
+                    if (($party_id == $player['id']) || ($party_opt == 1) || ($party_id == 0)) {
                         print "<script>$text</script>";
                         if ($party_id <> 0) {
-                            $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> $player_id and party=$party_id";
+                            $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and id <> {$player['id']} and party=$party_id";
                             SQL_do($SQL);
                         } else {
-                            $party_id = $player_id;
+                            $party_id = $player['id'];
                         }
-                        $text = "$player_name пригласил(а) вас к себе в группу. <a href=/menu.php?load=okparty target=menu class=party><b>[Согласиться]</b></a>";
-                        $text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\");";
+                        $text = "{$player['name']} пригласил(а) вас к себе в группу. <a href=/menu.php?load=okparty target=menu class=party><b>[Согласиться]</b></a>";
+                        $text = "parent.add(\"$chatTime\",\"{$player['name']}\",\"$text \",3,\"Группа\");";
                         $SQL="update sw_users SET mytext=CONCAT(mytext,'$text'),party_time=$cur_time,party_from=$party_id where online > $online_time and id = $id";
                         SQL_do($SQL);
                     } elseif ($party_opt <> 1) {
@@ -728,7 +251,7 @@ if ($load == "unset") {
         print "<script>alert('В группе не может присутствовать больше 10 человек.');</script>";
     }
 } elseif ($load == 'okparty') {
-    $SQL="select sw_users.party_from,sw_users.sex,sw_users.party_time,sw_users.party from sw_party right join sw_users on sw_party.id=sw_users.party where sw_users.id=$player_id";
+    $SQL="select sw_users.party_from,sw_users.sex,sw_users.party_time,sw_users.party from sw_party right join sw_users on sw_party.id=sw_users.party where sw_users.id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $party_id=$row_num[0];
@@ -764,11 +287,11 @@ if ($load == "unset") {
             if ($party_id > 0) {
                 if ($party_time+45 > $cur_time) {
                     if ($player_sex == 1) {
-                        $text = "$player_name вошёл в группу.";
+                        $text = "{$player['name']} вошёл в группу.";
                     } else {
-                        $text = "$player_name вошла в группу.";
+                        $text = "{$player['name']} вошла в группу.";
                     }
-                    $text = "parent.add(\"$time\",\"$player_name\",\"$text \",3,\"Группа\");";
+                    $text = "parent.add(\"$chatTime\",\"{$player['name']}\",\"$text \",3,\"Группа\");";
                     print "<script>$text</script>";
                     if ($hparty_id == 0) {
                         $SQL="insert into sw_party (id,opt) values ($party_id,1)";
@@ -779,7 +302,7 @@ if ($load == "unset") {
                         $SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and party=$party_id";
                         SQL_do($SQL);
                     }
-                    $SQL="update sw_users SET party_from=0,party_time=0,party=$party_id where id=$player_id";
+                    $SQL="update sw_users SET party_from=0,party_time=0,party=$party_id where id={$player['id']}";
                     SQL_do($SQL);
                 } else {
                     print "<script>alert('Время авторизации в 45 секунд прошло с момента приглашения от группы.');</script>";
@@ -800,7 +323,7 @@ if ($load == "unset") {
     include("functions/copyobj.php");
     include('admsunduk.php');
 } elseif ($load == "opendoor") {
-    $SQL="select sw_users.room,owner_id,owner_typ from sw_map inner join sw_users on sw_users.room=sw_map.id where sw_users.id=$player_id";
+    $SQL="select sw_users.room,owner_id,owner_typ from sw_map inner join sw_users on sw_users.room=sw_map.id where sw_users.id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $room=$row_num[0];
@@ -812,9 +335,9 @@ if ($load == "unset") {
         SQL_free_result($result);
     }
 
-    if (($own_id == $player_id) && ($own_typ == 0)) {
+    if (($own_id == $player['id']) && ($own_typ == 0)) {
         $mtext = "* Вы открыли дверь. *";
-        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+        $htext = "window.top.add(\"$chatTime\",\"\",\"$mtext\",5,\"\");";
         print "<script>$htext</script>";
         $SQL="update sw_map set opendoor=1 where id=$room";
         SQL_do($SQL);
@@ -822,7 +345,7 @@ if ($load == "unset") {
         print "<script>alert('У вас нет ключей от дома.');</script>";
     }
 } elseif ($load == "closedoor") {
-    $SQL="select sw_users.room,owner_id,owner_typ from sw_map inner join sw_users on sw_users.room=sw_map.id where sw_users.id=$player_id";
+    $SQL="select sw_users.room,owner_id,owner_typ from sw_map inner join sw_users on sw_users.room=sw_map.id where sw_users.id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $room=$row_num[0];
@@ -833,9 +356,9 @@ if ($load == "unset") {
     if ($result) {
         SQL_free_result($result);
     }
-    if (($own_id == $player_id) && ($own_typ == 0)) {
+    if (($own_id == $player['id']) && ($own_typ == 0)) {
         $mtext = "* Вы закрыли дверь. *";
-        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",5,\"\");";
+        $htext = "window.top.add(\"$chatTime\",\"\",\"$mtext\",5,\"\");";
         print "<script>$htext</script>";
         $SQL="update sw_map set opendoor=0 where id=$room";
         SQL_do($SQL);
@@ -843,7 +366,7 @@ if ($load == "unset") {
         print "<script>alert('У вас нет ключей от дома.');</script>";
     }
 } elseif ($load == "party") {
-    $SQL="select party from sw_users where id=$player_id";
+    $SQL="select party from sw_users where id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $party_id=$row_num[0];
@@ -852,7 +375,7 @@ if ($load == "unset") {
     if ($result) {
         SQL_free_result($result);
     }
-    if (($action == "opt") && ($party_id == $player_id)) {
+    if (($action == "opt") && ($party_id == $player['id'])) {
         $s = 1 - $set;
         if ($s == 1) {
             $s=1;
@@ -872,7 +395,7 @@ if ($load == "unset") {
         SQL_free_result($result);
     }
     if ($action == "del") {
-        if ($party_id == $player_id) {
+        if ($party_id == $player['id']) {
             $SQL="update sw_users SET party=0 where id=$id";
             SQL_do($SQL);
             if ($id == $party_id) {
@@ -882,7 +405,7 @@ if ($load == "unset") {
                 SQL_do($SQL);
                 $party_id = 0;
             }
-        } elseif ($id == $player_id) {
+        } elseif ($id == $player['id']) {
             $SQL="update sw_users SET party=0 where id=$id";
             SQL_do($SQL);
             $party_id = 0;
@@ -930,11 +453,11 @@ if ($load == "unset") {
         } else {
             $left = "<b><font color=AAAAAA>- Настройки группы</font></b><table cellpadding=4><tr><td>Каждый член группы может удалять и добавлять новых игроков. ";
         }
-        if (($player_id == $party_id)) {
+        if (($player['id'] == $party_id)) {
             $left .= "<a href=/menu.php?load=party&action=opt&set=$opt target=menu and class=menu><b>[Изменить]</b></a>";
         }
         $left .= "</td></tr></table>";
-        $menu = "<a href=/menu.php?load=party&action=del&id=$player_id target=menu class=menu><b>» Выйти из группы</b></a>";
+        $menu = "<a href=/menu.php?load=party&action=del&id={$player['id']} target=menu class=menu><b>» Выйти из группы</b></a>";
         $right = "<b><font color=AAAAAA>- Основатель группы</font><br>&nbsp;&nbsp;&nbsp;» $leader<br><br><font color=AAAAAA>- Состав группы</font></b>$group";
         $info = "<table width=100% cellpadding=5><tr><td  valign=top width=50%>$right</td><td valign=top>$left</td></tr></table>";
         print "<script>window.top.settop('Группа');window.top.city('','stuff/else/party.gif','$menu','Информация о группе','$info');</script>";
@@ -947,7 +470,7 @@ if ($load == "unset") {
         $action = 1;
     }
     if ($do == 'exitcity') {
-        $SQL="select city_rank,city from sw_users where id=$player_id";
+        $SQL="select city_rank,city from sw_users where id={$player['id']}";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $rank=$row_num[0];
@@ -958,11 +481,11 @@ if ($load == "unset") {
             SQL_free_result($result);
         }
         if ($mcity > 1) {
-            $SQL="update sw_users SET city=0,city_rank=0,city_pay=0,city_text='',resp_room=135 where id=$player_id";
+            $SQL="update sw_users SET city=0,city_rank=0,city_pay=0,city_text='',resp_room=135 where id={$player['id']}";
             SQL_do($SQL);
-            $SQL="delete from sw_selection where owner=$player_id";
+            $SQL="delete from sw_selection where owner={$player['id']}";
             SQL_do($SQL);
-            $SQL="delete from sw_selvote where id=$player_id or owner=$player_id";
+            $SQL="delete from sw_selvote where id={$player['id']} or owner={$player['id']}";
             SQL_do($SQL);
             if (($rank == 1) && ($mcity > 0)) {
                 $SQL="update sw_city SET last=$cur_time-2160000 where id=$mcity";
@@ -971,7 +494,7 @@ if ($load == "unset") {
             $action = 1;
         }
     }
-    $SQL="select sw_city.money,sw_city.buy,sw_city.sell,sw_city.rep,sw_city.bank,sw_city.name,sw_city.fromdate,sw_city.last,sw_city.http,sw_users.city_rank,sw_users.city,sw_city.pic,sw_city.dead,sw_city.dead_room,sw_city.f_gold,sw_city.selection_possible from sw_users inner join sw_city on sw_users.city=sw_city.id where sw_users.id=$player_id";
+    $SQL="select sw_city.money,sw_city.buy,sw_city.sell,sw_city.rep,sw_city.bank,sw_city.name,sw_city.fromdate,sw_city.last,sw_city.http,sw_users.city_rank,sw_users.city,sw_city.pic,sw_city.dead,sw_city.dead_room,sw_city.f_gold,sw_city.selection_possible from sw_users inner join sw_city on sw_users.city=sw_city.id where sw_users.id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $city_money=$row_num[0];
@@ -1481,8 +1004,7 @@ if ($load == "unset") {
                                 $for=substr($for, 0, 255);
                             }
                             $mtext = "Вас удалили из рядов города $city_name по причине <i>`$for`</i>.";
-                            $time = date("H:i");
-                            $mtext = "parent.add(\"$time\",\"\",\"$mtext \",2,\"$city_name\");";
+                            $mtext = "parent.add(\"$chatTime\",\"\",\"$mtext \",2,\"$city_name\");";
                             $info .= "<table cellpadding=4><tr><td><b>Горожанин `$nname` удалён из города.</b></td></tr></table>";
                             $SQL="update sw_users set mytext=CONCAT(mytext,'$mtext'),city = 0,city_rank=0,city_pay=0,city_text='',resp_room=135 where id=$plid and city=$city_id";
                             SQL_do($SQL);
@@ -1531,7 +1053,7 @@ if ($load == "unset") {
         $action = 1;
     }
     //$start = getmicrotime();
-    $SQL="select clan,clan_rank,gold from sw_users where id=$player_id";
+    $SQL="select clan,clan_rank,gold from sw_users where id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $myclan=$row_num[0];
@@ -1557,7 +1079,7 @@ if ($load == "unset") {
         }
         $price = round($price * 0.8);
         $clan_rank  = -1;
-        $SQL="select clan,clan_rank from sw_users where id=$player_id";
+        $SQL="select clan,clan_rank from sw_users where id={$player['id']}";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $cl = $row_num[0];
@@ -1596,17 +1118,17 @@ if ($load == "unset") {
                 $SQL="delete from sw_obj where obj=$clan_objId and owner=$clid[$i]";
                 SQL_do($SQL);
             }
-            $SQL="update sw_users set clan=0,clan_rank=0,clan_text='' where id=$player_id";
+            $SQL="update sw_users set clan=0,clan_rank=0,clan_text='' where id={$player['id']}";
             SQL_do($SQL);
-            $SQL="delete from sw_obj where owner=$player_id and obj=$clan_ring";
+            $SQL="delete from sw_obj where owner={$player['id']} and obj=$clan_ring";
             SQL_do($SQL);
-            $SQL="delete from sw_obj where owner=$player_id and obj=$clan_objId";
+            $SQL="delete from sw_obj where owner={$player['id']} and obj=$clan_objId";
             SQL_do($SQL);
 
             include("functions/plinfo.php");
             include("functions/objinfo.php");
             include("functions/inv.php");
-            inventory($player_id);
+            inventory($player['id']);
             print "<script>alert('Вы ушли из клана.');</script>";
             SQL_disconnect();
             exit();
@@ -1625,15 +1147,15 @@ if ($load == "unset") {
             SQL_do($SQL);
             $SQL="delete from sw_pact where one=$cl or second=$cl";
             SQL_do($SQL);
-            $SQL="update sw_users set gold=gold+$price where id=$player_id";
+            $SQL="update sw_users set gold=gold+$price where id=$player['id']";
             SQL_do($SQL);
 
-            $SQL="delete from sw_obj where owner=$player_id and obj=$clan_ring";
+            $SQL="delete from sw_obj where owner=$player['id'] and obj=$clan_ring";
             SQL_do($SQL);
             include("functions/plinfo.php");
             include("functions/objinfo.php");
             include("functions/inv.php");
-            inventory($player_id);
+            inventory($player['id']);
             print "<script>alert('Клан расформирован.');</script>";*/
             SQL_disconnect();
             exit();
@@ -1725,13 +1247,13 @@ if ($load == "unset") {
                     $city_money -= $get_money;
                     $SQL="update sw_clan set money=money-$get_money where id=$city_id";
                     SQL_do($SQL);
-                    $SQL="update sw_users set gold=gold+$get_money where id=$player_id";
+                    $SQL="update sw_users set gold=gold+$get_money where id={$player['id']}";
                     SQL_do($SQL);
-                    $SQL="INSERT INTO sw_logs (OWNER, DT, TYPE, GOLD, EXP, TEXT) VALUES ('".$player_id."', NOW(), 'CLAN', '$get_money', 0, 'Get clan gold')";
+                    $SQL="INSERT INTO sw_logs (OWNER, DT, TYPE, GOLD, EXP, TEXT) VALUES ('".$player['id']."', NOW(), 'CLAN', '$get_money', 0, 'Get clan gold')";
                     SQL_do($SQL);
-                    $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ($player_id,NOW(),NOW(),1,$get_money,$city_id, 0)";
+                    $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ({$player['id']},NOW(),NOW(),1,$get_money,$city_id, 0)";
                     SQL_do($SQL);
-                    $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ($player_id,NOW(),NOW(),1,$get_money,$city_id, 6)";
+                    $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ({$player['id']},NOW(),NOW(),1,$get_money,$city_id, 6)";
                     SQL_do($SQL);
                 } else {
                     print "<script>alert('У вашего клана нет столько денег.');</script>";
@@ -1755,14 +1277,14 @@ if ($load == "unset") {
                 $city_money += $put_money;
                 $SQL="update sw_clan set money=money+$put_money where id=$city_id";
                 SQL_do($SQL);
-                $SQL="update sw_users set gold=GREATEST(0, gold-$put_money) where id=$player_id";
+                $SQL="update sw_users set gold=GREATEST(0, gold-$put_money) where id={$player['id']}";
                 SQL_do($SQL);
-                $SQL="INSERT INTO sw_logs (OWNER, DT, TYPE, GOLD, EXP, TEXT) VALUES ('".$player_id."', NOW(), 'CLAN', '-$put_money', 0, 'Put gold to clan')";
+                $SQL="INSERT INTO sw_logs (OWNER, DT, TYPE, GOLD, EXP, TEXT) VALUES ('".$player['id']."', NOW(), 'CLAN', '-$put_money', 0, 'Put gold to clan')";
                 SQL_do($SQL);
 
-                $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ($player_id,NOW(),NOW(),0,$put_money,$city_id, 0)";
+                $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ({$player['id']},NOW(),NOW(),0,$put_money,$city_id, 0)";
                 SQL_do($SQL);
-                $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ($player_id,NOW(),NOW(),0,$put_money,$city_id, 6)";
+                $SQL="INSERT INTO sw_clanlog (owner,dat,tim,typ,gold,clan, sh) values ({$player['id']},NOW(),NOW(),0,$put_money,$city_id, 6)";
                 SQL_do($SQL);
             } else {
                 print "<script>alert('У вас нет столько денег.');</script>";
@@ -1956,11 +1478,10 @@ if ($load == "unset") {
                         if (($nname <> "") && ($level>=10)) {
                             if ($clan == 0) {
                                 $info .= '<table cellpadding=4><tr><td><b>Приглашение отправлено.</b></td></tr></table>';
-                                $time = date('H:i');
                                 $SQL='update sw_users set join_clan="'.$city_id.'" where id='.$id;
                                 SQL_do($SQL);
                                 $text2 = 'Клан <b>`'.$city_name.'`</b> приглашает вас <a href=/menu.php?load=join_clan&id='.$city_id.' class=party target=menu>вступить </a> в их ряды. ';
-                                $text2 = "parent.add(\"$time\",\"$player_name\",\"$text2 \",7,\"Клан\");";
+                                $text2 = "parent.add(\"$chatTime\",\"{$player['name']}\",\"$text2 \",7,\"Клан\");";
                                 $SQL="update sw_users SET mytext=CONCAT(mytext,'$text2') where id=$id";
                                 SQL_do($SQL);
                             } else {
@@ -2034,8 +1555,7 @@ if ($load == "unset") {
                                 $for=substr($for, 0, 255);
                             }
                             $mtext = "Вас удалили из рядов клана $city_name по причине <i>`$for`</i>.";
-                            $time = date("H:i");
-                            $mtext = "parent.add(\"$time\",\"\",\"$mtext \",7,\"Клан\");";
+                            $mtext = "parent.add(\"$chatTime\",\"\",\"$mtext \",7,\"Клан\");";
                             $info .= "<table cellpadding=4><tr><td><b>Пользователь`$nname` удалён из клана.</b></td></tr></table>";
                             $SQL="update sw_users set mytext=CONCAT(mytext,'$mtext'),clan = 0,clan_rank=0,clan_text='',resp_room=$dead_room where id=$plid and clan=$city_id";
                             SQL_do($SQL);
@@ -2054,19 +1574,19 @@ if ($load == "unset") {
             if ($city_type == 2) {
                 if ($action == 20) {
                     if ($do == "take") {
-                        $SQL="delete from sw_obj where owner=$player_id and obj=$clan_ring";
+                        $SQL="delete from sw_obj where owner={$player['id']} and obj=$clan_ring";
                         SQL_do($SQL);
-                        $SQL="delete from sw_obj where owner=$player_id and obj=$clan_objId";
+                        $SQL="delete from sw_obj where owner={$player['id']} and obj=$clan_objId";
                         SQL_do($SQL);
 
 
 
 
-                        $SQL="update sw_users SET exp=GREATEST(0, exp-50) where id=$player_id";
+                        $SQL="update sw_users SET exp=GREATEST(0, exp-50) where id={$player['id']}";
                         SQL_do($SQL);
                         $mtext = "<b>* Опыт -50 *</b>";
-                        $htext = "window.top.add(\"$time\",\"\",\"$mtext\",8,\"\");";
-                        $SQL="insert into sw_obj (owner,obj,min_attack,max_attack,magic_attack,magic_def,def_all,fire_attack,cold_attack,drain_attack,cur_cond,max_cond,num,inf,room,price) values ($player_id,$clan_ring,$clan_param[1],$clan_param[1],$clan_param[2],$clan_param[3],$clan_param[4],$clan_param[5],$clan_param[6],$clan_param[7],20,20,1,'Кольцо клана $city_name',0,0)";
+                        $htext = "window.top.add(\"$chatTime\",\"\",\"$mtext\",8,\"\");";
+                        $SQL="insert into sw_obj (owner,obj,min_attack,max_attack,magic_attack,magic_def,def_all,fire_attack,cold_attack,drain_attack,cur_cond,max_cond,num,inf,room,price) values ({$player['id']},$clan_ring,$clan_param[1],$clan_param[1],$clan_param[2],$clan_param[3],$clan_param[4],$clan_param[5],$clan_param[6],$clan_param[7],20,20,1,'Кольцо клана $city_name',0,0)";
                         SQL_do($SQL);
                         print "<script>$htext</script>";
                     }
@@ -2131,7 +1651,7 @@ if ($load == "unset") {
                     if ($result) {
                         SQL_free_result($result);
                     }
-                    $SQL="select count(*) as num from sw_obj where obj=$clan_ring and owner=$player_id and room=0";
+                    $SQL="select count(*) as num from sw_obj where obj=$clan_ring and owner={$player['id']} and room=0";
                     $row_num=SQL_query_num($SQL);
                     while ($row_num) {
                         $is_ring = $row_num[0];
@@ -2178,7 +1698,7 @@ if ($load == "unset") {
         if ($myclan == $city_id) {
             if ($action == 8) {
                 $price = 0;
-                $SQL="select clan_rank from sw_users where id=$player_id";
+                $SQL="select clan_rank from sw_users where id={$player['id']}";
                 $row_num=SQL_query_num($SQL);
                 while ($row_num) {
                     $clan_rank = $row_num[0];
@@ -2202,31 +1722,31 @@ if ($load == "unset") {
         print "<script>window.top.settop('Клан $city_name');window.top.city('$city_name','clan/$city_pic','$menu','$text','$info');</script>";
     }
 } elseif ($load == 'alch') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(3);
 } elseif ($load == 'stol') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(30);
 } elseif ($load == 'wep') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(4);
 } elseif ($load == 'lat') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(5);
 } elseif ($load == 'tkat') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(6);
 } elseif ($load == 'juv') {
-    include("functions/domir.php");
+    include('functions/domir.php');
     domir(7);
 } elseif ($load == 'ignor') {
     if ($action == "del") {
-        $SQL="delete from sw_ignor where owner=$player_id and who_id=$who_id";
+        $SQL="delete from sw_ignor where owner={$player['id']} and who_id=$who_id";
         SQL_do($SQL);
         $i = 0;
         print "<script>";
 
-        $SQL="select who_name from sw_ignor where owner=$player_id";
+        $SQL="select who_name from sw_ignor where owner={$player['id']}";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $i++;
@@ -2249,7 +1769,7 @@ if ($load == "unset") {
         $nm = 0;
         $nm2 = 0;
         $nm3 = 0;
-        $SQL="select count(*) as num from sw_ignor where owner=$player_id";
+        $SQL="select count(*) as num from sw_ignor where owner={$player['id']}";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $nm = $row_num[0];
@@ -2258,7 +1778,7 @@ if ($load == "unset") {
         if ($result) {
             SQL_free_result($result);
         }
-        $SQL="select count(*) as num from sw_ignor  where owner=$player_id and upper(who_name)=upper('$name')";
+        $SQL="select count(*) as num from sw_ignor  where owner={$player['id']} and upper(who_name)=upper('$name')";
         $row_num=SQL_query_num($SQL);
         while ($row_num) {
             $nm2 = $row_num[0];
@@ -2279,13 +1799,13 @@ if ($load == "unset") {
         }
         if ($nm < 12) {
             if ($nm2 == 0) {
-                if (($nm3 > 0) && ($player_name<>$name)) {
-                    $SQL="insert into sw_ignor (owner,who_id,who_name) values ($player_id,$nm3,'$name')";
+                if (($nm3 > 0) && ($player['name']<>$name)) {
+                    $SQL="insert into sw_ignor (owner,who_id,who_name) values ({$player['id']},$nm3,'$name')";
                     SQL_do($SQL);
                     $i = 0;
                     print "<script>";
 
-                    $SQL="select who_name from sw_ignor where owner=$player_id";
+                    $SQL="select who_name from sw_ignor where owner={$player['id']}";
                     $row_num=SQL_query_num($SQL);
                     while ($row_num) {
                         $i++;
@@ -2315,7 +1835,7 @@ if ($load == "unset") {
     }
     $link = "<form action=/menu.php method=post target=menu><table cellspacing=3 border=0 width=300>";
     $link .= "<tr><input type=hidden name=load value=$load><input type=hidden name=do value=add><tD><font color=AAAAAA><b>- Добавить</b></Font></td><td align=right><input type=text name=name size=14> <input type=submit value=Добавить></td></tr></form>";
-    $SQL="select who_id,who_name from sw_ignor where owner=$player_id";
+    $SQL="select who_id,who_name from sw_ignor where owner={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $id = $row_num[0];
@@ -2329,7 +1849,7 @@ if ($load == "unset") {
     $link .= "</table>";
     print "<script>window.top.settop('Игнорирование');window.top.city('','ign.gif','','Игнорирование','$link');</script>";
 } elseif ($load == 'opt') {
-    $SQL="select level, telegram_chat_token from sw_users where id=$player_id";
+    $SQL="select level, telegram_chat_token from sw_users where id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $level = $row_num[0];
@@ -2352,7 +1872,7 @@ if ($load == "unset") {
 
             $player_opt = $sm;
             $player['options'] = $player_opt;
-            $SQL="update sw_users set options=$player_opt where id=$player_id";
+            $SQL="update sw_users set options=$player_opt where id={$player['id']}";
             SQL_do($SQL);
         } else {
             print "<script>alert('Общий канал работает только с 10 уровня.');</script>";
@@ -2369,7 +1889,7 @@ if ($load == "unset") {
         }
         $player_opt = $sm;
         $player['options'] = $player_opt;
-        $SQL="update sw_users set options=$player_opt where id=$player_id";
+        $SQL="update sw_users set options=$player_opt where id={$player['id']}";
         SQL_do($SQL);
     }
     $link = "<table width=100% cellpadding=4>";
@@ -2405,7 +1925,7 @@ if ($load == "unset") {
         ;
     if (empty($telegram_chat_token)) {
         $telegram_chat_token = generateTgToken();
-        $SQL="update sw_users set telegram_chat_token=\"$telegram_chat_token\" where id=$player_id";
+        $SQL="update sw_users set telegram_chat_token=\"$telegram_chat_token\" where id={$player['id']}";
         SQL_do($SQL);
     }
     $link .= "<tr><td width=1></td><td>Токен для чата телеграм:</td><td width=80 align=center><code>" . $telegram_chat_token . "</code></td></tr>";
@@ -2414,7 +1934,7 @@ if ($load == "unset") {
     $link .= "</table>";
     print "<script>window.top.settop('Настройки');window.top.city('','game/opt.gif','','Настройки игры','$link');</script>";
 } elseif ($load == 'join_clan') {
-    $SQL="select join_clan,clan,sex from sw_users where id=$player_id";
+    $SQL="select join_clan,clan,sex from sw_users where id={$player['id']}";
     $row_num=SQL_query_num($SQL);
     while ($row_num) {
         $jclan = $row_num[0];
@@ -2427,16 +1947,15 @@ if ($load == "unset") {
     }
     if ($jclan == $id) {
         if ($clan == 0) {
-            $time = date("H:i");
             if ($sex == 1) {
-                $mtext = "$player_name был принят в клан.";
+                $mtext = "{$player['name']} был принят в клан.";
             } else {
-                $mtext = "$player_name был принята в клан.";
+                $mtext = "{$player['name']} был принята в клан.";
             }
-            $mtext = "parent.add(\"$time\",\"\",\"$mtext \",7,\"Клан\");";
-            $SQL="update sw_users set clan=$jclan,join_clan=0 where id=$player_id";
+            $mtext = "parent.add(\"$chatTime\",\"\",\"$mtext \",7,\"Клан\");";
+            $SQL="update sw_users set clan=$jclan,join_clan=0 where id={$player['id']}";
             SQL_do($SQL);
-            $SQL="update sw_users set mytext=CONCAT(mytext,'$mtext') where clan=$jclan and id<>$player_id";
+            $SQL="update sw_users set mytext=CONCAT(mytext,'$mtext') where clan=$jclan and id<>{$player['id']}";
             SQL_do($SQL);
             print "<script>$mtext</script>";
         } else {
@@ -2449,11 +1968,9 @@ if ($load == "unset") {
 $pt = getmicrotime();
 print($lt-$pt);
 SQL_disconnect();
-if ($player['name'] == "Zoxus") {
-    //flock($lock, LOCK_UN); // release the lock
-// fclose($lock);
-}
-        print "</html>";
+
+print "</html>";
+
 
 function generateTgToken()
 {
@@ -2464,4 +1981,29 @@ function generateTgToken()
         return generateTgToken();
     }
     return $telegram_chat_token;
+}
+
+function fpOpen(
+    $key,
+    $file,
+    $content=true,
+    $fopen_mode='w',
+    $chmod=0600,
+    $sem_mode=0600
+) {
+    $semaphor=sem_get($key, 1, $sem_mode);
+    sem_acquire($semaphor);
+
+
+    if ($dat=fopen($file, $fopen_mode)) {
+        chmod($file, $chmod);
+        fclose($dat);
+    } else {
+        return($semaphor);
+    }
+    return($semaphor);
+}
+
+function fpClose($semaphor) {
+    sem_release($semaphor);
 }

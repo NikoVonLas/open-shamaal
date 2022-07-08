@@ -193,7 +193,7 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 				{
 					if ($trap == 1)
 					{
-						if ($npc_aff_see_all[$npccount] < $cur_time)
+						if (!empty($npc_aff_see_all) && $npc_aff_see_all[$npccount] < $cur_time)
 						{
 							$dmg = -rand(round($npc_maxhp[$npccount]/10),round($npc_maxhp[$npccount]/8));
 							
@@ -215,11 +215,8 @@ for ($npccount=1;$npccount<=$pi;$npccount++)
 								$trap_text= "[<b>$npc_name[$npccount]</b>]&nbsp;<i><b>$npc_name[$npccount] </b>обнаружила <b>ловушку</b>.</i>";
 							 	$ptext .= "window.top.add(\"$time\",\"\",\"$trap_text\",5,\"\");";
 						}
-					}
-					else if ($trap == 2)
-					{
-						if ($npc_aff_see_all[$npccount] < $cur_time)
-						{
+					} elseif ($trap == 2) {
+						if ($npc_aff_see_all[$npccount] < $cur_time) {
 							$dmg = -rand(round($npc_maxhp[$npccount]/5),round($npc_maxhp[$npccount]/4));
 							
 							if ($sex == 1)

@@ -9,8 +9,8 @@ if ($aff_cut > $cur_time) //
  	$aff .= "window.top.aflict($count,2);";
 if ($aff_bleed_time > $cur_time) //
 {
- $dmg = -rand($aff_bleed_power/2+5,$aff_bleed_power+5); 
- $dmg = round($dmg / (1+$race_bleed[$player_race]));
+	$dmg = -round($player_max_hp*0.03);
+	$dmg = round($dmg / (1+$race_bleed[$player_race]));
  if ($race_bleed[$player_race] > 0)
 	 $dmg=round($dmg/3);
  $text= "[<b>$player_name</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$player_name</b> истекает кровью.</i>";

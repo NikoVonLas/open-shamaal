@@ -5,7 +5,7 @@ $player_do = '';
 if ($npc_aff_bleed_time[$npccount] > $cur_time) //
 {
 
- $dmg = -rand($npc_aff_bleed_power[$npccount]/2+5,$npc_aff_bleed_power[$npccount]+5); 
+ $dmg = -round($npc_maxhp[$npccount]*0.03);
  $text= "[<b>$npc_name[$npccount]</b>, жизни <font class=dmg>$dmg</font>]&nbsp;<i><b>$npc_name[$npccount]</b> истекает кровью.</i>";
  $ptext .= "window.top.add(\"$time\",\"\",\"$text\",5,\"\");";
  $npchp += $dmg;

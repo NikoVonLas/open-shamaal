@@ -1062,11 +1062,11 @@ Function getobj()
 			}
 		}
 		else if ($cur_weight+0.2>=$max_weight)
-			print "<script>alert('У вас нехватает вместимости рюкзака для этого действия.');</script>";
+			print "<script>alert('У вас не хватает вместимости рюкзака для этого действия.');</script>";
 		else if ($num == 0)
 			print "<script>alert('У вас нет доступа к функции в этой локации.');</script>";
 		else
-			print "<script>alert('Суммарный вес вещей в рюкзак слишком тяжёлый тля того чтобы что-то добывать.');</script>";
+			print "<script>alert('Суммарный вес вещей в рюкзаке слишком большой для того, чтобы что-то добывать.');</script>";
 		
 		
 	}
@@ -1352,7 +1352,7 @@ function useobj($id)
 			if ($drink_balance + $race_wis[$race]<= $cur_time)
 				include("elixir.php");
 			else
-				print "<script>alert('Ваш организм не может принимать столько жидкостей.')</script>";
+				print "<script>alert('Ваш организм ещё не восстановился после предыдущего эликсира.')</script>";
 			
 		}
 	}
@@ -1470,7 +1470,7 @@ function useobj($id)
 			SQL_do($SQL);
 			$SQL="insert into sw_obj (owner,obj,num,inf,toroom) values ($player_id,271,1,'$name',$player_room)";
 			SQL_do($SQL);
-			$text = "Вы изготовили телепорт на эту комнату.";
+			$text = "Вы изготовили телепорт в эту комнату.";
 			$time = date("H:i");
 			$text = "parent.add(\"$time\",\"$player_name\",\"$text \",6,\"\");";
 			print "<script>$text</script>";
@@ -1576,12 +1576,12 @@ function useobj($id)
 							$er_log = "- Вы уже находитесь в клане.";
 					}
 					else
-						$er_log = "- Клан с такой абривиатурой или названием уже существует.";
+						$er_log = "- Клан с такой аббревиатурой или названием уже существует.";
 				}
 			}
 			if ($error == 0)
 			{
-				$tex = "<table><tr><td width=120><b>Название клана: </b></td><td><input type=text name=clan_name size=15 maxlength=20></td><td class=italic>20 символов. Только русские или только английские буквы алфавитов.</td></tr><tr><td width=120><b>Абривеатура: </b></td><td align=right><input type=text name=clan_litle size=4 maxlength=4></td><td class=italic>4 символа. Сокращенный текст рядом с именами игроков клана, например CL.</td></tr><tr><td width=120><b>Адрес: </b></td><td align=right><input type=text name=clan_http size=15 maxlength=40></td><td class=italic>15 символа. Пример http://www.clan.ru</td></tr><tr><td colspan=3 class=italic><br>- Учтите, что название клана и его абривиатуру вы не сможете изменить после его создания.<br><font color=red>$er_log</font><br></td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table>";
+				$tex = "<table><tr><td width=120><b>Название клана: </b></td><td><input type=text name=clan_name size=15 maxlength=20></td><td class=italic>20 символов. Только русские или только английские буквы алфавитов.</td></tr><tr><td width=120><b>Аббревиатура: </b></td><td align=right><input type=text name=clan_litle size=4 maxlength=4></td><td class=italic>4 символа. Сокращенный текст рядом с именами игроков клана, например CL.</td></tr><tr><td width=120><b>Адрес: </b></td><td align=right><input type=text name=clan_http size=15 maxlength=40></td><td class=italic>15 символа. Пример http://www.clan.ru</td></tr><tr><td colspan=3 class=italic><br>- Учтите, что название клана и его аббревиатуру вы не сможете изменить после его создания.<br><font color=red>$er_log</font><br></td></tr><tr><td colspan=3 align=center><input type=submit value=Создать></td></tr></table>";
 				$text = "<form action=/menu.php target=menu><table width=90% cellpadding=5 align=center><input type=hidden name=obj_id value=$id><input type=hidden name=do value=makeclan><input type=hidden name=load value=useobj><tr><td><table class=blue cellpadding=0 cellspacing=1 width=100% align=center><tr><td class=bluetop><table cellpadding=0 cellspacing=0><tr><td class=gal><table cellspacing=0 cellpadding=0 width=100% height=1><tr><td></td></tr></table><img src=/assets/img/mbarf.gif width=11 height=10 border=0></td><td>Все поля обязательны для заполнения.</td></tr></table></td></tr><tr><td class=mainb height=265 bgcolor=FFFFFF valign=top>$tex</td></tr></table></td></tr></table></form>";
 				print "<script>window.top.ttext('Основание клана','$text');</script>";
 			}
@@ -1715,7 +1715,7 @@ function blacksmith()
 	}
 	else
 	{
-		print "<script>alert('Кузнеца в этой комнате не обнаружена');</script>";
+		print "<script>alert('Кузница в этой комнате не обнаружена');</script>";
 	}
 }
 
@@ -1777,7 +1777,7 @@ function showskills()
 					print "<script>alert('Вы достигли предела в этом умении.');</script>";
 			}
 			else
-			print "<script>alert('Способности в одном умении не должны превышать Уровень + 2');</script>";
+			print "<script>alert('Способности в одном умении не могут превышать Уровень + 2');</script>";
 		}
 	}
 	$text = "<img height=1 width=0><table width=530 align=center cellpadding=0 cellspacing=0><tr><td valign=top width=50%><table class=blue cellpadding=1 cellspacing=1 width=100% align=center>";
@@ -2075,7 +2075,7 @@ function domir($type)
 								print "<script>alert('Использованные материалы не соответствуют данным свитка.');</script>";
 					}
 					else
-						print "<script>alert('У вас нахватает способностей для изготовления этого предмета.');</script>";
+						print "<script>alert('У вас не хватает навыка для изготовления этого предмета.');</script>";
 				}
 				else
 					print "<script>alert('Выберите свиток в списке.');</script>";

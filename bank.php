@@ -73,7 +73,7 @@ if ($what == "bank")
 				$add = "<tr><td colspan=2 height=10><hr width=98% align=333333></td></tr><tr><td><font color=AAAAAA><b>- Перевод золота на счёт</b></font></td><td><font color=444400><b>$put_gold злт.</b></font></td></tr>";
 			}
 			else
-				print "<script>alert('Неправильно ведённая сумма золота.');</script>";
+				print "<script>alert('Неправильно введена сумма золота.');</script>";
 		}
 		else
 		{
@@ -111,7 +111,7 @@ if ($what == "bank")
 				$add = "<tr><td colspan=2 height=10><hr width=98% align=333333></td></tr><tr><td><font color=AAAAAA><b>- Снятие денег со счёта</b></font></td><td><font color=444400><b>$get_gold злт.</b></font></td></tr><tr><td><font color=AAAAAA><b>- Налог города</b></font></td><td><font color=444400><b>$nalog злт.</b></font></td></tr>";
 			}
 			else
-				print "<script>alert('Неправильно ведённая сумма золота.');</script>";
+				print "<script>alert('Неправильно введена сумма золота.');</script>";
 		}
 		else
 		{

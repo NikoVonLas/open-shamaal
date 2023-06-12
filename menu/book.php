@@ -1,7 +1,7 @@
 <?php
     require_once(__DIR__ . '/../include.php');
 
-    if (empty($_GET['do']) || empty($_GET['id']) {
+    if (empty($_GET['do']) || empty($_GET['id'])) {
         exit();
     }
 

@@ -3175,28 +3175,26 @@ function golos()
                     <input type=hidden name=idVote value=$id>
                     <input type=hidden name=idAns value=$id2><input type=text name=ans value='$answer' size=15> <input type=text name=nbVote value='$nb' size=2> <input type=submit value=Изменить></form></td>
                     <td><a href=bvgfvf7w83hr129jr1aw.php?load=$load&page=$page&action=delAns&idAns=$id2>[Удалить]</a></td></tr>";
-                }
             }
-
-            print "
-            <tr>
-            <td></td>
-            <td align=right>
-            <form action=bvgfvf7w83hr129jr1aw.php method=post>
-            <input type=hidden name=load value=$load>
-            <input type=hidden name=page value=$page>
-            <input type=hidden name=action value=newAns>
-            <input type=hidden name=idVote value=$id>
-                <input type=text name=ans value='' size=15>
-                <input type=submit value='Добавить ответ'>
-            </form>
-            </td>
-            <td></td>
-            </tr></table><br>";
         }
+
+        print "
+        <tr>
+        <td></td>
+        <td align=right>
+        <form action=bvgfvf7w83hr129jr1aw.php method=post>
+        <input type=hidden name=load value=$load>
+        <input type=hidden name=page value=$page>
+        <input type=hidden name=action value=newAns>
+        <input type=hidden name=idVote value=$id>
+            <input type=text name=ans value='' size=15>
+            <input type=submit value='Добавить ответ'>
+        </form>
+        </td>
+        <td></td>
+        </tr></table><br>";
     }
 }
-
 function kvest()
 {
     global $need_var,$need_var_value,$var,$var_value,$load,$action,$do,$player_id,$player_name,$fid,$name,$show,$own,$id,$kv_talk_text,$give_exp,$give_money,$give_room,$give_obj,$give_objnum,$get_obj,$get_objnum,$need_level,$need_gold,$need_obj,$need_objnum,$kv_talk_ans_text,$kv_talk_ans_goto,$parent,$give_pettype,$give_petcount,$get_pettype,$get_petcount,$need_pettype,$need_petcount,$is_daily,$is_daily_ans;

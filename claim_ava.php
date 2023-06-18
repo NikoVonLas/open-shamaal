@@ -72,7 +72,7 @@ if ((isset($tlogin)) && (isset($tpassword)))
 		</tr>
 		<?php
 		if ($error == 1)
-			print "<tr><td bgcolor=E6E8DE class=vote align=right><table width=100%><tr><td class=vote align=center><font color=red>Логин или пароль не верный.</font></td></tr></table></td></tr>";
+			print "<tr><td bgcolor=E6E8DE class=vote align=right><table width=100%><tr><td class=vote align=center><font color=red>Неверный логин или пароль.</font></td></tr></table></td></tr>";
 		else if ($error == 2)
 			print "<tr><td bgcolor=E6E8DE class=vote align=right><table width=100%><tr><td class=vote align=center><font color=red>Образ этого игрока уже использован.</font></td></tr></table></td></tr>";
 

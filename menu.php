@@ -34,7 +34,7 @@ echo '<html>
 ';
 
 if ($lastUpdateTime < $online_time) {
-    print "<script >alert('Соеденение прервано! Попробуйте перезайти в игру.')</script>";
+    print "<script >alert('Соединение прервано! Попробуйте перезайти в игру.')</script>";
     exit();
 }
 $lt = getmicrotime();
@@ -245,10 +245,10 @@ if ($load == 'unset') {
                 print "<script>alert('$t_name уже находится в другой группе.');</script>";
             }
         } else {
-            print "<script>alert('Выбранный вами герой не находится сейчас в игре.');</script>";
+            print "<script>alert('Выбранный вами герой сейчас не в игре.');</script>";
         }
     } else {
-        print "<script>alert('В группе не может присутствовать больше 10 человек.');</script>";
+        print "<script>alert('В группе может присутствовать не больше 10 человек.');</script>";
     }
 } elseif ($load == 'okparty') {
     $SQL="select sw_users.party_from,sw_users.sex,sw_users.party_time,sw_users.party from sw_party right join sw_users on sw_party.id=sw_users.party where sw_users.id={$player['id']}";

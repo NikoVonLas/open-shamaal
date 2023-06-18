@@ -12,7 +12,7 @@
     } elseif ($tomb > 0) {
         if (
             ($room['owner_id'] == $player['id'] && $room['owner_typ'] == 0) ||
-            ($room['owner_id'] == $player['clan'] && $room['owner_typ'] == 1) ||
+            ($room['owner_id'] == $player['clan'] && $room['owner_typ'] == 1)
             ) {
             $text = "window.top.add('{$chatTime}','','* Ваша точка появления после смерти изменена. *',5,'');";
             echo "<script>{$text}</script>";

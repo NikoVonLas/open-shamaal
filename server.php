@@ -74,7 +74,7 @@ if ($min30 + 3600 < $cur_time)
 		}
 		else
 		{
-			$text = "У города не хватает средств оплатить зарплату.";    //У города не хватает средств оплатить все строения и зарплату.
+			$text = "У города не хватает средств на выплату зарплат.";    //У города не хватает средств оплатить все строения и зарплату.
 			$time = date("H:i");
 			$text = "parent.add(\"$time\",\"\",\"$text \",2,\"$city_name[$k]\");";
 			$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and city=$city_id[$k]";
@@ -199,7 +199,7 @@ if ($min30 + 3600 < $cur_time)
 			}
 			else
 			{
-				$text = "Выборы задерживаются на час по причине равного количества голосов у кандидатов.";
+				$text = "Выборы продляются на час по причине равного количества голосов у кандидатов.";
 				$time = date("H:i");
 				$text = "parent.add(\"$time\",\"\",\"$text \",2,\"$city_name[$k]\");";
 				$SQL="update sw_users SET mytext=CONCAT(mytext,'$text') where online > $online_time and city=$city_id[$k]";
@@ -435,7 +435,7 @@ if ($min2 + 120 < $cur_time)
 				SQL_free_result($result);
 			$SQL="delete from sw_total where owner=$fg[$k]";
 			SQL_do($SQL);
-			$tattext = "<b> * Деньги с тотализатора были возвращены в связи с ничьей. * </b>";
+			$tattext = "<b> * Деньги из тотализатора были возвращены в связи с ничьей. * </b>";
 			$tattext = "window.top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
 			for ($n = 1;$n<=$p;$n++)
 			{

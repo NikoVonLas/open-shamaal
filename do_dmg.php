@@ -201,7 +201,7 @@ if ($loop == 0 || $npc_kick == 0) {
             for ($n = 1;$n<=$p;$n++) {
                 $total_old = $total_money[$n];
                 $total_money[$n] = $total_money[$n]/$sumwon * $sum;
-                $tattext = "<b> * Ваша ставка выиграла на тотализаторе. Ставка: <font color=555500>$total_old злт</font>, выигрыш:<font color=555500> $total_money[$n] злт</font>.* </b>";
+                $tattext = "<b> * Ваша ставка выиграла в тотализаторе. Ставка: <font color=555500>$total_old злт</font>, выигрыш:<font color=555500> $total_money[$n] злт</font>.* </b>";
                 $tattext = "window.top.add(\"$time\",\"\",\"$tattext\",5,\"\");";
                 $total_owner[$n] = (integer) $total_owner[$n];
                 $total_money[$n] = (integer) $total_money[$n];
@@ -651,7 +651,7 @@ if ($loop == 0 || $npc_kick == 0) {
                     if ($npc_kick == 0) {
                         $error = 0; // nepravil`noe oruzie
                         $a = $game_skill_wepon[$skill_id][$num];
-                        $text = "<b>У Вас нехватает энергии для этого умения.</b>";
+                        $text = "<b>У вас не хватает энергии для этого умения.</b>";
                         $time = date("H:i");
                         $text = "parent.add(\"$time\",\"{$player['name']}\",\"** $text ** \",6,\"\");";
                         print "$text";
@@ -663,9 +663,9 @@ if ($loop == 0 || $npc_kick == 0) {
             if ((($pl_no_pvp[$player_id]<>2) && ($pl_no_pvp[$target_id]==2)) || (($pl_no_pvp[$player_id]==2) && ($pl_no_pvp[$target_id]<>2)) || ($do_teleport == 1)) {
                 if ($npc_kick == 0) {
                     if ($pl_no_pvp[$player_id]<>2) {
-                        print "alert('Цель находиться в боевой зоне и поэтому вы не можете её атаковать.');";
+                        print "alert('Цель находится в боевой зоне и поэтому вы не можете её атаковать.');";
                     } else {
-                        print "alert('Цель находиться вне боевой зоны и поэтому вы не можете её атаковать.');";
+                        print "alert('Цель находится вне боевой зоны и поэтому вы не можете её атаковать.');";
                     }
                 }
                 $error = 0;
@@ -795,7 +795,7 @@ if ($loop == 0 || $npc_kick == 0) {
                             if ($do_teleport == 3) {
                                 print "alert('Данное умение нельзя использовать на персонажей из академии.');";
                             } else {
-                                print "alert('Ваша цель находиться на другом острове или находиться вне досигаемости.');";
+                                print "alert('Ваша цель находится на другом острове или вне досигаемости.');";
                             }
                         }
                         $error = 0;
@@ -828,7 +828,7 @@ if ($loop == 0 || $npc_kick == 0) {
         if ($error == 1) {
             if ((($pl_level[$player_id] > 10) && ($pl_level[$target_id] < 10)) || (($pl_level[$player_id] < 10) && ($pl_level[$target_id] > 10))) {
                 if ($npc_kick == 0) {
-                    print "alert('Ваша цель находиться на другом острове.');";
+                    print "alert('Ваша цель находится на другом острове.');";
                 }
                 $error = 0;
             }

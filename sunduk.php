@@ -187,7 +187,7 @@ if ( $fid != "" && ( $owner_id == $player_id && $owner_city == 0 || $owner_id ==
                         }
                         else
                         {
-                            print "<script>alert('У вас не хватает места в рюкзаке для взятия этих предметов.');</script>";
+                            print "<script>alert('У вас не хватает места в рюкзаке для этих предметов.');</script>";
                         }
                     }
                     else
